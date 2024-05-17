@@ -33,3 +33,5 @@ You can access filament dashboard with url `/admin/login`
 
 - email : admin@gmail.com
 - password: admin123
+
+### Thanks
