@@ -20,7 +20,8 @@ Route::get('/', function () {
 });
 
 // Route::get('/login', [LoginController::class, 'index']);
-Route::get('/register', [RegisterController::class, 'register']);
+Route::get('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/register-proses', [RegisterController::class, 'register_proses'])->name('register-proses');
 Route::get('/login', [LoginController::class, 'login']);
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
+

@@ -27,9 +27,9 @@
             @enderror
             <div class="form-no-telp">
                 <p>Nomor Telepon</p>
-                <input type="number" name="no-telp" placeholder="Masukan alamat no-telp">
+                <input type="number" name="phone_number" placeholder="Masukan alamat no-telp">
             </div>
-            @error('no-telp')
+            @error('phone_number')
             <small>{{ $message }}</small>
             @enderror
             <div class="form-address">
