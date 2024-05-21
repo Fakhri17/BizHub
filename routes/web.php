@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,4 +20,7 @@ Route::get('/', function () {
 });
 
 // Route::get('/login', [LoginController::class, 'index']);
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'register']);
+Route::post('/register-proses', [RegisterController::class, 'register_proses'])->name('register-proses');
+Route::get('/login', [LoginController::class, 'login']);
+Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');

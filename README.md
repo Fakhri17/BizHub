@@ -15,17 +15,12 @@
 5.Run php artisan migrate
 6.Run php artisan serve
 ```
-## Create user admin
+## Command Run new 
 
-run 
-```sh
-php artisan make:filament-user
 ```
-Nama : Admin
-
-Email : admin@gmail.com
-
-password: admin123
+1. php artisan migrate:fresh
+2. php artisan db:seed
+```
 
 ## Filament
 
