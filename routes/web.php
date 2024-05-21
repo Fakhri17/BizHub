@@ -24,3 +24,7 @@ Route::get('/register', [RegisterController::class, 'register']);
 Route::post('/register-proses', [RegisterController::class, 'register_proses'])->name('register-proses');
 Route::get('/login', [LoginController::class, 'login']);
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
+
+Route::get('/tentang-kami', function () {
+    return view('about');
+});
