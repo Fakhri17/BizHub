@@ -21,18 +21,34 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-4 column-gap-4">
+                <div class="navbar-nav column-gap-4 mx-4">
                     <a class="nav-item nav-link fw-medium hover-nav" href="/" style="font-size: 18px;">Beranda</a>
                     <a class="nav-item nav-link fw-medium hover-nav active-navbar" href="/tentang-kami" style="font-size: 18px;">Tentang Kami</a>
                     <a class="nav-item nav-link fw-medium hover-nav" href="/umkm" style="font-size: 18px;">UMKM</a>
                 </div>
-            </div>
-            <div class="d-flex justify-content-end">
-                <a class="btn btn-outline rounded-pill btn-masuk py-2 px-4 me-3" href="#" role="button" style="font-size: 18px;">Masuk</a>
-                <a class="btn btn-outline rounded-pill btn-daftar py-2 px-4" href="#" role="button" style="font-size: 18px;">Daftar</a>
+                <div class="ms-auto d-flex justify-content-center">
+                    <a class="btn btn-outline rounded-pill btn-masuk py-2 px-4 me-3" href="#" role="button" style="font-size: 18px;">Masuk</a>
+                    <a class="btn btn-outline rounded-pill btn-daftar py-2 px-4" href="#" role="button" style="font-size: 18px;">Daftar</a>
+                </div>
             </div>
         </div>
     </nav>
+
+    <section>
+        <div class="container mw-100 px-0">
+            <div class="image-container">
+            <img src="{{ URL::to('img/about/hero-banner.png')}}" class="img-fluid" alt="">
+            <div class="overlay-text">
+                <h1>Tentang Kami</h1>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
 </body>
 

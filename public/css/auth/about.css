@@ -5,6 +5,12 @@
     font-family: "Poppins", sans-serif;
 }
 
+body{
+    background-color: #fff;
+    min-height: 100vh;
+    padding-top: 6.5rem;
+  }
+
 .logo-nav{
     max-width: 170px;
     padding-bottom: 15px;
@@ -36,3 +42,25 @@
     background-color: #213764;
     font-weight: 700;
   }
+
+  .image-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.overlay-text h1{
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 48px;
+    -webkit-text-stroke: 1px;
+}
