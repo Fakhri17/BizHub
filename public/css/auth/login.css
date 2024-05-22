@@ -1,0 +1,124 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.row-login {
+    margin: 32px 0;
+}
+
+.col-login-right {
+    align-items: center;
+}
+
+.login-header h1 {
+    font-size: 36px;
+    color: #213764;
+    margin: 0;
+    margin-bottom: 24px;
+}
+
+.login-header p {
+    font-size: 18px;
+    color: #213764;
+    margin: 0;
+    margin-bottom: 24px;
+}
+
+.form-label {
+    color: #9ea0a5;
+    font-size: 12px;
+    margin-bottom: 4px;
+    padding-left: 8px;
+    margin-top: 24px;
+}
+
+.form-email input,
+.form-password input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #e2e5ed;
+}
+
+.to-forgot-password {
+    display: flex;
+    justify-content: end;
+    font-size: 16px;
+}
+
+.to-forgot-password p {
+    cursor: pointer;
+    margin: 0;
+    margin: 24px 0;
+}
+
+.form-button {
+    display: flex;
+    justify-content: center;
+}
+
+.form-button button {
+    background-color: #213764;
+    color: #fff;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 500;
+    border: 1px solid #213764;
+}
+
+.login-bottom p {
+    color: #213764;
+    margin: 0;
+    margin-top: 24px;
+}
+.login-bottom span {
+    cursor: pointer;
+}
+
+.login-bottom a {
+    color: #6abf6a;
+    text-decoration: underline;
+}
+
+.form-password {
+    position: relative;
+}
+
+.input-password {
+    position: relative;
+}
+
+.input-password input[type="password"] {
+    margin-right: 30px;
+}
+
+.input-password i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .login-header {
+        margin-top: 24px;
+    }
+
+    .login-header h1 {
+        font-size: 20px;
+    }
+
+    .text {
+        font-size: 14px !important;
+    }
+
+    .login-bottom {
+        margin-bottom: 24px;
+    }
+}
