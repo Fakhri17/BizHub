@@ -76,8 +76,12 @@
     margin-top: 24px;
 }
 .login-bottom span {
-    color: #6abf6a;
     cursor: pointer;
+}
+
+.login-bottom a {
+    color: #6abf6a;
+    text-decoration: underline;
 }
 
 .form-password {

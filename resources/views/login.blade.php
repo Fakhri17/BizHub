@@ -48,7 +48,7 @@
             <button type="submit">Masuk</button>
           </div>
           <div class="login-bottom text-center">
-            <p>Anda belum punya akun? <span><u>Daftar disini</u></span></p>
+            <p>Anda belum punya akun? <span><a href="{{ route('register') }}">Daftar disini</a></span></p>
           </div>
         </form>
       </div>
