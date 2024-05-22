@@ -43,6 +43,12 @@ body{
     font-weight: 700;
   }
 
+  .btn-daftar:hover{
+    color: #213764;
+    font-weight: 700;
+    border-color: #213764;
+  }
+
   .image-container {
     width: 100%;
     max-width: 100%;
@@ -69,4 +75,16 @@ body{
   margin-bottom: 35px;
   line-height: 50px;
   font-weight: 700;
+}
+
+.sosmed-icons {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.2rem;
+  background-color: #6ABF6A;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

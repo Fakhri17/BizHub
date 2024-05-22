@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/auth/about.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <title>Tentang Kami</title>
 </head>
 
@@ -55,27 +56,27 @@
                 <div class="col-6 col-lg-3 mb-3 mb-lg-0" style="max-width: fit-content;">
                     <img src="{{ URL::to('img/about/fakhri.png')}}" alt="">
                     <h2 class="mt-3">Fakhri Alauddin</h2>
-                    <p>Jobdesk</p>
+                    <p>Fullstack Developer</p>
                 </div>
                 <div class="col-6 col-lg-3 mb-3 mb-lg-0" style="max-width: fit-content;">
                     <img src="{{ URL::to('img/about/riyan.png')}}" alt="">
                     <h2 class="mt-3">M. Riyan Akbari</h2>
-                    <p>Jobdesk</p>
+                    <p>UI/UX & Front-End Developer</p>
                 </div>
                 <div class="col-6 col-lg-3 mb-3 mb-lg-0" style="max-width: fit-content;">
                     <img src="{{ URL::to('img/about/ferry.png')}}" alt="">
                     <h2 class="mt-3">Ferry Oktariansyah</h2>
-                    <p>Jobdesk</p>
+                    <p>Back-End Developer</p>
                 </div>
                 <div class="col-6 col-lg-3 mb-3 mb-lg-0" style="max-width: fit-content;">
                     <img src="{{ URL::to('img/about/syahrul.png')}}" alt="">
                     <h2 class="mt-3">Moh. Syahrul Aziz  I.</h2>
-                    <p>Jobdesk</p>
+                    <p>UI/UX & Front-End Developer</p>
                 </div>
                 <div class="col-6 col-lg-3 mb-3 mb-lg-0" style="max-width: fit-content;">
                     <img src="{{ URL::to('img/about/elan.png')}}" alt="">
                     <h2 class="mt-3">Elan Agum Wicaksono</h2>
-                    <p>Jobdesk</p>
+                    <p>Back-End Developer</p>
                 </div>
             </div>
         </div>
@@ -97,9 +98,15 @@
                 </div>
                 <div class="col-lg-6 col-sm-9 mb-3 mb-lg-0">
                     <div class="card shadow h-100 rounded-4">
-                        <div class="card-body p-5 text-center">
-                            <h2 class="mb-4" style="color:#6ABF6A;">Misi BizHub</h2>
-                            <p>Menjadi platform pemasaran digital terdepan yang memberdayakan UMKM untuk tumbuh, berinovasi, dan mencapai kesuksesan di era ekonomi digital.</p>
+                        <div class="card-body p-5">
+                            <h2 class="mb-4 text-center" style="color:#6ABF6A;">Misi BizHub</h2>
+                
+                            <li class="d-flex align-items-start">
+                                <i class="ti ti-circle-check me-2" style="color:#6ABF6A; font-size:20px;"></i>Memberdayakan UMKM melalui akses pemasaran digital yang mudah dan terjangkau.
+                            </li>
+                            <li class="d-flex align-items-start">
+                                <i class="ti ti-circle-check me-2" style="color:#6ABF6A; font-size:20px;"></i>Meningkatkan visibilitas UMKM di pasar dengan alat pemasaran yang efektif.
+                            </li>
                         </div>
                     </div>
                 </div>
@@ -107,8 +114,86 @@
         </div>
     </section>
 
+    <footer class="pt-5 my-4 bg-white border-top">
+      <div class="container mb-3">
+        <div class="row">
+          <div class="col-12 col-md-3 mb-3">
+            <a href="/">
+              <img src="{{ URL::to('img/about/logo-bizhub.png')}}" class="w-75" alt="...">
+            </a>
+            <ul class="list-unstyled d-flex mt-3">
+              <li class="sosmed-icons me-2">
+                <a href="#" class="text-decoration-none text-white">
+                  <i class="ti ti-brand-facebook"></i>
+                </a>
+              </li>
+              <li class="sosmed-icons me-2">
+                <a href="#" class="text-decoration-none text-white">
+                  <i class="ti ti-brand-instagram"></i>
+                </a>
+              </li>
+              <li class="sosmed-icons me-2">
+                <a href="#" class="text-decoration-none text-white">
+                  <i class="ti ti-brand-twitter"></i>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+          <div class="col-12 col-md-3 mb-3">
+            <h3 class="mb-2" style="color:#6ABF6A;">Kontak Kami</h3>
+            <p class="mb-1">Tim BizHub</p>
+            <p class="mb-1">Jl.Ketintang No. 156, Surabaya</p>
+            <p class="mb-1">(+62) 811-3221-2000</p>
+            <p class="mb-1">bizhub@mail.com</p>
+          </div>
+          <div class="col-12 col-md-3 mb-3">
+            <h3 class="mb-2" style="color:#6ABF6A;">Tautan Penting</h3>
+            <ul class="list-unstyled footer-link">
+              <li class="mb-2">
+                <a class="text-decoration-none text-dark" href="/">Beranda</a>
+              </li>
+              <li class="mb-2">
+                <a class="text-decoration-none text-dark" href="/tentang-kami">Tentang Kami</a>
+              </li>
+              <li class="mb-2">
+                <a class="text-decoration-none text-dark" href="/umkm">UMKM</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-12 col-md-3 mb-3">
+            <h3 class="mb-2" style="color:#6ABF6A;">Afiliasi</h3>
+            <ul class="list-unstyled footer-link">
+              <li class="mb-2">
+                <a href="#" class="text-decoration-none text-dark">Telkom Indonesia</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-decoration-none text-dark">Yayasan Pendidikan Telkom</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-decoration-none text-dark">Universitas Telkom</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-decoration-none text-dark">Universitas Telkom Jakarta</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-decoration-none text-dark">Universitas Telkom Surabaya</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-decoration-none text-dark">Institut Teknologi Telkom Purwokerto</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="py-3" style="background:#213764;">
+        <p class="text-center mb-0 text-white">© 2024 - BizHub : Solusi Pemasaran UMKM Anda</p>
+      </div>
+    </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/icons-react/dist/index.umd.min.js"></script>
 </body>
 
 </html>
