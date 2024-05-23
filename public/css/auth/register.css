@@ -1,0 +1,117 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.row-register {
+    margin: 32px 0;
+}
+
+.col-register-right {
+    align-items: center;
+}
+
+.button-change {
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+}
+
+.button-change button:hover,
+.button-change button.active {
+    background-color: #213764;
+    color: #fff;
+    width: 100%;
+    border-radius: 10px;
+    font-weight: 500;
+    border: 1px solid #213764;
+    padding: 12px;
+}
+
+.button-change button {
+    width: 100%;
+    border-radius: 10px;
+    font-weight: 500;
+    border: 1px solid #e2e5ed;
+    padding: 12px;
+}
+
+.button-change button:nth-child(1) {
+    margin-right: 12px;
+}
+
+.hidden {
+    display: none;
+}
+
+.form-label {
+    color: #9ea0a5;
+    font-size: 12px;
+    margin-bottom: 4px;
+    padding-left: 8px;
+    margin-top: 12px;
+}
+
+.form-username input,
+.form-name input,
+.form-no-telp input,
+.form-address input,
+.form-email input,
+.form-password input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #e2e5ed;
+}
+
+.form-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.form-button button {
+    background-color: #213764;
+    color: #fff;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 500;
+    border: 1px solid #213764;
+}
+
+.register-bottom p {
+    color: #213764;
+    margin: 24px 0;
+}
+.register-bottom span {
+    cursor: pointer;
+}
+
+.register-bottom a {
+    color: #6abf6a;
+    text-decoration: underline;
+}
+
+.form-password {
+    position: relative;
+}
+
+.input-password {
+    position: relative;
+}
+
+.input-password input[type="password"] {
+    margin-right: 30px;
+}
+
+.input-password i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1;
+}
