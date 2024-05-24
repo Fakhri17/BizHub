@@ -36,9 +36,9 @@
           <a class="nav-item nav-link fw-medium hover-nav" href="/umkm" style="font-size: 18px;">UMKM</a>
         </div>
         <div class="ms-auto d-flex justify-content-center">
-          <a class="btn btn-outline rounded-pill btn-masuk py-2 px-4 me-3" href="{{ route('login') }}" role="button"
+          <a class="btn btn-bizhub-outline-primary rounded-pill py-2 px-4 me-3" href="{{ route('login') }}" role="button"
             style="font-size: 18px;">Masuk</a>
-          <a class="btn btn-outline rounded-pill btn-daftar py-2 px-4" href="{{ route('register') }}" role="button"
+          <a class="btn btn-bizhub-primary rounded-pill py-2 px-4" href="{{ route('register') }}" role="button"
             style="font-size: 18px;">Daftar</a>
         </div>
       </div>
