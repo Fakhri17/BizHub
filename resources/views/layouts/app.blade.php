@@ -30,10 +30,10 @@
       </button>
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <div class="navbar-nav column-gap-4 mx-4">
-          <a class="nav-item nav-link fw-medium hover-nav" href="/" style="font-size: 18px;">Beranda</a>
-          <a class="nav-item nav-link fw-medium hover-nav active-navbar" href="/tentang-kami"
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('/') ? 'active-navbar' : '' }}" href="/" style="font-size: 18px;">Beranda</a>
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('tentang-kami') ? 'active-navbar' : '' }}" href="/tentang-kami"
             style="font-size: 18px;">Tentang Kami</a>
-          <a class="nav-item nav-link fw-medium hover-nav" href="/umkm" style="font-size: 18px;">UMKM</a>
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('umkm') ? 'active-navbar' : '' }}" href="/umkm" style="font-size: 18px;">UMKM</a>
         </div>
         <div class="ms-auto d-flex justify-content-center">
           <a class="btn btn-bizhub-outline-primary rounded-pill py-2 px-4 me-3" href="{{ route('login') }}" role="button"
@@ -44,6 +44,7 @@
       </div>
     </div>
   </nav>
+
   
   @yield('content')
 
