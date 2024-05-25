@@ -44,6 +44,12 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'role_id' => 'integer', // Add this line
         'email_verified_at' => 'datetime',
     ];
+
+    public function umkmOwner()
+    {
+        return $this->hasOne(UmkmOwner::class);
+    }
 }

@@ -11,7 +11,7 @@ class LoginController extends Controller
 {
     public function login()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     public function login_proses(Request $request)
@@ -27,11 +27,11 @@ class LoginController extends Controller
         ];
 
         if (Auth::attempt($data)) {
-            // return redirect()->route('welcome');
-            return 'sukses';
+            return redirect()->route('home');
+            // return 'sukses';
         } else {
-            // return redirect()->route('login')->with('failed', 'salah kocak');
-            return 'gagal';
+            return redirect()->route('login')->with('failed', 'salah kocak');
+            // return 'gagal';
         }
     }
 }
