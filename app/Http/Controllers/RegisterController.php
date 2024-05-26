@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UmkmOwner;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -49,6 +50,7 @@ class RegisterController extends Controller
             'address' => 'required|string|max:255',
             'email' => 'required|email:dns|max:255|unique:users',
             'password' => 'required|string|min:8|max:255',
+            'npwp' => 'required|string|max:20',
         ]);
 
         $user = User::create([
@@ -61,6 +63,11 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole('UMKM Owner');
+
+        UmkmOwner::create([
+            'user_id' => $user->id,
+            'npwp' => $request->npwp,
+        ]);
 
         return redirect('login');
     }
