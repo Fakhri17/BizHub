@@ -5,19 +5,29 @@
 
 @section('content')
 
-  <section>
-    <div class="container mw-100 px-0">
-      <div class="image-container">
-        <img src="{{ URL::to('img/about/hero-banner.png') }}" alt="">
-        <div class="overlay-text">
-          <h1>Tentang Kami</h1>
-        </div>
+  <section class="pt-5 position-relative overflow-hidden ronded-bottom-hero-about" style="background-color: rgba(106, 191, 106, 0.2); height: 75vh;">
+    <div class="px-4 pt-5 mt-5 text-center">
+      <div class="position-absolute d-none d-lg-block" style="top: 17%; right: 28%;">
+        <img src="{{ asset('img/about/dots-about.png') }}" class="img-fluid" alt="Example image">
       </div>
+      <div class="position-absolute d-none d-lg-block" style="left: 10%;">
+        <img src="{{ asset('img/about/circle-2-about.png') }}" class="img-fluid" alt="Example image">
+      </div>
+      <h1 class="display-4 fw-bold">Tentang Kami</h1>
+      <div class="image-container">
+        <img src="{{ asset('img/about/about-hero.png') }}" class="img-fluid" alt="Example image">
+      </div>
+      <div class="position-absolute d-none d-lg-block end-0" style="bottom: -5%;">
+        <img src="{{ asset('img/about/circle-about.png') }}" class="img-fluid" alt="Example image">
+      </div>
+      
     </div>
   </section>
 
-  <section class="py-4">
-    <div class="container my-5">
+
+
+  <section class="margin-section">
+    <div class="container">
       <div class="text-center">
         <h2 class="heading-about-text">Tim Pengembang Bizhub</h2>
         <p class="mb-5" style="font-size: 18px;">Orang-orang kreatif dibalik website BizHub</p>
@@ -59,25 +69,25 @@
       </div>
       <div class="row justify-content-center mx-4">
         <div class="col-lg-6 col-sm-9 mb-3 mb-lg-0">
-          <div class="card shadow h-100 rounded-4">
-            <div class="card-body p-5 text-center justify-content-center row">
+          <div class="card shadow p-3 p-lg-5 h-100 rounded-4">
+            <div class="card-body  text-center">
               <h2 class="mb-4" style="color:#6ABF6A;">Visi BizHub</h2>
-              <p class="w-75">Menjadi platform pemasaran digital terdepan yang memberdayakan UMKM untuk tumbuh,
+              <p style="font-size: 16px;">Menjadi platform pemasaran digital terdepan yang memberdayakan UMKM untuk tumbuh,
                 berinovasi, dan mencapai kesuksesan di era ekonomi digital.</p>
             </div>
           </div>
         </div>
         <div class="col-lg-6 col-sm-9 mb-3 mb-lg-0">
-          <div class="card shadow h-100 rounded-4">
-            <div class="card-body p-5">
+          <div class="card shadow p-3 p-lg-5 h-100 rounded-4">
+            <div class="card-body ">
               <h2 class="mb-4 text-center" style="color:#6ABF6A;">Misi BizHub</h2>
 
-              <li class="d-flex align-items-start">
-                <i class="ti ti-circle-check me-2" style="color:#6ABF6A; font-size:20px;"></i>Memberdayakan UMKM melalui
+              <li class="d-flex align-items-start mb-2" style="font-size: 16px;">
+                <i class="ti ti-circle-check me-2" style="color:#6ABF6A; font-size:24px;"></i>Memberdayakan UMKM melalui
                 akses pemasaran digital yang mudah dan terjangkau.
               </li>
-              <li class="d-flex align-items-start">
-                <i class="ti ti-circle-check me-2" style="color:#6ABF6A; font-size:20px;"></i>Meningkatkan visibilitas
+              <li class="d-flex align-items-start mb-2" style="font-size: 16px;">
+                <i class="ti ti-circle-check me-2" style="color:#6ABF6A; font-size:24px;"></i>Meningkatkan visibilitas
                 UMKM di pasar dengan alat pemasaran yang efektif.
               </li>
             </div>
