@@ -29,6 +29,9 @@
             <p class="form-label">Email</p>
             <input type="email" name="email" placeholder="Masukan alamat email" value="{{ old('email') }}">
           </div>
+          @error('email')           
+          <small class="text-danger m-2">{{ $message }}</small>           
+          @enderror
           <div x-data="{ showPassword: false }" class="form-password">
             <p class="form-label">Password</p>
             <div class="input-password">
@@ -36,6 +39,9 @@
               <i :class="showPassword ? 'far fa-eye' : 'far fa-eye-slash'" @click="showPassword = !showPassword"></i>
             </div>
           </div>
+          @error('password')
+          <small class="text-danger m-2">{{ $message }}</small>
+          @enderror
           <div class="to-forgot-password">
             <p>Lupa kata sandi?</p>
           </div>
@@ -52,6 +58,19 @@
 </section>
 
 
+@if (session('success'))
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      Swal.fire({
+        title: "Success",
+        text: "{{ session('success') }}",
+        icon: "success",
+        timer: 3000
+      });
+    });
+  </script>
+@endif
+
 @if (session('failed'))
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -65,7 +84,7 @@
   </script>
 @endif
 
-@if ($errors->any())
+{{-- @if ($errors->any())
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       Swal.fire({
@@ -76,7 +95,7 @@
       });
     });
   </script>
-@endif
+@endif --}}
 
 @endsection
 
