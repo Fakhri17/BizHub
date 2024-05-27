@@ -1,3 +1,4 @@
+@extends('layouts.auth')
 @extends('layouts.app')
 
 @section('title', 'Beranda')
@@ -135,7 +136,18 @@
     </div>
   </section>
 
-
+@if (session('success'))
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      Swal.fire({
+        title: "Success",
+        text: "{{ session('success') }}",
+        icon: "success",
+        timer: 3000
+      });
+    });
+  </script>
+@endif
 
 
 @endsection
