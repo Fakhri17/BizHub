@@ -27,11 +27,15 @@ class LoginController extends Controller
         ];
 
         if (Auth::attempt($data)) {
+            session()->flash('success', 'Login Berhasil!');
             return redirect()->route('home');
             // return 'sukses';
         } else {
-            return redirect()->route('login')->with('failed', 'salah kocak');
+            session()->flash('failed', 'Email atau password salah!');
+            return redirect()->route('login');
             // return 'gagal';
         }
     }
+
+
 }

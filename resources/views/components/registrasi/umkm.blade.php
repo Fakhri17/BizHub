@@ -46,7 +46,7 @@
     @enderror --}}
     <div class="form-email">
       <p class="form-label">NPWP</p>
-    <input type="text" id="npwp" maxlength="20" placeholder="Masukan NPWP">
+    <input type="text" id="npwp" name="npwp" maxlength="20" placeholder="Masukan NPWP">
   </div>
     <script>
         const NPWP = document.getElementById("npwp")

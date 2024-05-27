@@ -36,9 +36,13 @@
             <div x-show="showUMKM">
               <x-registrasi.umkm />
             </div>
+            <div class="register-bottom text-center">
+              <p>Anda sudah punya akun? <span><a href="{{ route('login') }}">Masuk disini</a></span></p>
+            </div>
           </div>
         </div>
       </div>
+      
     </div>
   </section>
 @endsection
