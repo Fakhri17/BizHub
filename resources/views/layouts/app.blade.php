@@ -30,22 +30,53 @@
       </button>
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <div class="navbar-nav column-gap-4 mx-4">
-          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('/') ? 'active-navbar' : '' }}" href="/" style="font-size: 18px;">Beranda</a>
-          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('tentang-kami') ? 'active-navbar' : '' }}" href="/tentang-kami"
-            style="font-size: 18px;">Tentang Kami</a>
-          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('umkm') ? 'active-navbar' : '' }}" href="/umkm" style="font-size: 18px;">UMKM</a>
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('/') ? 'active-navbar' : '' }}" href="/"
+            style="font-size: 18px;">Beranda</a>
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('tentang-kami') ? 'active-navbar' : '' }}"
+            href="/tentang-kami" style="font-size: 18px;">Tentang Kami</a>
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('umkm') ? 'active-navbar' : '' }}" href="/umkm"
+            style="font-size: 18px;">UMKM</a>
         </div>
-        <div class="ms-auto d-flex justify-content-center">
-          <a class="btn btn-bizhub-outline-primary rounded-pill py-2 px-4 me-3" href="{{ route('login') }}" role="button"
-            style="font-size: 18px;">Masuk</a>
-          <a class="btn btn-bizhub-primary rounded-pill py-2 px-4" href="{{ route('register') }}" role="button"
-            style="font-size: 18px;">Daftar</a>
+        @if (Auth::check())
+      <div class="ms-auto dropdown">
+        <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown">
+        <img src="{{ Auth::user()->avatar_path }}" class="rounded-circle border border-primary" alt="logo"
+          width="48" height="48">
+        </a>
+        <div class="dropdown-menu">
+        <small class="dropdown-item fw-bold disabled">Welcome, {{ Auth::user()->name }}</small>
+        <div class="ms-auto dropdown-divider"></div>
+        <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-dashboard">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+          <path d="M13.45 11.55l2.05 -2.05" />
+          <path d="M6.4 20a9 9 0 1 1 11.2 0z" />
+          </svg>Dashboard</a>
+        <a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logout">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+          <path d="M9 12h12l-3 -3" />
+          <path d="M18 15l3 -3" />
+          </svg> Log Out</a>
+        </div>
+
+      @else
+      <div class="ms-auto d-flex justify-content-center">
+      <a class="btn btn-bizhub-outline-primary rounded-pill py-2 px-4 me-3" href="{{ route('login') }}"
+        role="button" style="font-size: 18px;">Masuk</a>
+      <a class="btn btn-bizhub-primary rounded-pill py-2 px-4" href="{{ route('register') }}" role="button"
+        style="font-size: 18px;">Daftar</a>
+      </div>
+    @endif
         </div>
       </div>
-    </div>
   </nav>
 
-  
+
   @yield('content')
 
   <footer class="pt-5 bg-white border-top">
@@ -125,7 +156,6 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   @yield('scripts')
 </body>
