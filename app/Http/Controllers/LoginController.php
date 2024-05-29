@@ -11,7 +11,12 @@ class LoginController extends Controller
 {
     public function login()
     {
-        return view('auth.login');
+        if (Auth::check()) {
+            return redirect('/');
+        }
+        else  {
+            return view('auth.login');
+        }
     }
 
     public function login_proses(Request $request)
@@ -32,22 +37,16 @@ class LoginController extends Controller
             session()->flash('failed', 'Email atau password salah!');
             return redirect()->route('login');
         }
-        // if (Auth::attempt($data)) {
-
-        //     // if (Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('UMKM Owner')) {
-        //     //     return redirect('/admin')->with('success', 'Login Berhasil!');
-        //     // } else {
-        //     //     return redirect('/')->with('success', 'Login Berhasil!');
-        //     // }
-        //     // session()->flash('success', 'Login Berhasil!');
-        //     // return redirect('/admin');
-        //     // return 'sukses';
-        // } else {
-        //     session()->flash('failed', 'Email atau password salah!');
-        //     return redirect()->route('login');
-        //     // return 'gagal';
-        // }
     }
 
+    public function logout(Request $request) 
+    {
+        if (Auth::check()) {
+            Auth::logout();
+            return redirect('/')->with('success', 'Logout Berhasil!');
+        } else {
+            return redirect('/');
+        }
+    }
 
 }

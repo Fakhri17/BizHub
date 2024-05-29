@@ -1,4 +1,3 @@
-<!-- @extends('layouts.auth') -->
 @extends('layouts.app')
 
 @section('title', 'Beranda')
@@ -118,9 +117,7 @@
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
 </section>
 
