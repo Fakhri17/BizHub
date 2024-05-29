@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -37,7 +38,7 @@ class RegisterController extends Controller
 
         $user->assignRole('Customer');
 
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success', 'Registration successful.');
     }
 
 
@@ -69,6 +70,8 @@ class RegisterController extends Controller
             'npwp' => $request->npwp,
         ]);
 
-        return redirect('login');
+        return redirect()->route('login')->with('success', 'Registration successful.');
+
+        // return redirect('login');
     }
 }

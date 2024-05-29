@@ -26,12 +26,22 @@ class LoginController extends Controller
             'password' => $request->password
         ];
 
+
         if (Auth::attempt($data)) {
-            return redirect()->route('home');
+            if (Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('UMKM Owner')) {
+                return redirect('/admin')->with('success', 'Login Berhasil!');
+            } else {
+                return redirect('/')->with('success', 'Login Berhasil!');
+            }
+            // session()->flash('success', 'Login Berhasil!');
+            // return redirect('/admin');
             // return 'sukses';
         } else {
-            return redirect()->route('login')->with('failed', 'salah kocak');
+            session()->flash('failed', 'Email atau password salah!');
+            return redirect()->route('login');
             // return 'gagal';
         }
     }
+
+
 }
