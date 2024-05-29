@@ -19,7 +19,6 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 
-
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -28,7 +27,9 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->sidebarCollapsibleOnDesktop(true)
             ->id('admin')
+            // Protected route /admin so that it can't be accessed by customers
             ->path('admin')
+            ->middleware(['auth', 'role:Super Admin|UMKM Owner'])
             ->login()
             ->colors([
                 'primary' => Color::Amber,
