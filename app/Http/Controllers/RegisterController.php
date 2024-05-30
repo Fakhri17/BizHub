@@ -13,7 +13,13 @@ class RegisterController extends Controller
 {
     public function register()
     {
-        return view('auth.register');
+        if (Auth::check()) {
+            return redirect('/');
+        }
+        else {
+            return view('auth.register');
+        }
+
     }
     public function register_konsumen(Request $request)
     {
