@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LupaPasswordController;
+use App\Http\Controllers\ResetPasswordController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +36,8 @@ Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::get('/tentang-kami', function () {
     return view('about');
 });
+Route::get('/lupa-password', [LupaPasswordController::class, 'lupaPassword'])->name('lupa-password');
+Route::get('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset-password');
+
+
 

@@ -44,7 +44,7 @@
         <small class="text-danger m-2">{{ $message }}</small>
       @enderror
           <div class="to-forgot-password">
-            <p>Lupa kata sandi?</p>
+            <p><a href="{{ route('lupa-password') }}">Lupa kata sandi?</a></p>
           </div>
           <div class="form-button">
             <button type="submit">Masuk</button>
