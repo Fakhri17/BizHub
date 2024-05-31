@@ -30,22 +30,54 @@
       </button>
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <div class="navbar-nav column-gap-4 mx-4">
-          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('/') ? 'active-navbar' : '' }}" href="/" style="font-size: 18px;">Beranda</a>
-          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('tentang-kami') ? 'active-navbar' : '' }}" href="/tentang-kami"
-            style="font-size: 18px;">Tentang Kami</a>
-          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('umkm') ? 'active-navbar' : '' }}" href="/umkm" style="font-size: 18px;">UMKM</a>
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('/') ? 'active-navbar' : '' }}" href="/"
+            style="font-size: 18px;">Beranda</a>
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('tentang-kami') ? 'active-navbar' : '' }}"
+            href="/tentang-kami" style="font-size: 18px;">Tentang Kami</a>
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('umkm') ? 'active-navbar' : '' }}" href="/umkm"
+            style="font-size: 18px;">UMKM</a>
         </div>
-        <div class="ms-auto d-flex justify-content-center">
-          <a class="btn btn-bizhub-outline-primary rounded-pill py-2 px-4 me-3" href="{{ route('login') }}" role="button"
-            style="font-size: 18px;">Masuk</a>
-          <a class="btn btn-bizhub-primary rounded-pill py-2 px-4" href="{{ route('register') }}" role="button"
-            style="font-size: 18px;">Daftar</a>
+        @if (Auth::check())
+      <div class="ms-auto dropdown">
+        <a href="#" data-bs-toggle="dropdown"><img src="{{ Auth::user()->avatar_path }}"
+          class="rounded-circle border border-primary" alt="logo" width="48" height="48"></a>
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+        <span class="dropdown-header">Informasi Akun</span>
+        <a class="dropdown-item disabled" href="#">
+          <img src="{{ Auth::user()->avatar_path }}" class="rounded-circle border border-primary" alt="logo"
+          width="42" height="42">
+          <h3 class="m-2">{{ Auth::user()->name }}<br />
+          <small><span
+            class="badge badge-outline text-green">{{ Auth::user()->roles->pluck('name')->implode(', ') }}</span></small>
+          </h3>
+        </a>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{{ route('filament.dashboard.pages.dashboard') }}">
+          <i class="ti ti-dashboard me-2" style="font-size: 24px"></i>
+          Dashboard
+        </a>
+        <a class="dropdown-item" href="{{ route('logout') }}">
+          <i class="ti ti-logout me-2" style="font-size: 24px"></i>
+          Logout
+        </a>
         </div>
+      </div>
+
+
+    @else
+    <div class="ms-auto d-flex justify-content-center">
+      <a class="btn btn-bizhub-outline-primary rounded-pill py-2 px-4 me-3" href="{{ route('login') }}"
+      role="button" style="font-size: 18px;">Masuk</a>
+      <a class="btn btn-bizhub-primary rounded-pill py-2 px-4" href="{{ route('register') }}" role="button"
+      style="font-size: 18px;">Daftar</a>
+    </div>
+  @endif
       </div>
     </div>
   </nav>
 
-  
+
   @yield('content')
 
   <footer class="pt-5 bg-white border-top">
@@ -127,6 +159,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{ asset('js/script.js') }}"></script>
   @yield('scripts')
 </body>
 

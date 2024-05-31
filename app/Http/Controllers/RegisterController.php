@@ -13,7 +13,13 @@ class RegisterController extends Controller
 {
     public function register()
     {
-        return view('auth.register');
+        if (Auth::check()) {
+            return redirect('/');
+        }
+        else {
+            return view('auth.register');
+        }
+
     }
     public function register_konsumen(Request $request)
     {
@@ -51,7 +57,7 @@ class RegisterController extends Controller
             'address' => 'required|string|max:255',
             'email' => 'required|email:dns|max:255|unique:users',
             'password' => 'required|string|min:8|max:255',
-            'npwp' => 'required|string|max:20',
+            'npwp' => 'required|string|min:15',
         ]);
 
         $user = User::create([
@@ -70,8 +76,7 @@ class RegisterController extends Controller
             'npwp' => $request->npwp,
         ]);
 
-        return redirect()->route('login')->with('success', 'Registration successful.');
+        return redirect()->route('login')->with('success', 'Registrasi Berhasil.');
 
-        // return redirect('login');
     }
 }

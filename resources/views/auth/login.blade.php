@@ -29,21 +29,22 @@
             <p class="form-label">Email</p>
             <input type="email" name="email" placeholder="Masukan alamat email" value="{{ old('email') }}">
           </div>
-          @error('email')           
-          <small class="text-danger m-2">{{ $message }}</small>           
-          @enderror
+          @error('email')
+        <small class="text-danger m-2">{{ $message }}</small>
+      @enderror
           <div x-data="{ showPassword: false }" class="form-password">
             <p class="form-label">Password</p>
             <div class="input-password">
-              <input :type="showPassword ? 'text' : 'password'" name="password" placeholder="Masukan kata sandi" id="password" autocomplete="current-password">
+              <input :type="showPassword ? 'text' : 'password'" name="password" placeholder="Masukan kata sandi"
+                id="password" autocomplete="current-password">
               <i :class="showPassword ? 'far fa-eye' : 'far fa-eye-slash'" @click="showPassword = !showPassword"></i>
             </div>
           </div>
           @error('password')
-          <small class="text-danger m-2">{{ $message }}</small>
-          @enderror
+        <small class="text-danger m-2">{{ $message }}</small>
+      @enderror
           <div class="to-forgot-password">
-            <p>Lupa kata sandi?</p>
+            <p><a href="{{ route('lupa-password') }}">Lupa kata sandi?</a></p>
           </div>
           <div class="form-button">
             <button type="submit">Masuk</button>
@@ -61,12 +62,12 @@
 @if (session('success'))
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      Swal.fire({
-        title: "Success",
-        text: "{{ session('success') }}",
-        icon: "success",
-        timer: 3000
-      });
+    Swal.fire({
+      title: "Success",
+      text: "{{ session('success') }}",
+      icon: "success",
+      timer: 3000
+    });
     });
   </script>
 @endif
@@ -74,29 +75,27 @@
 @if (session('failed'))
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      Swal.fire({
-        title: "Error",
-        text: "{{ session('failed') }}",
-        icon: "error",
-        timer: 3000
-      });
+    Swal.fire({
+      title: "Error",
+      text: "{{ session('failed') }}",
+      icon: "error",
+      timer: 3000
+    });
     });
   </script>
 @endif
 
 {{-- @if ($errors->any())
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      Swal.fire({
-        title: "Error",
-        html: "{!! implode('<br>', $errors->all()) !!}",
-        icon: "error",
-        timer: 3000
-      });
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+      title: "Error",
+      html: "{!! implode('<br>', $errors->all()) !!}",
+      icon: "error",
+      timer: 3000
     });
-  </script>
+  });
+</script>
 @endif --}}
 
 @endsection
-
-

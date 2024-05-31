@@ -5,15 +5,15 @@ return [
     'resources' => [
         'RoleResource' => \Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource::class,
         'PermissionResource' => \Althinect\FilamentSpatieRolesPermissions\Resources\PermissionResource::class,
-        
+
     ],
 
     'preload_roles' => true,
 
     'preload_permissions' => true,
 
-    'navigation_section_group' => 'filament-spatie-roles-permissions::filament-spatie.section.roles_and_permissions', // Default uses language constant
-
+    'navigation_section_group' => 'filament-spatie-roles-permissions::filament-spatie.section.roles_and_permissions',
+    // Default uses language constant
     'team_model' => \App\Models\Team::class,
 
     'scope_to_tenant' => true,
@@ -22,7 +22,7 @@ return [
      * Set as false to remove from navigation.
      */
     'should_register_on_navigation' => [
-        'permissions' => true,
+        'permissions' => false,
         'roles' => true,
     ],
 
@@ -83,6 +83,8 @@ return [
     /*
      *  Navigation items order - int value, false  restores the default position
      */
+
+
 
     'sort' => [
         'role_navigation' => false,
@@ -171,4 +173,6 @@ return [
 
         'policies_namespace' => 'App\Policies',
     ],
+
+
 ];
