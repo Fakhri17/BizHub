@@ -15,7 +15,7 @@ class PermissionSeeder extends Seeder
     {
         //
         $permissions = [
-            'create user',
+            'create users',
             'read user',
             'update user',
             'delete user',
@@ -27,6 +27,30 @@ class PermissionSeeder extends Seeder
             'read permission',
             'update permission',
             'delete permission',
+            // blog model
+            'create blog',
+            'read blog',
+            'update blog',
+            'delete blog',
+            // blog category blog model
+            'create blog category',
+            'read blog category',
+            'update blog category',
+            'delete blog category',
+            // umkm product model
+            'create umkm product',
+            'read umkm product',
+            'update umkm product',
+            'delete umkm product',
+            // Product category model
+            'create product category',
+            'read product category',
+            'update product category',
+            'delete product category',
+            
+            
+
+   
         ];
 
         foreach ($permissions as $permission) {
