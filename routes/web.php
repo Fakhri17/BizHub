@@ -27,7 +27,8 @@ Route::post('/register-konsumen', [RegisterController::class, 'register_konsumen
 Route::post('/register-umkm', [RegisterController::class, 'register_umkm'])->name('register-umkm');
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
-
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/tentang-kami', function () {
     return view('about');
 });
+

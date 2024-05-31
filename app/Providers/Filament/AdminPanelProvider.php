@@ -26,10 +26,8 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->sidebarCollapsibleOnDesktop(true)
-            ->id('admin')
-            // Protected route /admin so that it can't be accessed by customers
-            ->path('admin')
-            ->middleware(['auth', 'role:Super Admin|UMKM Owner'])
+            ->id('dashboard')
+            ->path('dashboard')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
