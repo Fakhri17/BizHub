@@ -23,10 +23,12 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 
 // Route::get('/login', [LoginController::class, 'index']);
 Route::get('/register', [RegisterController::class, 'register'])->name('register');
-Route::post('/register-proses', [RegisterController::class, 'register_proses'])->name('register-proses');
+Route::post('/register-konsumen', [RegisterController::class, 'register_konsumen'])->name('register-konsumen');
+Route::post('/register-umkm', [RegisterController::class, 'register_umkm'])->name('register-umkm');
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
-
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/tentang-kami', function () {
     return view('about');
 });
+
