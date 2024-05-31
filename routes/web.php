@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -27,7 +28,7 @@ Route::post('/register-konsumen', [RegisterController::class, 'register_konsumen
 Route::post('/register-umkm', [RegisterController::class, 'register_umkm'])->name('register-umkm');
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::get('/tentang-kami', function () {
     return view('about');
 });
