@@ -7,12 +7,13 @@
 
 <section class="mb-5 my-5">
   <div class="row px-0 mx-0 align-items-center g-4">
-    <div class="col-lg-6 mt-5 mt-lg-0">
-      <div class="mx-2 mx-lg-5 py-5 d-flex align-items-center">
+    <div class="col-lg-6 mt-5 mt-lg-0 ps-sm-5">
+      <div class="mx-2 mx-lg-5 pt-5 pb-3 d-flex flex-column align-items-start">
         <h1 class="text-dark fw-bold text-hero-home">Bersama
           <span class="text-bizhub-secondary">Biz</span><span class="text-bizhub-primary">Hub</span> Solusi Pemasaran
           <span class="text-bizhub-secondary">UMKM</span> Anda
         </h1>
+        <p class="mt-4" style="font-size: 18px">Temukan berbagai macam produk UMKM hanya di BizHub!</p>
       </div>
       <div class="input-search-umkm">
         <div class="input-group shadow-lg rounded-5">
@@ -44,7 +45,7 @@
       </div>
       <div class="col-12 col-lg-6">
         <div class="text-start">
-          <h2 class="fw-bold display-5">Apa itu BizHub?</h2>
+          <h2 class="fw-bold display-5 mb-4">Apa itu BizHub?</h2>
           <p style="font-size: 18px;">BizHub merupakan aplikasi berbasis website yang diperuntukan kepada pelaku UMKM
             untuk dapat memasarkan
             produk dan layanan kepada lebih banyak konsumen secara efektif dan efisien. BizHub memiliki berbagai fitur
@@ -126,7 +127,7 @@
     <div class="card rounded-4 shadow py-4 position-relative overflow-hidden">
       <div class="card-body text-center p-4 px-5">
         <h2 class="fw-bold display-5">Ingin <span class="text-bizhub-secondary">Memasarkan UMKM</span> Anda?</h2>
-        <p class="my-4" style="font-size: 20px;">Apakah Anda seorang pelaku UMKM yang ingin memperluas jangkauan pasar
+        <p class="my-4" style="font-size: 18px;">Apakah Anda seorang pelaku UMKM yang ingin memperluas jangkauan pasar
           dan meningkatkan penjualan? BizHub hadir untuk membantu Anda! Dengan BizHub, Anda dapat dengan mudah
           memasarkan produk dan layanan Anda kepada lebih banyak konsumen secara efektif dan efisien.</p>
         <a href="{{ route('register') }}" class="btn btn-bizhub-primary rounded-pill py-2 px-4" role="button"
