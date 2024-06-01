@@ -13,8 +13,7 @@ class LoginController extends Controller
     {
         if (Auth::check()) {
             return redirect('/');
-        }
-        else  {
+        } else {
             return view('auth.login');
         }
     }
@@ -36,16 +35,6 @@ class LoginController extends Controller
         } else {
             session()->flash('failed', 'Email atau password salah!');
             return redirect()->route('login');
-        }
-    }
-
-    public function logout(Request $request) 
-    {
-        if (Auth::check()) {
-            Auth::logout();
-            return redirect('/')->with('success', 'Logout Berhasil!');
-        } else {
-            return redirect('/');
         }
     }
 
