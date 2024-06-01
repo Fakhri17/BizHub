@@ -22,7 +22,7 @@ return [
      * Set as false to remove from navigation.
      */
     'should_register_on_navigation' => [
-        'permissions' => false,
+        'permissions' => true,
         'roles' => true,
     ],
 
