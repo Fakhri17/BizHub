@@ -32,3 +32,10 @@ Route::get('/tentang-kami', function () {
     return view('about');
 });
 
+Route::get('/blog', function () {
+    return view('blog/index');
+});
+
+Route::get('/blog/{slug}', function () {
+    return view('blog/_detail', ['slug' => 'blog-1']);
+});
