@@ -159,6 +159,14 @@ body {
 	width: 500px;
 }
 
+.blog-img{
+	max-width:none;
+}
+
+.blog-detail-btn{
+	max-width:40%;
+}
+
 @media (min-width: 1024px) {
 	.image-container {
 		/* Add any specific styles for laptops here if needed */

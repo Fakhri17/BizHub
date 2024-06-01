@@ -7,6 +7,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\BlogController;
 
 
 
@@ -40,11 +41,5 @@ Route::get('/lupa-password', [LupaPasswordController::class, 'lupaPassword'])->n
 Route::get('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset-password');
 
 
-
-Route::get('/blog', function () {
-    return view('blog/index');
-});
-
-Route::get('/blog/{slug}', function () {
-    return view('blog/_detail', ['slug' => 'blog-1']);
-});
+Route::get('/blog', [BlogController::class, 'index']);
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.detail');
