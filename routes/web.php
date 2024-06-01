@@ -41,5 +41,5 @@ Route::get('/lupa-password', [LupaPasswordController::class, 'lupaPassword'])->n
 Route::get('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset-password');
 
 
-Route::get('/blog', [BlogController::class, 'index']);
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.detail');

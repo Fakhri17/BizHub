@@ -33,7 +33,7 @@
       @foreach($blogs as $blog)
       <div class="d-flex col-12 col-md-6">
         <div>
-          <img src="{{ asset('img/blog/rectangle.png') }}" class="blog-img" alt="">
+          <img src="{{ asset('img/blog/rectangle.png') }}" class="blog-img rounded-4" alt="">
         </div>
         <div class="d-flex flex-column ps-4 justify-content-center">
           <div class="d-flex text-bizhub-secondary">
@@ -50,3 +50,5 @@
     </div>
   </div>
 </section>
+
+@endsection
