@@ -43,3 +43,4 @@ Route::get('/reset-password', [ResetPasswordController::class, 'resetPassword'])
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.detail');
+Route::get('/search', [BlogController::class, 'search'])->name('blog.search');
