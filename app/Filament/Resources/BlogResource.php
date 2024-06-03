@@ -77,7 +77,7 @@ class BlogResource extends Resource
                         TextInput::make('slug')
                             ->label('Slug')
                             ->required()
-                            ->unique()
+                            ->unique(ignoreRecord: true)
                             ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
                             ->placeholder('Enter the slug of the blog'),
 
