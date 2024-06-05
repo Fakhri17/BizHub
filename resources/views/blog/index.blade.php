@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Blog UMKM')
+@section('title', 'Blog List')
 
 @section('content')
 
@@ -17,37 +17,70 @@
         </div>
 
       </div>
-      <div class="input-search-blog position-relative bottom-0">
-        <div class="input-group shadow-lg rounded-5">
-          <input type="text" class="form-control form-control-lg" placeholder="Cari Blog" autocomplete="off" />
-          <span class="input-group-text bg-bizhub-primary text-white">
-            <i class="ti ti-search" style="font-size: 20px;"></i>
-          </span>
+      <form method="GET" action="{{ route('blog.index') }}">
+        <div class="input-search-blog position-relative bottom-0">
+          <div class="input-group shadow-lg rounded-5">
+            <input type="text" class="form-control form-control-lg" name="search"
+              value="{{ request()->input('search') }}" placeholder="Cari Blog" autocomplete="off" />
+            <button class="input-group-text bg-bizhub-primary text-white">
+              <i class="ti ti-search" style="font-size: 20px;"></i>
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
+
     </div>
   </section>
 
   <section class="margin-section">
     <div class="container">
-      <div class="row d-flex justify-content-center row-gap-5">
-        @foreach ($blogs as $blog)
-          <div class="d-flex col-12 col-md-6">
-            <div>
-              <img src="{{ asset('img/blog/rectangle.png') }}" class="blog-img rounded-4" alt="">
-            </div>
-            <div class="d-flex flex-column ps-4 justify-content-center">
-              <div class="d-flex text-bizhub-secondary">
-                <p><i class="ti ti-calendar pe-1"></i>{{ $blog->created_at->format('l, d F') }}</p>
-                <span class="px-2">|</span>
-                <p><i class="ti ti-tag pe-1"></i>{{ $blog->blogCategory->name }}</p>
+      @if ($search)
+        <div class="alert alert-info">
+          Menampilkan hasil pencarian untuk: <strong>{{ $search }}</strong>
+        </div>
+      @endif
+      <div class="row">
+        @foreach ($blogs as $item)
+          <div class="col-12 col-md-6 mb-4">
+            <div class="card d-flex flex-column rounded-3 shadow">
+              <div class="row row-0 flex-fill">
+                <div class="col-md-3">
+                  <a href="{{ 'blog/' . $item->slug }}">
+                    @php
+                      $thumbnail = $item->thumbnail
+                          ? asset('storage/' . $item->thumbnail)
+                          : 'https://via.placeholder.com/150';
+                    @endphp
+                    <img src="{{ $thumbnail }}" class="w-100 h-100 object-cover rounded-3" alt="Card side image" />
+                  </a>
+                </div>
+                <div class="col">
+                  <div class="card-body py-3">
+                    <div class="mb-2 text-bizhub-secondary">
+                      <span>
+                        <i class="ti ti-calendar pe-1"></i>{{ $item->created_at->format('l, d F') }}
+                      </span>
+                      <span class="px-2">|</span>
+                      <span>
+                        <i class="ti ti-tag pe-1"></i>{{ $item->blogCategory->name }}
+                      </span>
+                    </div>
+                    <h3 class="card-title fw-bold">
+                      <a href="{{ 'blog/' . $item->slug }}">{{ $item->title }}</a>
+                    </h3>
+                    <div class="text-secondary mb-2">
+                      {!! html_entity_decode(Str::limit($item->content, 100)) !!}
+                    </div>
+                    {{-- button link to blog detai --}}
+                    <a href="{{ 'blog/' . $item->slug }}" class="btn btn-bizhub-outline-primary rounded-3 px-4 me-3"
+                      style="font-size: 17px;">Lihat Blog
+                      <i class="ti ti-arrow-narrow-right ms-2"></i>
+                    </a>
+                  </div>
+                </div>
               </div>
-              <h1 style="width:100%;">{{ $blog->title }}</h1>
-              <p class="mt-2" style="width:100%; font-size: 17px;">{{ Str::limit($blog->content, 100) }}</p>
-              <a class="btn btn-bizhub-outline-primary rounded-3 px-4 me-3 blog-detail-btn"
-                href="{{ route('blog.detail', ['slug' => $blog->slug]) }}" role="button" style="font-size: 17px;">Lihat
-                Blog<i class="ti ti-arrow-narrow-right ms-2"></i></a>
             </div>
+
           </div>
         @endforeach
       </div>
