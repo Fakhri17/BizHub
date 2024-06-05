@@ -23,6 +23,9 @@ use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs\Tab;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Illuminate\Support\Str;
 
 class BlogResource extends Resource
 {
@@ -41,6 +44,14 @@ class BlogResource extends Resource
                     ->columnSpan(2)
                     ->schema([
                         TextInput::make('title')
+                            ->live()
+                            ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                if (($get('slug') ?? '') !== Str::slug($old)) {
+                                    return;
+                                }
+
+                                $set('slug', Str::slug($state));
+                            })
                             ->label('Title')
                             ->required()
                             ->placeholder('Enter the title of the blog'),
@@ -68,6 +79,7 @@ class BlogResource extends Resource
                             ->placeholder('Enter the content of the blog')
                             ->fileAttachmentsDisk('public')
                             ->fileAttachmentsDirectory('blog-thumbnails')
+                            ->required()
                             ->columnSpanFull(),
                     ]),
 
@@ -84,7 +96,6 @@ class BlogResource extends Resource
 
                         CheckBox::make('is_published')
                             ->label('Is Published')
-                            ->required(),
                     ]),
 
 
@@ -116,7 +127,7 @@ class BlogResource extends Resource
                 ImageColumn::make('thumbnail'),
                 // is_published column
                 CheckboxColumn::make('is_published')
-                ->toggleable(),
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->toggleable()
@@ -125,6 +136,7 @@ class BlogResource extends Resource
                     ->sortable(),
 
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -155,4 +167,6 @@ class BlogResource extends Resource
             'edit' => Pages\EditBlog::route('/{record}/edit'),
         ];
     }
+
+    
 }
