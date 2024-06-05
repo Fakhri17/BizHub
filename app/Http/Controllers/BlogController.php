@@ -11,18 +11,16 @@ class BlogController extends Controller
     {
         $search = $request->input('search') ?? '';
 
+        $blogs = Blog::where('is_published', true)
+            ->orderBy('created_at', 'desc');
+
         if ($search) {
-            $blogs = Blog::where('title', 'like', "%$search%")
-                ->where('is_published', true)
-                ->orderBy('created_at', 'desc')
-                ->paginate(6);
-            return view('blog.index', compact('blogs', 'search'));
-        } else {
-            $blogs = Blog::where('is_published', true)
-                ->orderBy('created_at', 'desc')
-                ->paginate(6);
-            return view('blog.index', compact('blogs', 'search'));
+            $blogs->where('title', 'like', "%$search%");
         }
+
+        $blogs = $blogs->paginate(6);
+
+        return view('blog.index', compact('blogs', 'search'));
     }
 
     public function detail($slug)
@@ -36,12 +34,12 @@ class BlogController extends Controller
         return view('blog.detail', compact('blog', 'relatedBlogs'));
     }
 
-    public function search(Request $request) {
-        $query = $request->input('query');
-        $blogs = Blog::where('is_published', true)
-                     ->where('title', 'LIKE', "%{$query}%")
-                     ->orWhere('content', 'LIKE', "%{$query}%")
-                     ->get();
-        return view('blog.index', compact('blogs'));
-    }
+    // public function search(Request $request) {
+    //     $query = $request->input('query');
+    //     $blogs = Blog::where('is_published', true)
+    //                  ->where('title', 'LIKE', "%{$query}%")
+    //                  ->orWhere('content', 'LIKE', "%{$query}%")
+    //                  ->get();
+    //     return view('blog.index', compact('blogs'));
+    // }
 }

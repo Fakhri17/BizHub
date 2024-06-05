@@ -62,6 +62,7 @@ class BlogCategoryResource extends Resource
                     ->sortable(),
 
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
