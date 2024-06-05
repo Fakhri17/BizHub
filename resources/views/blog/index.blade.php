@@ -4,16 +4,26 @@
 
 @section('content')
 
-  <section class="margin-section mb-0 pt-5">
+<section class="margin-section mb-0 pt-5">
     <div class="container">
-      <div class="card rounded-4 py-4 position-relative overflow-hidden bg-soft-bizhub-secondary">
-        <div class="card-body text-center p-4 px-5 d-flex d-flex flex-column align-items-center">
-          <h2 class="fw-bold display-5">Blog UMKM</h2>
-          <p class="blog-text mt-4" style="font-size: 20px;">Kumpulan blog UMKM yang dapat membantu Pelaku UMKM untuk
-            meningkatkan Produk UMKM mereka.</p>
+        <div class="card rounded-4 py-4 position-relative overflow-hidden bg-soft-bizhub-secondary">
+            <div class="card-body text-center p-4 px-5 d-flex d-flex flex-column align-items-center">
+                <h2 class="fw-bold display-5">Blog UMKM</h2>
+                <p class="blog-text mt-4" style="font-size: 20px;">Kumpulan blog UMKM yang dapat membantu Pelaku UMKM untuk meningkatkan Produk UMKM mereka.</p>
+            </div>
+            <div class="position-absolute top-0 d-none d-lg-block">
+                <img src="{{ asset('img/blog/header.png') }}" class="img-fluid" alt="...">
+            </div>
         </div>
-        <div class="position-absolute top-0 d-none d-lg-block">
-          <img src="{{ asset('img/blog/header.png') }}" class="img-fluid" alt="...">
+        <div class="input-search-blog position-relative bottom-0">
+            <form action="{{ route('blog.search') }}" method="GET" class="w-100">
+                <div class="input-group shadow-lg rounded-5">
+                    <input type="text" name="query" class="form-control form-control-lg" placeholder="Cari Blog" autocomplete="off" />
+                    <span class="input-group-text bg-bizhub-primary text-white">
+                        <i class="ti ti-search" style="font-size: 20px;"></i>
+                    </span>
+                </div>
+            </form>
         </div>
 
       </div>
@@ -30,9 +40,9 @@
       </form>
 
     </div>
-  </section>
+</section>
 
-  <section class="margin-section">
+<section class="margin-section">
     <div class="container">
       @if ($search)
         <div class="alert alert-info">
@@ -85,6 +95,6 @@
         @endforeach
       </div>
     </div>
-  </section>
+</section>
 
 @endsection

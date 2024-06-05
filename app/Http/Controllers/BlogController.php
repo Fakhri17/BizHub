@@ -35,4 +35,13 @@ class BlogController extends Controller
             ->get();
         return view('blog.detail', compact('blog', 'relatedBlogs'));
     }
+
+    public function search(Request $request) {
+        $query = $request->input('query');
+        $blogs = Blog::where('is_published', true)
+                     ->where('title', 'LIKE', "%{$query}%")
+                     ->orWhere('content', 'LIKE', "%{$query}%")
+                     ->get();
+        return view('blog.index', compact('blogs'));
+    }
 }
