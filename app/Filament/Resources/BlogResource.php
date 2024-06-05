@@ -167,4 +167,6 @@ class BlogResource extends Resource
             'edit' => Pages\EditBlog::route('/{record}/edit'),
         ];
     }
+
+    
 }
