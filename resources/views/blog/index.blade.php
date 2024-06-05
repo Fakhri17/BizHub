@@ -38,6 +38,21 @@
         <div class="alert alert-info mb-5 shadow">
           Menampilkan hasil pencarian untuk: <strong>{{ $search }}</strong>
         </div>
+        @if ($blogs->isEmpty())
+          <div class="alert alert-danger mb-5 shadow">
+            Tidak ada hasil yang ditemukan
+          </div>
+        @endif
+      @endif
+      @if ($blogCategorySlug)
+        <div class="alert alert-info mb-5 shadow">
+          Menampilkan blog dengan kategori: <strong>{{ $blogCategorySlug }}</strong>
+        </div>
+        @if ($blogs->isEmpty())
+          <div class="alert alert-danger mb-5 shadow">
+            Tidak ada blog dengan kategori tersebut
+          </div>
+        @endif
       @endif
       <div class="row">
         @foreach ($blogs as $item)
@@ -58,12 +73,16 @@
                   <div class="card-body d-flex flex-column py-3">
                     <div class="mb-2 text-bizhub-secondary">
                       <span>
-                        <i class="ti ti-calendar pe-1"></i>{{ $item->created_at->format('l, d F') }}
+                        <span>
+                          <i
+                            class="ti ti-calendar pe-1"></i>{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, d F Y') }}
+                        </span>
                       </span>
                       <span class="px-2">|</span>
-                      <span>
+                      <a href="{{ url('/blog?blog_category=' . $item->blogCategory->slug) }}"
+                        class="text-bizhub-secondary">
                         <i class="ti ti-tag pe-1"></i>{{ $item->blogCategory->name }}
-                      </span>
+                      </a>
                     </div>
                     <h3 class="card-title fw-bold">
                       <a href="{{ 'blog/' . $item->slug }}">{{ $item->title }}</a>

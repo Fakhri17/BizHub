@@ -10,6 +10,7 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search') ?? '';
+        $blogCategorySlug = $request->input('blog_category') ?? '';
 
         $blogs = Blog::where('is_published', true)
             ->orderBy('created_at', 'desc');
@@ -18,18 +19,25 @@ class BlogController extends Controller
             $blogs->where('title', 'like', "%$search%");
         }
 
+        if ($blogCategorySlug) {
+            $blogs->whereHas('blogCategory', function ($query) use ($blogCategorySlug) {
+                $query->where('slug', $blogCategorySlug);
+            });
+        }
+        
+
         $blogs = $blogs->paginate(6);
 
-        return view('blog.index', compact('blogs', 'search'));
+        return view('blog.index', compact('blogs', 'search', 'blogCategorySlug'));
     }
 
     public function detail($slug)
     {
         $blog = Blog::where('slug', $slug)->firstOrFail();
-        $relatedBlogs = Blog::where('blog_category_id', $blog->blog_category_id)
+        $relatedBlogs = Blog::where('is_published', true)
+            ->where('blog_category_id', $blog->blog_category_id)
             ->where('id', '!=', $blog->id)
-            ->where('is_published', true)
-            ->take(2)
+            ->limit(3)
             ->get();
         return view('blog.detail', compact('blog', 'relatedBlogs'));
     }

@@ -36,6 +36,8 @@
             href="/tentang-kami" style="font-size: 18px;">Tentang Kami</a>
           <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('umkm') ? 'active-navbar' : '' }}" href="/umkm"
             style="font-size: 18px;">UMKM</a>
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('blog') ? 'active-navbar' : '' }}" href="/blog"
+            style="font-size: 18px;">Blog</a>
         </div>
         @if (Auth::check())
       <div class="ms-auto dropdown">
