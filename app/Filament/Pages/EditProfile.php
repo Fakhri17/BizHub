@@ -10,13 +10,16 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Exceptions\Halt;
+use Filament\Forms\Components\Section;
+
+use Filament\Forms\Components\FileUpload;
 
 class EditProfile extends Page implements HasForms
 {
     use InteractsWithForms;
 
     public ?array $user = [];
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
 
     protected static string $view = 'filament.pages.edit-profile';
 
@@ -30,14 +33,29 @@ class EditProfile extends Page implements HasForms
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required(),
-                TextInput::make('email')
-                    ->required(),
-                TextInput::make('phone_number')
-                    ->required(),
-                TextInput::make('address')
-                    ->required(),
+
+                Section::make('User Information')
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('name')
+                            ->required(),
+                        TextInput::make('email')
+                            ->required(),
+                        TextInput::make('phone_number')
+                            ->required(),
+                        TextInput::make('address')
+                            ->required(),
+                        FileUpload::make('avatar_path')
+                            ->disk('public')
+                            ->directory('user-photo')
+                            ->label('Avatar')
+                            ->image()
+                            ->acceptedFileTypes(['image/*'])
+                            ->maxSize(1024)
+                            ->columnSpanFull()
+                            ->imageEditor(),
+                    ]),
+
             ])
             ->statePath('user');
     }
