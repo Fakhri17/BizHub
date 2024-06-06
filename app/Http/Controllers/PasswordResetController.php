@@ -51,11 +51,6 @@ class PasswordResetController extends Controller
             }
         );
 
-        if (!$request->hasValidSignature()) {
-            // Jika tidak, kembalikan respons dengan pesan error
-            return response()->json(['message' => 'Token telah kadaluarsa'], 403);
-        }
-
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('login')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);

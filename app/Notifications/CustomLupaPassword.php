@@ -39,7 +39,7 @@ class CustomLupaPassword extends Notification
     {
         $url = URL::temporarySignedRoute(
             'reset-password',
-            now()->addMinutes(2),
+            now()->addMinutes(15),
             ['token' => $this->token]
         );
 
@@ -47,7 +47,7 @@ class CustomLupaPassword extends Notification
             ->from('bizhub@email.com', 'Admin Bizhub')
             // ->to($notifiable->email, $notifiable->name)
             ->line('The introduction to the notification.')
-            ->action('Reset Password', url('/'))
+            ->action('Reset Password', $url)
             ->line('Thank you for using our application!');
     }
 
