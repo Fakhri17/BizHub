@@ -13,66 +13,42 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\CheckboxColumn;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
-use Illuminate\Support\Str;
 
 class ProductCategoryResource extends Resource
 {
     protected static ?string $model = ProductCategory::class;
-    protected static ?string $navigationGroup = 'Products';
+
+    protected static ?string $navigationGroup = 'UMKM';
     protected static ?int $navigationSort = 2;
-    protected static ?string $navigationLabel = 'Product Categories';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('Blog Information')
-                    ->schema([
-                        TextInput::make('category_name')
-                            ->live()
-                            ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
-                                if (($get('slug') ?? '') !== Str::slug($old)) {
-                                    return;
-                                }
-
-                                $set('slug', Str::slug($state));
-                            })
-                            ->label('Category Name')
-                            ->required()
-                            ->placeholder('Enter the name of the category'),
-                        TextInput::make('slug')
-                            ->label('Slug')
-                            ->unique()
-                            ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
-                            ->required()
-                            ->placeholder('Enter the slug of the category'),
-                        FileUpload::make('category_image')
-                            ->disk('public')
-                            ->directory('product-categories')
-                            ->label('Category Image')
-                            ->image()
-                            ->acceptedFileTypes(['image/*'])
-                            ->maxSize(1024)
-                            ->imageEditor(),
-                        RichEditor::make('category_description')
-                            ->label('Category Description')
-                            ->columnSpanFull()
-                            ->placeholder('Enter the description of the category'),
-                    ]),
-                //
-
-
+                TextInput::make('category_name')
+                    ->required()
+                    ->maxLength(255),
+                    TextInput::make('slug')
+                    ->label('Slug')
+                    ->required()
+                    ->unique(ignoreRecord: true)
+                    ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
+                    ->placeholder('Enter the slug of the blog'),
+                FileUpload::make('category_image')
+                    ->disk('public')
+                    ->directory('category-thumbnails')
+                    ->label('Thumbnail')
+                    ->image()
+                    ->acceptedFileTypes(['image/*'])
+                    ->maxSize(1024)
+                    ->imageEditor(),
+                TextInput::make('category_description')
+                    ->maxLength(255)
+                    ->default(null),
             ]);
     }
 
@@ -80,9 +56,8 @@ class ProductCategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
                 TextColumn::make('category_name')
-                    ->label('Category Name')
+                    ->label('Name')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('slug')
@@ -90,19 +65,18 @@ class ProductCategoryResource extends Resource
                     ->searchable()
                     ->sortable(),
                 ImageColumn::make('category_image'),
-                // TextColumn::make('category_description')
-                //     ->label('Category Description')
-                //     ->searchable(),
+                TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->searchable()
+                    ->date()
+                    ->sortable(),
 
             ])
-            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
