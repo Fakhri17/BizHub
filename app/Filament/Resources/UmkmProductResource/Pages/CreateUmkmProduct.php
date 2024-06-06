@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateUmkmProduct extends CreateRecord
 {
     protected static string $resource = UmkmProductResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\ProductCategoryResource\Pages;
+namespace App\Filament\Resources\UmkmOwnerResource\Pages;
 
-use App\Filament\Resources\ProductCategoryResource;
+use App\Filament\Resources\UmkmOwnerResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditProductCategory extends EditRecord
+class EditUmkmOwner extends EditRecord
 {
-    protected static string $resource = ProductCategoryResource::class;
+    protected static string $resource = UmkmOwnerResource::class;
+    
 
     protected function getHeaderActions(): array
     {
