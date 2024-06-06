@@ -29,7 +29,7 @@ class RoleSeeder extends Seeder
         $superAdmin = Role::findByName('Super Admin');
 
         $superAdmin->givePermissionTo([
-            'create user',
+            'create users',
             'read user',
             'update user',
             'delete user',

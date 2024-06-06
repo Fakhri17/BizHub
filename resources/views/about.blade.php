@@ -5,7 +5,7 @@
 
 @section('content')
 
-  <section class="pt-5 position-relative overflow-hidden ronded-bottom-hero-about" style="background-color: rgba(106, 191, 106, 0.2); height: 75vh;">
+  <section class="pt-5 position-relative overflow-hidden ronded-bottom-hero-about" style="background-color: #F3FAF3; height: 100vh;">
     <div class="px-4 pt-5 mt-5 text-center">
       <div class="position-absolute d-none d-lg-block" style="top: 17%; right: 28%;">
         <img src="{{ asset('img/about/dots-about.png') }}" class="img-fluid" alt="Example image">
