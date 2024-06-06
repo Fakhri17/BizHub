@@ -20,6 +20,11 @@ body {
 	background-color: #fff;
 }
 
+/* p{
+	margin-bottom: 0px !important;
+	padding-bottom: 0px !important;
+} */
+
 .bg-bizhub-primary {
 	background-color: var(--primary-color);
 }

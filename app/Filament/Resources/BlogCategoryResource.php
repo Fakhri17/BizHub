@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
+use App\Policies\BlogCategoryPolicy;
+
 
 class BlogCategoryResource extends Resource
 {
@@ -22,6 +24,7 @@ class BlogCategoryResource extends Resource
     protected static ?string $navigationGroup = 'Blog';
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationIcon = 'heroicon-o-tag';
+    
 
     public static function form(Form $form): Form
     {
@@ -62,6 +65,7 @@ class BlogCategoryResource extends Resource
                     ->sortable(),
 
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
