@@ -3,7 +3,7 @@
 @section('title', 'Registrasi')
 
 @section('content')
-  <section style="height: 120vh">
+  <section class="vh-100">
     <div class="container-fluid px-5 py-4 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-6 h-100 d-none d-lg-block">
