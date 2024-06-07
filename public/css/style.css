@@ -24,7 +24,9 @@ body {
 	margin-bottom: 0px !important;
 	padding-bottom: 0px !important;
 } */
-
+.cursor-pointer {
+	cursor: pointer;
+}
 .bg-bizhub-primary {
 	background-color: var(--primary-color);
 }
