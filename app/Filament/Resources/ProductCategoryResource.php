@@ -32,7 +32,7 @@ class ProductCategoryResource extends Resource
                 TextInput::make('category_name')
                     ->required()
                     ->maxLength(255),
-                    TextInput::make('slug')
+                TextInput::make('slug')
                     ->label('Slug')
                     ->required()
                     ->unique(ignoreRecord: true)
