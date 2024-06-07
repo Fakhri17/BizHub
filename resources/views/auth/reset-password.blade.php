@@ -19,12 +19,20 @@
         </div>
       </div>
       <div class="col-12 col-lg-6 h-100 align-content-center px-lg-5">
-        <form action="" method="post">
+        <form action="{{ route('reset-password-proses') }}" method="post">
           <div class="login-header text-center">
             <h1>Reset Password</h1>
             <p class="text">Buat dan konfirmasi kata sandi baru anda agar <br/> bisa login ke BizHub</p>
           </div>
           @csrf
+          <input type="hidden" name="token" value="{{ $token }}">
+          <div class="form-email">
+            <p class="form-label">Email</p>
+            <input type="email" name="email" placeholder="Masukan alamat email" value="{{ old('email') }}">
+          </div>
+          @error('email')
+            <small class="text-danger m-2">{{ $message }}</small>
+          @enderror
           <div x-data="{ showPassword: false }" class="form-password">
             <p class="form-label">Kata Sandi</p>
             <div class="input-password">
@@ -39,12 +47,12 @@
           <div x-data="{ showPassword: false }" class="form-password">
             <p class="form-label">Konfirmasi Kata Sandi</p>
             <div class="input-password">
-              <input :type="showPassword ? 'text' : 'password'" name="password" placeholder="Konfirmasi kata sandi"
-                id="password" autocomplete="current-password">
-              <i :class="showPassword ? 'far fa-eye' : 'far fa-eye-slash'" @click="showPassword = !showPassword"></i>
+                <input :type="showPassword ? 'text' : 'password'" name="password_confirmation" placeholder="Konfirmasi kata sandi"
+                    id="password_confirmation" autocomplete="current-password">
+                <i :class="showPassword ? 'far fa-eye' : 'far fa-eye-slash'" @click="showPassword = !showPassword"></i>
             </div>
-          </div>
-          @error('password')
+        </div>
+          @error('password_confirmation')
             <small class="text-danger m-2">{{ $message }}</small>
           @enderror
           <br/>
