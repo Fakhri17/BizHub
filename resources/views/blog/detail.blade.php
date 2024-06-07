@@ -6,7 +6,7 @@
   <section class="margin-section" style="margin-bottom: 2rem;">
     <div class="container">
       <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
-        <li class="breadcrumb-item"><a href="{{ url('/blog') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ url('/blog') }}">Blog</a></li>
         <li class="breadcrumb-item active" aria-current="page"><a href="#">{{ $blog->title }}</a></li>
       </ol>

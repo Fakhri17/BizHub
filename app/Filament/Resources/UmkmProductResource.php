@@ -17,6 +17,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextArea;
+use Filament\Forms\Components\Hidden;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
@@ -46,14 +47,22 @@ class UmkmProductResource extends Resource
                 Section::make('Umkm Product Information')
                     ->columnSpan(2)
                     ->schema([
-                        Select::make('umkm_owner_id')
-                            ->label('Umkm Owner')
-                            ->default(Auth::user()->umkmOwner->id)
-                            ->disabled(),
+                        hidden::make('umkm_owner_id')
+                            ->default(auth()->user()->umkmOwner->id),
+
                         TextInput::make('product_name')
                             ->label('Product Name')
                             ->required()
                             ->placeholder('Enter the name of the product'),
+
+                        Select::make('product_category_id')
+                            ->label('Product Category')
+                            ->options(
+                                ProductCategory::all()->pluck('category_name', 'id')
+                            )
+                            ->searchable()
+                            ->required(),   
+
                         FileUpload::make('product_image')
                             ->disk('public')
                             ->directory('product-thumbnails')
@@ -63,71 +72,55 @@ class UmkmProductResource extends Resource
                             ->maxSize(1024)
                             ->imageEditor(),
 
+                        TextInput::make('product_price')
+                            ->label('Product Price')
+                            ->required()
+                            ->numeric()
+                            ->required(),
+
                         RichEditor::make('product_description')
                             ->label('Product Description')
                             ->placeholder('Enter the description of the product')
                             ->fileAttachmentsDisk('public')
-                            // ->fileAttachmentsDirectory('blog-thumbnails')
-                            ->columnSpanFull(),
-                        TextInput::make('product_price')
-                            ->label('Product Price')
-                            ->required()
-                            ->numeric(),
-                        Select::make('product_category_id')
-                            ->label('Product Category')
-                            ->options(
-                                ProductCategory::all()->pluck('category_name', 'id')
-                            )
-                            ->searchable()
+                            ->fileAttachmentsDirectory('product-thumbnails')
+                            ->columnSpanFull()
                             ->required(),
+
+                        FileUpload::make('product_gallery')
+                            ->label('Product Gallery')
+                            ->multiple()
+                            ->image()
+                            ->acceptedFileTypes(['image/*'])
+                            ->maxSize(1024)
+                            ->imageEditor(),
+                        ]),
+                        
+                Section::make('Meta')
+                    ->columnSpan(1)
+                    ->schema([
                         TextInput::make('product_location')
                             ->label('Product Location')
                             ->required()
                             ->placeholder('Enter the location of the product'),
+
                         TextInput::make('product_social_media')
                         ->label('Product Social Media'),
-                        FileUpload::make('product_gallery')
-                            ->label('Product Gallery')
-                            ->multiple()
-                            ->image(),
-                        // Display fields only for viewing, not editing
-                        TextInput::make('rating_count')
-                            ->label('Rating Count')
-                            ->numeric()
-                            ->disabled(),
-                        TextInput::make('rating_sum')
-                            ->label('Rating Sum')
-                            ->numeric()
-                            ->disabled(),
-                        TextInput::make('rating_average')
-                            ->label('Rating Average')
-                            ->numeric()
-                            ->disabled(),
-                        TextInput::make('comment_count')
-                            ->label('Comment Count')
-                            ->numeric()
-                            ->disabled(),
-                        ]),
-                
-                Section::make('Meta')
-                    ->columnSpan(1)
-                    ->schema([
-                //         TextInput::make('slug')
-                //             ->label('Slug')
-                //             ->required()
-                //             ->unique(ignoreRecord: true)
-                //             ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
-                //             ->placeholder('Enter the slug of the blog'),
+
+                        TextInput::make('slug')
+                            ->label('Slug')
+                            ->required()
+                            ->unique(ignoreRecord: true)
+                            ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
+                            ->placeholder('Enter the slug of the blog'),
+
                         Textarea::make('tags')
                             ->label('Tags')
                             ->columnSpanFull(),
-
-
+                            
                         CheckBox::make('is_published')
                             ->label('Is Published')
-                            ->required(),
+                            ->required(),           
                     ]),
-
             ])->columns(3);
 
     }
@@ -136,7 +129,8 @@ class UmkmProductResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('umkm_owner_id')
+                TextColumn::make('umkmOwner.id')
+                    ->label('Owner Id')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('product_name')
@@ -144,8 +138,7 @@ class UmkmProductResource extends Resource
                 TextColumn::make('slug')
                     ->searchable(),
                 ImageColumn::make('product_image'),
-                TextColumn::make('product_description')
-                    ->searchable(),
+                ImageColumn::make('product_gallery'),
                 TextColumn::make('product_price')
                     ->numeric()
                     ->sortable(),
@@ -156,32 +149,20 @@ class UmkmProductResource extends Resource
                     ->searchable(),
                 IconColumn::make('is_published')
                     ->boolean(),
-                TextColumn::make('rating_count')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('rating_sum')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('rating_average')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('comment_count')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Created At')
+                    ->toggleable()
+                    ->date()
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -190,14 +171,18 @@ class UmkmProductResource extends Resource
             ]);
     }
 
-    protected static function getTableQuery(): Builder
+    public static function getEloquentQuery(): Builder
     {
-        $user = Auth::user();
-        $umkmOwner = $user->umkmOwner;
-
-        return parent::getTableQuery()->where('umkm_owner_id', $umkmOwner->id);
+        $user = auth()->user();
+        
+        if ($user->hasRole('Super Admin')) {
+            return parent::getEloquentQuery();
+        } else {
+            $umkmOwnerId = $user->umkmOwner->id;
+            return parent::getEloquentQuery()->where('umkm_owner_id', $umkmOwnerId);
+        }
     }
-
+    
     public static function getRelations(): array
     {
         return [

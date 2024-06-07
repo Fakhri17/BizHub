@@ -18,4 +18,5 @@ class UmkmProductPolicy
     {
         return $user->hasRole(['Super Admin', 'UMKM Owner']);
     }
+
 }
