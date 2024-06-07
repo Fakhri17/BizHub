@@ -8,8 +8,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\BlogController;
-
-
+use App\Http\Controllers\PasswordResetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,9 +36,25 @@ Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::get('/tentang-kami', function () {
     return view('about');
 });
-Route::get('/lupa-password', [LupaPasswordController::class, 'lupaPassword'])->name('lupa-password');
-Route::get('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset-password');
+
+Route::get('lupa-password', [PasswordResetController::class, 'lupaPassword'])->name('lupa-password');
+Route::post('lupa-password', [PasswordResetController::class, 'sendPasswordResetLink'])->name('lupa-password-proses');
+Route::get('reset-password/{token}', [PasswordResetController::class, 'resetPasswordShow'])->name('reset-password');
+Route::post('reset-password', [PasswordResetController::class, 'resetPassword'])->name('reset-password-proses');
 
 
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{slug}', [BlogController::class, 'detail'])->name('blog.detail');
+Route::group(['middleware' => ['role:UMKM Owner|Super Admin']], function () {
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/blog/{slug}', [BlogController::class, 'detail'])->name('blog.detail');
+});
+
+// umkm list and detail page
+Route::middleware('auth')->group(function () {
+    Route::get('/umkm', function () {
+        return view('umkm.index');
+    })->name('umkm.index');
+
+    Route::get('/umkm/{slug}', function () {
+        return view('umkm.detail');
+    })->name('umkm.detail');
+});
