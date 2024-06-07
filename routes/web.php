@@ -42,5 +42,8 @@ Route::post('lupa-password', [PasswordResetController::class, 'sendPasswordReset
 Route::get('reset-password/{token}', [PasswordResetController::class, 'resetPasswordShow'])->name('reset-password');
 Route::post('reset-password', [PasswordResetController::class, 'resetPassword'])->name('reset-password-proses');
 
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{slug}', [BlogController::class, 'detail'])->name('blog.detail');
+
+Route::group(['middleware' => ['role:UMKM Owner|Super Admin']], function () {
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/blog/{slug}', [BlogController::class, 'detail'])->name('blog.detail');
+});
