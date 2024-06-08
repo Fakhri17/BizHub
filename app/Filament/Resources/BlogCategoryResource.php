@@ -34,6 +34,7 @@ class BlogCategoryResource extends Resource
                 TextInput::make('name')
                     ->label('Name')
                     ->required()
+                    ->maxLength(255)
                     ->placeholder('Enter the name of the category'),
                 TextInput::make('slug')
                     ->label('Slug')

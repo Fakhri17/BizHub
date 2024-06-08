@@ -29,6 +29,11 @@ use Filament\Tables\Columns\CheckboxColumn;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UmkmProductResource\Pages;
 use App\Filament\Resources\UmkmProductResource\RelationManagers;
+use Filament\Support\RawJs;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Illuminate\Support\Str;
+
 
 class UmkmProductResource extends Resource
 {
@@ -47,12 +52,21 @@ class UmkmProductResource extends Resource
                 Section::make('Umkm Product Information')
                     ->columnSpan(2)
                     ->schema([
-                        hidden::make('umkm_owner_id')
-                            ->default(auth()->user()->umkmOwner->id),
+                        Hidden::make('umkm_owner_id')
+                            ->default(auth()->user()->hasRole('Super Admin') ? null : auth()->user()->umkmOwner->id),
 
                         TextInput::make('product_name')
                             ->label('Product Name')
+                            ->live()
+                            ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                if (($get('slug') ?? '') !== Str::slug($old)) {
+                                    return;
+                                }
+
+                                $set('slug', Str::slug($state));
+                            })
                             ->required()
+                            ->maxLength(255)
                             ->placeholder('Enter the name of the product'),
 
                         Select::make('product_category_id')
@@ -61,7 +75,7 @@ class UmkmProductResource extends Resource
                                 ProductCategory::all()->pluck('category_name', 'id')
                             )
                             ->searchable()
-                            ->required(),   
+                            ->required(),
 
                         FileUpload::make('product_image')
                             ->disk('public')
@@ -74,7 +88,8 @@ class UmkmProductResource extends Resource
 
                         TextInput::make('product_price')
                             ->label('Product Price')
-                            ->required()
+                            ->mask(RawJs::make('$money($input)'))
+                            ->stripCharacters(',')
                             ->numeric()
                             ->required(),
 
@@ -93,8 +108,8 @@ class UmkmProductResource extends Resource
                             ->acceptedFileTypes(['image/*'])
                             ->maxSize(1024)
                             ->imageEditor(),
-                        ]),
-                        
+                    ]),
+
                 Section::make('Meta')
                     ->columnSpan(1)
                     ->schema([
@@ -104,7 +119,7 @@ class UmkmProductResource extends Resource
                             ->placeholder('Enter the location of the product'),
 
                         TextInput::make('product_social_media')
-                        ->label('Product Social Media'),
+                            ->label('Product Social Media'),
 
                         TextInput::make('slug')
                             ->label('Slug')
@@ -116,37 +131,37 @@ class UmkmProductResource extends Resource
                         Textarea::make('tags')
                             ->label('Tags')
                             ->columnSpanFull(),
-                            
+
                         CheckBox::make('is_published')
-                            ->label('Is Published')
-                            ->required(),           
+                            ->label('Is Published'),
+                            // ->required(),
                     ]),
             ])->columns(3);
-
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('umkmOwner.id')
-                    ->label('Owner Id')
-                    ->numeric()
-                    ->sortable(),
+                // TextColumn::make('umkmOwner.id')
+                //     ->label('Owner Id')
+                //     ->numeric()
+                //     ->sortable(),
                 TextColumn::make('product_name')
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
                 ImageColumn::make('product_image'),
-                ImageColumn::make('product_gallery'),
+                // ImageColumn::make('product_gallery'),
                 TextColumn::make('product_price')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('product_category_id')
+                TextColumn::make('productCategory.category_name')
+                    ->label('Product Category')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('product_location')
-                    ->searchable(),
+                // TextColumn::make('product_location')
+                //     ->searchable(),
                 IconColumn::make('is_published')
                     ->boolean(),
                 TextColumn::make('created_at')
@@ -156,6 +171,7 @@ class UmkmProductResource extends Resource
                     ->searchable()
                     ->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -174,7 +190,7 @@ class UmkmProductResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         $user = auth()->user();
-        
+
         if ($user->hasRole('Super Admin')) {
             return parent::getEloquentQuery();
         } else {
@@ -182,7 +198,7 @@ class UmkmProductResource extends Resource
             return parent::getEloquentQuery()->where('umkm_owner_id', $umkmOwnerId);
         }
     }
-    
+
     public static function getRelations(): array
     {
         return [

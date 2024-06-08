@@ -15,7 +15,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\Section;
 
 class ProductCategoryResource extends Resource
 {
@@ -29,26 +31,32 @@ class ProductCategoryResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('category_name')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('slug')
-                    ->label('Slug')
-                    ->required()
-                    ->unique(ignoreRecord: true)
-                    ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
-                    ->placeholder('Enter the slug of the blog'),
-                FileUpload::make('category_image')
-                    ->disk('public')
-                    ->directory('category-thumbnails')
-                    ->label('Thumbnail')
-                    ->image()
-                    ->acceptedFileTypes(['image/*'])
-                    ->maxSize(1024)
-                    ->imageEditor(),
-                TextInput::make('category_description')
-                    ->maxLength(255)
-                    ->default(null),
+                Section::make('Category Information')
+                    ->columnSpan(2)
+                    ->schema([
+                        TextInput::make('category_name')
+                            ->label('Name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('slug')
+                            ->label('Slug')
+                            ->required()
+                            ->unique(ignoreRecord: true)
+                            ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
+                            ->placeholder('Enter the slug of the blog'),
+                        FileUpload::make('category_image')
+                            ->disk('public')
+                            ->directory('product-category-thumbnails')
+                            ->label('Thumbnail')
+                            ->image()
+                            ->acceptedFileTypes(['image/*'])
+                            ->maxSize(1024)
+                            ->imageEditor(),
+                        RichEditor::make('category_description')
+                            ->maxLength(255)
+                            ->default(null),
+                    ])
+
             ]);
     }
 
@@ -72,6 +80,7 @@ class ProductCategoryResource extends Resource
                     ->sortable(),
 
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
