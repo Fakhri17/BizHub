@@ -24,7 +24,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Filament\Forms\Components\Builder as Builder;
 use Filament\Tables\Columns\CheckboxColumn;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UmkmProductResource\Pages;
@@ -33,6 +34,10 @@ use Filament\Support\RawJs;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\TagsInput;
+
+
 
 
 class UmkmProductResource extends Resource
@@ -101,13 +106,37 @@ class UmkmProductResource extends Resource
                             ->columnSpanFull()
                             ->required(),
 
-                        FileUpload::make('product_gallery')
+                        TextInput::make('product_location')
+                            ->label('Product Location')
+                            ->required()
+                            ->placeholder('Enter the location of the product'),
+
+                        Builder::make('product_gallery')
                             ->label('Product Gallery')
-                            ->multiple()
-                            ->image()
-                            ->acceptedFileTypes(['image/*'])
-                            ->maxSize(1024)
-                            ->imageEditor(),
+                            ->collapseAllAction(
+                                fn (Action $action) => $action->label('Collapse all content'),
+                            )
+                            ->blocks([
+                                Builder\Block::make('Image')
+                                    ->schema([
+                                        FileUpload::make('image')
+                                            ->label('Image')
+                                            ->image()
+                                            ->acceptedFileTypes(['image/*'])
+                                            ->maxSize(1024)
+                                            ->imageEditor(),
+                                    ]),
+                            ])
+                            ->collapsible()
+                            ->collapsed()
+                            ->collapseAllAction(
+                                fn (Action $action) => $action->label('Collapse all content'),
+                            ),
+
+                        // Builder::make('product_social_media')
+
+
+
                     ]),
 
                 Section::make('Meta')
@@ -118,8 +147,8 @@ class UmkmProductResource extends Resource
                             ->required()
                             ->placeholder('Enter the location of the product'),
 
-                        TextInput::make('product_social_media')
-                            ->label('Product Social Media'),
+                        // TextInput::make('product_social_media')
+                        //     ->label('Product Social Media'),
 
                         TextInput::make('slug')
                             ->label('Slug')
@@ -128,13 +157,38 @@ class UmkmProductResource extends Resource
                             ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
                             ->placeholder('Enter the slug of the blog'),
 
-                        Textarea::make('tags')
-                            ->label('Tags')
-                            ->columnSpanFull(),
+                        TagsInput::make('tags')
+                            ->separator(','),
+                            
+                        Builder::make('product_social_media')
+                            ->label('Product Social Media')
+
+                            ->blocks([
+                                Builder\Block::make('Social Media')
+                                    ->columns(2)
+                                    ->schema([
+                                        TextInput::make('icon')
+                                            ->label('Icon')
+                                            ->required(),
+                                        TextInput::make('platform')
+                                            ->label('Platform')
+                                            ->required(),
+                                        TextInput::make('url')
+                                            ->label('URL')
+                                            ->url()
+                                            ->columnSpanFull()
+                                            ->required(),
+                                    ]),
+                            ])
+                            ->collapsible()
+                            ->collapsed()
+                            ->collapseAllAction(
+                                fn (Action $action) => $action->label('Collapse all content'),
+                            ),
 
                         CheckBox::make('is_published')
                             ->label('Is Published'),
-                            // ->required(),
+                        // ->required(),
                     ]),
             ])->columns(3);
     }
@@ -187,7 +241,7 @@ class UmkmProductResource extends Resource
             ]);
     }
 
-    public static function getEloquentQuery(): Builder
+    public static function getEloquentQuery(): EloquentBuilder
     {
         $user = auth()->user();
 
