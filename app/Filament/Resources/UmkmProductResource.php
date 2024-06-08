@@ -47,8 +47,37 @@ class UmkmProductResource extends Resource
     protected static ?string $model = UmkmProduct::class;
 
     protected static ?string $navigationGroup = 'UMKM';
-    protected static ?string $navigationLabel = 'Umkm Product List';
+    protected static ?string $navigationLabel = 'UMKM Product List';
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
+
+    public static function getNavigationBadge(): ?string
+    {
+        $user = auth()->user();
+        if ($user->hasRole('Super Admin')) {
+            return UmkmProduct::count();
+        } else {
+            return UmkmProduct::where('umkm_owner_id', $user->umkmOwner->id)->count();
+        }
+    }
+
+    public static function getEloquentQuery(): EloquentBuilder
+    {
+        $user = auth()->user();
+
+        if ($user->hasRole('Super Admin')) {
+            return parent::getEloquentQuery();
+        } else {
+            $umkmOwnerId = $user->umkmOwner->id;
+            return parent::getEloquentQuery()->where('umkm_owner_id', $umkmOwnerId);
+        }
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
 
     public static function form(Form $form): Form
     {
@@ -170,8 +199,8 @@ class UmkmProductResource extends Resource
                                     ->columns(1)
                                     ->schema([
                                         IconPicker::make('icon')
-                                        ->sets(['tabler']),
-                                            
+                                            ->sets(['tabler']),
+
                                         TextInput::make('username')
                                             ->label('Username')
                                             ->required(),
@@ -243,24 +272,7 @@ class UmkmProductResource extends Resource
             ]);
     }
 
-    public static function getEloquentQuery(): EloquentBuilder
-    {
-        $user = auth()->user();
 
-        if ($user->hasRole('Super Admin')) {
-            return parent::getEloquentQuery();
-        } else {
-            $umkmOwnerId = $user->umkmOwner->id;
-            return parent::getEloquentQuery()->where('umkm_owner_id', $umkmOwnerId);
-        }
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {

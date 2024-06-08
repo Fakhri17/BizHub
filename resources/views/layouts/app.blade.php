@@ -8,6 +8,8 @@
   <title>@yield('title') | Bizhub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  {{-- favicon --}}
+  <link rel="icon" href="{{ URL::to('/favicon.ico') }}" type="image/x-icon">
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
@@ -67,6 +69,10 @@
               <a class="dropdown-item" href="{{ route('filament.dashboard.pages.dashboard') }}">
                 <i class="ti ti-dashboard me-2" style="font-size: 24px"></i>
                 Dashboard
+              </a>
+              <a class="dropdown-item" href="{{ route('filament.dashboard.pages.dashboard') }}">
+                <i class="ti ti-heart me-2" style="font-size: 24px"></i>
+                Favorite <span class="badge bg-red ms-5">4</span>
               </a>
               <a class="dropdown-item" href="{{ route('logout') }}">
                 <i class="ti ti-logout me-2" style="font-size: 24px"></i>

@@ -35,6 +35,11 @@ class BlogResource extends Resource
     protected static ?string $navigationLabel = 'Blog List';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return Blog::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
