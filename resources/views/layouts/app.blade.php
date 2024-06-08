@@ -68,6 +68,10 @@
                 <i class="ti ti-dashboard me-2" style="font-size: 24px"></i>
                 Dashboard
               </a>
+              <a class="dropdown-item" href="{{ route('filament.dashboard.pages.dashboard') }}">
+                <i class="ti ti-heart me-2" style="font-size: 24px"></i>
+                Favorite <span class="badge bg-red ms-5">4</span>
+              </a>
               <a class="dropdown-item" href="{{ route('logout') }}">
                 <i class="ti ti-logout me-2" style="font-size: 24px"></i>
                 Logout
