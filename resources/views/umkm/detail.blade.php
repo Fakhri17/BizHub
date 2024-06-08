@@ -16,10 +16,15 @@
           <div>
             <p class="mb-0">{{ $product->umkmOwner->user->name ?? 'null' }}</p>
           </div>
-          <span class="ms-auto border border-dark shadow-sm cursor-pointer"
-            style="display: inline-block; width: 40px; height: 40px; background-color: white; border-radius: 50%; text-align: center; line-height: 40px;">
-            <i class="ti ti-heart" style="font-size: 24px; vertical-align: middle;"></i>
-          </span>
+          @if (Auth::check())
+            <span class="cursor-pointer icons-wishlist ms-auto border border-dark shadow-sm">
+              <i class="ti ti-heart"></i>
+            </span>
+          @else
+            <a href="{{ route('login') }}" class="cursor-pointer icons-wishlist ms-auto border border-dark shadow-sm">
+              <i class="ti ti-heart"></i>
+            </a>
+          @endif
         </div>
 
 
@@ -69,7 +74,8 @@
               </div>
               <div class="mb-4">
                 <h3 class="card-title mb-2" style="font-size: 20px;">Harga</h3>
-                <p class="text-secondary" style="font-size: 16px;">Rp {{ number_format($product->product_price, 0, ',', '.') }},-</p>
+                <p class="text-secondary" style="font-size: 16px;">Rp
+                  {{ number_format($product->product_price, 0, ',', '.') }},-</p>
               </div>
               <div class="mb-4">
                 <h3 class="card-title mb-2" style="font-size: 20px;">Social Media</h3>

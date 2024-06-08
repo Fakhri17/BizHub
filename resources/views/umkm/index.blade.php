@@ -34,10 +34,15 @@
             <div class="col-12 col-md-4 mb-5">
               <div class="position-relative">
                 <div class="position-absolute end-0 m-3">
-                  <span class="cursor-pointer"
-                    style="display: inline-block; width: 40px; height: 40px; background-color: white; border-radius: 50%; text-align: center; line-height: 40px;">
-                    <i class="ti ti-heart" style="font-size: 24px; vertical-align: middle;"></i>
-                  </span>
+                  @if (Auth::check())
+                    <span class="cursor-pointer icons-wishlist">
+                      <i class="ti ti-heart"></i>
+                    </span>
+                    @else
+                    <a href="{{ route('login') }}" class="cursor-pointer icons-wishlist">
+                      <i class="ti ti-heart"></i>
+                    </a>
+                  @endif
                 </div>
                 {{-- Use the product image from storage --}}
                 <img src="{{ asset('storage/' . $product->product_image) }}" class="thumbnail-umkm rounded-3"

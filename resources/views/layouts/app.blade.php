@@ -37,10 +37,8 @@
             style="font-size: 18px;">Beranda</a>
           <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('tentang-kami') ? 'active-navbar' : '' }}"
             href="/tentang-kami" style="font-size: 18px;">Tentang Kami</a>
-          @if (Auth::check())
-            <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('umkm') ? 'active-navbar' : '' }}"
-              href="/umkm" style="font-size: 18px;">UMKM</a>
-          @endif
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('umkm') ? 'active-navbar' : '' }}"
+            href="/umkm" style="font-size: 18px;">UMKM</a>
 
           {{-- if chech role customer hidden blog --}}
           @if (Auth::check() && Auth::user()->hasRole(['UMKM Owner', 'Super Admin']))
