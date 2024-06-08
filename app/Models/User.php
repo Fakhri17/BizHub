@@ -12,8 +12,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Filament\Models\Contracts\HasAvatar;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasAvatar
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -60,6 +62,11 @@ class User extends Authenticatable
     public function user(): HasOne
     {
         return $this->hasOne(User::class);
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar_path ? asset('storage/'.$this->avatar_path) : "https://ui-avatars.com/api/?name=$this->name&color=6ABF6A&background=213764";
     }
 
     public function sendPasswordResetNotification($token)

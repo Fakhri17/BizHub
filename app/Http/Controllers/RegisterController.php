@@ -22,23 +22,24 @@ class RegisterController extends Controller
     public function register_konsumen(Request $request)
     {
         // Validate the request data
-        // $request->validate([
-        //     'username' => 'required|unique:users|min:5|max:255',
-        //     'name' => 'required|string|max:255',
-        //     'phone_number' => 'required|min:11|max:20',
-        //     'address' => 'required|string|max:255',
-        //     'email' => 'required|email|max:255|unique:users',
-        //     'password' => 'required|string|min:8|max:255',
-        // ]);
+        $request->validate([
+            'username' => 'required|unique:users|min:5|max:255',
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|min:11|max:20',
+            'address' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|string|min:8|max:255',
+        ]);
 
+        // Create a new user
         $user = User::create([
             'username' => $request->username,
             'name' => $request->name,
             'phone_number' => $request->phone_number,
-            'avatar_path' => $request->avatar_path,
+            'avatar_path' => '',
             'address' => $request->address,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($request->password)
         ]);
 
         $user->assignRole('Customer');
@@ -49,21 +50,22 @@ class RegisterController extends Controller
 
     public function register_umkm(Request $request)
     {
-        // $request->validate([
-        //     'username' => 'required|unique:users|min:5|max:255',
-        //     'name' => 'required|string|max:255',
-        //     'phone_number' => 'required|min:11|max:20',
-        //     'address' => 'required|string|max:255',
-        //     'email' => 'required|email:dns|max:255|unique:users',
-        //     'password' => 'required|string|min:8|max:255',
-        //     'npwp' => 'required|string|min:15',
-        // ]);
+        $request->validate([
+            'username' => 'required|unique:users|min:5|max:255',
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|min:11|max:20',
+            'address' => 'required|string|max:255',
+            'email' => 'required|email:dns|max:255|unique:users',
+            'password' => 'required|string|min:8|max:255',
+            'npwp' => 'required|string|min:15',
+        ]);
 
+        // create a new user
         $user = User::create([
             'username' => $request->username,
             'name' => $request->name,
             'phone_number' => $request->phone_number,
-            'avatar_path' => $request->avatar_path,
+            'avatar_path' => '',
             'address' => $request->address,
             'email' => $request->email,
             'password' => Hash::make($request->password)

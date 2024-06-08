@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UmkmProductController;
 use App\Http\Controllers\LupaPasswordController;
-use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,13 +49,11 @@ Route::group(['middleware' => ['role:UMKM Owner|Super Admin']], function () {
     Route::get('/blog/{slug}', [BlogController::class, 'detail'])->name('blog.detail');
 });
 
-// umkm list and detail page
+Route::get('/umkm', [UmkmProductController::class, 'index'])->name('umkm.index');
+Route::get('/umkm/{slug}', [UmkmProductController::class, 'detail'])->name('umkm.detail');
 Route::middleware('auth')->group(function () {
-    Route::get('/umkm', function () {
-        return view('umkm.index');
-    })->name('umkm.index');
-
-    Route::get('/umkm/{slug}', function () {
-        return view('umkm.detail');
-    })->name('umkm.detail');
+    Route::get('/umkm/product/wishlist', [UmkmProductController::class, 'wishlist'])->name('umkm.wishlist');
+    Route::post('/umkm/add/{productId}', [UmkmProductController::class, 'addToWishlist'])->name('umkm.add');
+    Route::post('/umkm/remove/{productId}', [UmkmProductController::class, 'removeFromWishlist'])->name('umkm.remove');
 });
+
