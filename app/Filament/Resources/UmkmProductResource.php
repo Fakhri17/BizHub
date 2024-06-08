@@ -36,6 +36,8 @@ use Filament\Forms\Set;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\TagsInput;
+use Guava\FilamentIconPicker\Forms\IconPicker;
+
 
 
 
@@ -159,17 +161,17 @@ class UmkmProductResource extends Resource
 
                         TagsInput::make('tags')
                             ->separator(','),
-                            
+
                         Builder::make('product_social_media')
                             ->label('Product Social Media')
 
                             ->blocks([
                                 Builder\Block::make('Social Media')
-                                    ->columns(2)
+                                    ->columns(1)
                                     ->schema([
-                                        TextInput::make('icon')
-                                            ->label('Icon')
-                                            ->required(),
+                                        IconPicker::make('icon')
+                                        ->sets(['tabler']),
+                                            
                                         TextInput::make('platform')
                                             ->label('Platform')
                                             ->required(),
