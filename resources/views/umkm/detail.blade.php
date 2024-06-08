@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Detail UMKM')
+@section('title', $product->product_name)
 
 @section('content')
   <section class="margin-section" style="margin-bottom: 2rem;">
