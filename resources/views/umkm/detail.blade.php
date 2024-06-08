@@ -11,10 +11,10 @@
         <li class="breadcrumb-item active" aria-current="page"><a href="#">UMKM TITLE</a></li>
       </ol>
       <div class="my-5">
-        <h1 class="fw-bold display-5">Nama Produk</h1>
-        <div class="d-lg-flex align-items-center">
+        <h1 class="fw-bold display-5">{{ $product->product_name }}</h1>
+        <div class="d-lg-flex align-items-center"> 
           <div>
-            <p class="mb-0">Product Owner</p>
+            <p class="mb-0">{{ $product->umkmOwner->user->name ?? 'null' }}</p>
           </div>
           <span class="ms-auto border border-dark shadow-sm cursor-pointer"
             style="display: inline-block; width: 40px; height: 40px; background-color: white; border-radius: 50%; text-align: center; line-height: 40px;">
@@ -25,38 +25,41 @@
 
       </div>
       <div id="carouselExampleIndicators" class="carousel slide">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-            aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-            aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-            aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="https://via.placeholder.com/150" class="d-block w-100" alt="https://via.placeholder.com/150"
-              style="height: 500px; object-fit:cover">
+          <div class="carousel-indicators">
+            @foreach($product->product_gallery as $index => $image)
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"
+                        aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
+            @endforeach
           </div>
-          <div class="carousel-item">
-            <img src="https://via.placeholder.com/150" class="d-block w-100" alt="https://via.placeholder.com/150"
-              style="height: 500px; object-fit:cover">
+          <div class="carousel-inner">
+              {{-- @foreach($product->product_gallery as $index => $image)
+                  <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                      <img src="{{ asset('storage/' . $image['data']['image']) }}" class="d-block w-100" alt="{{ $product->product_name }}"
+                        style="height: 500px; object-fit: cover;">
+                  </div>
+              @endforeach --}}
+              @if(!empty($product->product_gallery))
+                @foreach($product->product_gallery as $index => $image)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                        <img src="{{ asset('storage/' . $image['data']['image']) }}" class="d-block w-100" alt="{{ $product->product_name }}"
+                            style="height: 500px; object-fit: cover;">
+                    </div>
+                @endforeach
+              @elseif(!empty($product->product_image))
+                <div class="carousel-item active">
+                    <img src="{{ asset('storage/' . $product->product_image) }}" class="d-block w-100" alt="{{ $product->product_name }}"
+                        style="height: 500px; object-fit: cover;">
+                </div>
+              @endif
           </div>
-          <div class="carousel-item">
-            <img src="https://via.placeholder.com/150" class="d-block w-100" alt="https://via.placeholder.com/150"
-              style="height: 500px; object-fit:cover">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+          </button>
       </div>
     </div>
   </section>
@@ -70,14 +73,7 @@
             </div>
             <div class="card-body">
               <div class="text-secondary">
-                Ainun Cake mempersembahkan "Kue Bangkit Rasa Jahe", sebuah kue tradisional yang kaya akan cita rasa dan
-                kenangan masa lalu. Terbuat dari bahan-bahan pilihan dan berkualitas tinggi, kue bangkit ini memberikan
-                sensasi rasa jahe yang hangat dan lezat, sempurna untuk dinikmati di setiap kesempatan.
-
-                Keunggulan Produk:
-                Bahan Alami Berkualitas
-                Tekstur Lembut
-                Aroma dan Rasa Khas Jahe
+                {!! html_entity_decode( $product->product_description )!!}
               </div>
             </div>
           </div>
@@ -87,32 +83,34 @@
             <div class="card-body">
               <div class="mb-4">
                 <h3 class="card-title mb-1">Kategori</h3>
-                <p class="text-secondary">Makanan</p>
+                <p class="text-secondary">{{ $product->productCategory->category_name }}</p>
               </div>
               <div class="mb-4">
                 <h3 class="card-title mb-1">Harga</h3>
-                <p class="text-secondary">Rp 25.000,- per toples (250 gram)</p>
+                <p class="text-secondary">Rp {{ number_format($product->product_price, 0, ',', '.') }},-</p>
               </div>
-              <div class="mb-4">
-                <h3 class="card-title mb-1">Social Media</h3>
-                <ul class="list-unstyled">
-                  <li class="mb-2">
-                    <a href="#" class="btn btn-outline-dark d-inline-flex align-items-center">
-                      <i class="ti ti-brand-instagram me-2" style="font-size: 20px;"></i>
-                      ainun_cake
-                    </a>
-                  </li>
-                  <li  class="mb-2">
-                    <a href="#" class="btn btn-outline-dark">
-                      <i class="ti ti-world me-2" style="font-size: 20px;"></i>
-                      ainuncake.com
-                    </a>
-                  </li>
-                </ul>
-                
-
-              </div>
-
+                <div class="mb-4">
+                    <h3 class="card-title mb-1">Social Media</h3>
+                    <ul class="list-unstyled">
+                        @foreach($product->product_social_media as $social)
+                            @if(isset($social['type']) && $social['type'] === 'Social Media')
+                                @php
+                                    $data = $social['data'];
+                                @endphp
+                                <li class="mb-2">
+                                    <a href="{{ $data['url'] }}" class="btn btn-outline-dark d-inline-flex align-items-center">
+                                      @php
+                                        $iconClass = str_replace('tabler-', '', $data['icon']);
+                                      @endphp
+                                      <i class="ti ti-{{ $iconClass }} me-2" style="font-size: 20px;"></i>
+                                      {{-- <i class="ti ti-brand-instagram me-2" style="font-size: 20px;"></i> --}}
+                                      {{ $data['username'] }}
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
             </div>
           </div>
         </div>
