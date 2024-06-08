@@ -36,7 +36,7 @@ class UmkmProductResource extends Resource
 
     protected static ?string $navigationGroup = 'UMKM';
     protected static ?string $navigationLabel = 'Umkm Product List';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
 
     public static function form(Form $form): Form
     {

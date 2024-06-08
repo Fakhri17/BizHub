@@ -23,7 +23,7 @@ class ProductCategoryResource extends Resource
 
     protected static ?string $navigationGroup = 'UMKM';
     protected static ?int $navigationSort = 2;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
 
     public static function form(Form $form): Form
     {
@@ -64,7 +64,7 @@ class ProductCategoryResource extends Resource
                     ->label('Slug')
                     ->searchable()
                     ->sortable(),
-                ImageColumn::make('category_image'),
+                // ImageColumn::make('category_image'),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->searchable()
@@ -77,6 +77,8 @@ class ProductCategoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
