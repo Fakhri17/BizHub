@@ -54,7 +54,8 @@ class BlogResource extends Resource
                             })
                             ->label('Title')
                             ->required()
-                            ->placeholder('Enter the title of the blog'),
+                            ->placeholder('Enter the title of the blog')
+                            ->maxLength(255),
 
 
 
