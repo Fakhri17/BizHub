@@ -581,3 +581,24 @@ body {
 	color: white;
 }
 
+.icons-wishlist-remove {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background-color: #213764;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 35px;
+}
+
+.icons-wishlist-remove i {
+	font-size: 1.5rem;
+	vertical-align: middle;
+	color: white;
+}
+
+.icons-wishlist-remove:hover {
+	background-color: red;
+	color: white;
+	text-decoration: none !important;
+}

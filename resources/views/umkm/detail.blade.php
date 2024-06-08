@@ -17,9 +17,24 @@
             <p class="mb-0">{{ $product->umkmOwner->user->name ?? 'null' }}</p>
           </div>
           @if (Auth::check())
-            <span class="cursor-pointer icons-wishlist ms-auto border border-dark shadow-sm">
-              <i class="ti ti-heart"></i>
-            </span>
+            @php
+              $isFavorites = in_array($product->id, $userFavorites);
+            @endphp
+            @if ($isFavorites)
+              <form action="{{ route('umkm.remove', $product->id) }}" method="POST" class="ms-auto">
+                @csrf
+                <button type="submit" class="cursor-pointer icons-wishlist-remove ms-auto border border-dark shadow-sm">
+                  <i class="ti ti-heart"></i>
+                </button>
+              </form>
+            @else
+              <form action="{{ route('umkm.add', $product->id) }}" method="POST" class="ms-auto">
+                @csrf
+                <button type="submit" class="cursor-pointer icons-wishlist border border-dark shadow-sm">
+                  <i class="ti ti-heart"></i>
+                </button>
+              </form>
+            @endif
           @else
             <a href="{{ route('login') }}" class="cursor-pointer icons-wishlist ms-auto border border-dark shadow-sm">
               <i class="ti ti-heart"></i>
@@ -114,5 +129,28 @@
       autoPlay: 3000,
     });
   </script>
-
+  @if (session('success'))
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+          title: "Success",
+          text: "{{ session('success') }}",
+          icon: "success",
+          timer: 3000
+        });
+      });
+    </script>
+  @endif
+  @if (session('remove'))
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+          title: "Remove",
+          text: "{{ session('remove') }}",
+          icon: "error",
+          timer: 3000
+        });
+      });
+    </script>
+  @endif
 @endsection

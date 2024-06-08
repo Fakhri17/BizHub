@@ -35,14 +35,30 @@
               <div class="position-relative">
                 <div class="position-absolute end-0 m-3">
                   @if (Auth::check())
-                    <span class="cursor-pointer icons-wishlist">
-                      <i class="ti ti-heart"></i>
-                    </span>
+                    @php
+                      $isFavorites = in_array($product->id, $userFavorites);
+                    @endphp
+                    @if ($isFavorites)
+                      <form action="{{ route('umkm.remove', $product->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="cursor-pointer icons-wishlist-remove shadow-none border-0">
+                          <i class="ti ti-heart"></i>
+                        </button>
+                      </form>
                     @else
+                      <form action="{{ route('umkm.add', $product->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="cursor-pointer icons-wishlist shadow-none border-0">
+                          <i class="ti ti-heart"></i>
+                        </button>
+                      </form>
+                    @endif
+                  @else
                     <a href="{{ route('login') }}" class="cursor-pointer icons-wishlist">
                       <i class="ti ti-heart"></i>
                     </a>
                   @endif
+
                 </div>
                 {{-- Use the product image from storage --}}
                 <img src="{{ asset('storage/' . $product->product_image) }}" class="thumbnail-umkm rounded-3"
@@ -69,4 +85,31 @@
       </div>
     </div>
   </section>
+@endsection
+
+@section('scripts')
+  @if (session('success'))
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+          title: "Success",
+          text: "{{ session('success') }}",
+          icon: "success",
+          timer: 3000
+        });
+      });
+    </script>
+  @endif
+  @if (session('remove'))
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+          title: "Remove",
+          text: "{{ session('remove') }}",
+          icon: "error",
+          timer: 3000
+        });
+      });
+    </script>
+  @endif
 @endsection

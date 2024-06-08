@@ -51,14 +51,9 @@ Route::group(['middleware' => ['role:UMKM Owner|Super Admin']], function () {
 
 Route::get('/umkm', [UmkmProductController::class, 'index'])->name('umkm.index');
 Route::get('/umkm/{slug}', [UmkmProductController::class, 'detail'])->name('umkm.detail');
+Route::middleware('auth')->group(function () {
+    Route::get('/wishlist', [UmkmProductController::class, 'wishlistIndex'])->name('wishlist.index');
+    Route::post('/umkm/add/{productId}', [UmkmProductController::class, 'addToWishlist'])->name('umkm.add');
+    Route::post('/umkm/remove/{productId}', [UmkmProductController::class, 'removeFromWishlist'])->name('umkm.remove');
+});
 
-// umkm list and detail page
-// Route::middleware('auth')->group(function () {
-    
-//     // Route::get('/umkm', function () {
-//     //     return view('umkm.index');
-//     // })->name('umkm.index');
-//     // Route::get('/umkm/{slug}', function () {
-//     //     return view('umkm.detail');
-//     // })->name('umkm.detail');
-// });
