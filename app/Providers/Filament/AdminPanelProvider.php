@@ -18,6 +18,8 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use Filament\Navigation\NavigationItem;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,6 +32,11 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->colors([
                 'primary' => '#6ABF6A',
+            ])
+            ->navigationItems([
+                NavigationItem::make('Home')
+                    ->url('/', shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-link')
             ])
             ->font('Poppins')
             ->sidebarCollapsibleOnDesktop()
