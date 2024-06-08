@@ -530,3 +530,29 @@ body {
 	height: 300px;
 	object-fit: cover;
 }
+
+.carousel-main {
+	background-color: #F3FAF3;
+	/* r */
+}
+
+.carousel-cell-gallery {
+	width: 100%;
+	height: 500px;
+}
+
+.flickity-page-dots {
+  bottom: 10px;
+}
+/* white circles */
+.flickity-page-dots .dot {
+  width: 12px;
+  height: 12px;
+  opacity: 1;
+  background: transparent;
+  border: 2px solid #213764;
+}
+/* fill-in selected dot */
+.flickity-page-dots .dot.is-selected {
+  background: #213764;
+}

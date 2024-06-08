@@ -8,11 +8,11 @@
       <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ url('/umkm') }}">UMKM</a></li>
-        <li class="breadcrumb-item active" aria-current="page"><a href="#">UMKM TITLE</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="#">{{ $product->product_name }}</a></li>
       </ol>
       <div class="my-5">
         <h1 class="fw-bold display-5">{{ $product->product_name }}</h1>
-        <div class="d-lg-flex align-items-center"> 
+        <div class="d-lg-flex align-items-center">
           <div>
             <p class="mb-0">{{ $product->umkmOwner->user->name ?? 'null' }}</p>
           </div>
@@ -24,43 +24,22 @@
 
 
       </div>
-      <div id="carouselExampleIndicators" class="carousel slide">
-          <div class="carousel-indicators">
-            @foreach($product->product_gallery as $index => $image)
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"
-                        aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
-            @endforeach
-          </div>
-          <div class="carousel-inner">
-              {{-- @foreach($product->product_gallery as $index => $image)
-                  <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                      <img src="{{ asset('storage/' . $image['data']['image']) }}" class="d-block w-100" alt="{{ $product->product_name }}"
-                        style="height: 500px; object-fit: cover;">
-                  </div>
-              @endforeach --}}
-              @if(!empty($product->product_gallery))
-                @foreach($product->product_gallery as $index => $image)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                        <img src="{{ asset('storage/' . $image['data']['image']) }}" class="d-block w-100" alt="{{ $product->product_name }}"
-                            style="height: 500px; object-fit: cover;">
-                    </div>
-                @endforeach
-              @elseif(!empty($product->product_image))
-                <div class="carousel-item active">
-                    <img src="{{ asset('storage/' . $product->product_image) }}" class="d-block w-100" alt="{{ $product->product_name }}"
-                        style="height: 500px; object-fit: cover;">
-                </div>
-              @endif
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-          </button>
-      </div>
+      @if (!empty($product->product_gallery))
+        <div class="carousel-main shadow">
+          @foreach ($product->product_gallery as $index => $image)
+            <div class="carousel-cell-gallery">
+              <img class="img-fluid d-block mx-auto" src="{{ asset('storage/' . $image['data']['image']) }}" />
+            </div>
+          @endforeach
+        </div>
+      @else
+        {{-- only thumbnail --}}
+        <div class="">
+          <img class="img-fluid d-block mx-auto" src="{{ asset('storage/' . $product->product_image) }}" />
+        </div>
+      @endif
+
+
     </div>
   </section>
   <section class="my-5">
@@ -69,11 +48,11 @@
         <div class="col-12 col-md-7">
           <div class="card rounded-3 shadow-sm">
             <div class="card-header">
-              <h3 class="card-title fw-bold">Deskripsi UMKM</h3>
+              <h3 class="card-title fw-bold" style="font-size: 20px;">Deskripsi UMKM</h3>
             </div>
             <div class="card-body">
               <div class="text-secondary">
-                {!! html_entity_decode( $product->product_description )!!}
+                {!! html_entity_decode($product->product_description) !!}
               </div>
             </div>
           </div>
@@ -82,39 +61,52 @@
           <div class="card rounded-3 shadow-sm">
             <div class="card-body">
               <div class="mb-4">
-                <h3 class="card-title mb-1">Kategori</h3>
-                <p class="text-secondary">{{ $product->productCategory->category_name }}</p>
+                <h3 class="card-title mb-2" style="font-size: 20px;">Kategori</h3>
+                <a href="{{ url('/umkm?product_category=' . $product->productCategory->slug) }}"
+                  class="text-bizhub-secondary" style="font-size: 16px;">
+                  <i class="ti ti-tag pe-1"></i>{{ $product->productCategory->category_name }}
+                </a>
               </div>
               <div class="mb-4">
-                <h3 class="card-title mb-1">Harga</h3>
-                <p class="text-secondary">Rp {{ number_format($product->product_price, 0, ',', '.') }},-</p>
+                <h3 class="card-title mb-2" style="font-size: 20px;">Harga</h3>
+                <p class="text-secondary" style="font-size: 16px;">Rp {{ number_format($product->product_price, 0, ',', '.') }},-</p>
               </div>
-                <div class="mb-4">
-                    <h3 class="card-title mb-1">Social Media</h3>
-                    <ul class="list-unstyled">
-                        @foreach($product->product_social_media as $social)
-                            @if(isset($social['type']) && $social['type'] === 'Social Media')
-                                @php
-                                    $data = $social['data'];
-                                @endphp
-                                <li class="mb-2">
-                                    <a href="{{ $data['url'] }}" class="btn btn-outline-dark d-inline-flex align-items-center">
-                                      @php
-                                        $iconClass = str_replace('tabler-', '', $data['icon']);
-                                      @endphp
-                                      <i class="ti ti-{{ $iconClass }} me-2" style="font-size: 20px;"></i>
-                                      {{-- <i class="ti ti-brand-instagram me-2" style="font-size: 20px;"></i> --}}
-                                      {{ $data['username'] }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </div>
+              <div class="mb-4">
+                <h3 class="card-title mb-2" style="font-size: 20px;">Social Media</h3>
+                <ul class="list-unstyled">
+                  @foreach ($product->product_social_media as $social)
+                    @if (isset($social['type']) && $social['type'] === 'Social Media')
+                      @php
+                        $data = $social['data'];
+                      @endphp
+                      <li class="mb-2">
+                        <a href="{{ $data['url'] }}" class="btn btn-outline-dark d-inline-flex align-items-center">
+                          @php
+                            $iconClass = str_replace('tabler-', '', $data['icon']);
+                          @endphp
+                          <i class="ti ti-{{ $iconClass }} me-2" style="font-size: 20px;"></i>
+                          {{-- <i class="ti ti-brand-instagram me-2" style="font-size: 20px;"></i> --}}
+                          {{ $data['username'] }}
+                        </a>
+                      </li>
+                    @endif
+                  @endforeach
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+@endsection
+
+@section('scripts')
+  <script>
+    const flkty = new Flickity('.carousel-main', {
+      wrapAround: true,
+      autoPlay: 3000,
+    });
+  </script>
+
 @endsection
