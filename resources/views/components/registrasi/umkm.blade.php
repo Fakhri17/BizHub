@@ -34,7 +34,7 @@
           </div>
         </div>
           <small class="text-danger m-2" x-text="errors.password"></small>
-          <input type="hidden" name="avatar_path" value=" ' ' ">
+          {{-- <input type="hidden" name="avatar_path" value=" ' ' "> --}}
 
       </div>
     </div>

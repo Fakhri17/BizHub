@@ -52,7 +52,31 @@ class UmkmProductResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return UmkmProduct::count();
+        $user = auth()->user();
+        if ($user->hasRole('Super Admin')) {
+            return UmkmProduct::count();
+        } else {
+            return UmkmProduct::where('umkm_owner_id', $user->umkmOwner->id)->count();
+        }
+    }
+
+    public static function getEloquentQuery(): EloquentBuilder
+    {
+        $user = auth()->user();
+
+        if ($user->hasRole('Super Admin')) {
+            return parent::getEloquentQuery();
+        } else {
+            $umkmOwnerId = $user->umkmOwner->id;
+            return parent::getEloquentQuery()->where('umkm_owner_id', $umkmOwnerId);
+        }
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function form(Form $form): Form
@@ -175,8 +199,8 @@ class UmkmProductResource extends Resource
                                     ->columns(1)
                                     ->schema([
                                         IconPicker::make('icon')
-                                        ->sets(['tabler']),
-                                            
+                                            ->sets(['tabler']),
+
                                         TextInput::make('username')
                                             ->label('Username')
                                             ->required(),
@@ -248,24 +272,7 @@ class UmkmProductResource extends Resource
             ]);
     }
 
-    public static function getEloquentQuery(): EloquentBuilder
-    {
-        $user = auth()->user();
 
-        if ($user->hasRole('Super Admin')) {
-            return parent::getEloquentQuery();
-        } else {
-            $umkmOwnerId = $user->umkmOwner->id;
-            return parent::getEloquentQuery()->where('umkm_owner_id', $umkmOwnerId);
-        }
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {

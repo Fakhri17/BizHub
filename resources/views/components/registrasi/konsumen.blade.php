@@ -48,7 +48,7 @@
       <input type="text" name="address" placeholder="Masukan alamat" x-model="form.address" x-on:blur="validateField('address')">
     </div>
       <small class="text-danger m-2" x-text="errors.address"></small>
-      <input type="hidden" name="avatar_path" value=" ' ' ">
+      {{-- <input type="hidden" name="avatar_path" value=" ' ' "> --}}
 
     <div class="form-button">
       <button type="submit">Daftar</button>
