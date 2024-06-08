@@ -172,8 +172,8 @@ class UmkmProductResource extends Resource
                                         IconPicker::make('icon')
                                         ->sets(['tabler']),
                                             
-                                        TextInput::make('platform')
-                                            ->label('Platform')
+                                        TextInput::make('username')
+                                            ->label('Username')
                                             ->required(),
                                         TextInput::make('url')
                                             ->label('URL')

@@ -53,7 +53,7 @@ class UmkmProduct extends Model
         return collect($this->product_social_media)->map(function ($socialMedia) {
             return [
                 'icon' => $socialMedia['icon'], // 'fab fa-instagram
-                'name' => $socialMedia['name'],
+                'username' => $socialMedia['username'],
                 'url' => $socialMedia['url'],
             ];
         });
