@@ -15,6 +15,6 @@ class ProductCategoryPolicy
     }
     public function viewAny(User $user): bool
     {
-        return $user->hasRole(['Super Admin', 'UMKM Owner']);
+        return $user->hasRole(['Super Admin']);
     }
 }
