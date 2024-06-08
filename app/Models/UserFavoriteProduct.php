@@ -9,10 +9,7 @@ class UserFavoriteProduct extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'umkm_product_id',
-    ];
+    protected $fillable = ['user_id', 'umkm_product_id', 'is_favorite'];
 
     protected $casts = [
         'user_id' => 'integer',
