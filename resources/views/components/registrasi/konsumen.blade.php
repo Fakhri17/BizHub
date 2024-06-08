@@ -35,25 +35,31 @@
         </div>
         <small class="text-danger m-2" x-text="errors.password"></small>
       </div>
+      <div class="col-12 col-md-6">
+        <div class="form-no-telp">
+          <p class="form-label">Nomor Telepon</p>
+          <input type="text" name="phone_number" placeholder="Masukan no telephone" x-model="form.phone_number"
+            x-on:blur="validateField('phone_number')">
+        </div>
+        <small class="text-danger m-2" x-text="errors.phone_number"></small>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-address">
+          <p class="form-label">Alamat</p>
+          <input type="text" name="address" placeholder="Masukan alamat" x-model="form.address"
+            x-on:blur="validateField('address')">
+        </div>
+        <small class="text-danger m-2" x-text="errors.address"></small>
+      </div>
     </div>
 
 
-    <div class="form-no-telp">
-      <p class="form-label">Nomor Telepon</p>
-      <input type="number" name="phone_number" placeholder="Masukan no telephone" x-model="form.phone_number" x-on:blur="validateField('phone_number')">
-    </div>
-      <small class="text-danger m-2" x-text="errors.phone_number"></small>
-    <div class="form-address">
-      <p class="form-label">Alamat</p>
-      <input type="text" name="address" placeholder="Masukan alamat" x-model="form.address" x-on:blur="validateField('address')">
-    </div>
-      <small class="text-danger m-2" x-text="errors.address"></small>
       {{-- <input type="hidden" name="avatar_path" value=" ' ' "> --}}
 
     <div class="form-button">
       <button type="submit">Daftar</button>
     </div>
     </form>
-    <div x-show="submitSuccess" class="text-success">Form submitted successfully!</div>
-    <div x-show="submitError" class="text-danger">Please fix the errors in the form.</div>
+    {{-- <div x-show="submitSuccess" class="text-success">Form submitted successfully!</div>
+    <div x-show="submitError" class="text-danger">Please fix the errors in the form.</div> --}}
 </div>
