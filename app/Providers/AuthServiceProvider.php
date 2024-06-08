@@ -38,7 +38,6 @@ class AuthServiceProvider extends ServiceProvider
         Permission::class => PermissionPolicy::class,
         ProductCategory::class => ProductCategoryPolicy::class,
         UmkmProduct::class => UmkmProductPolicy::class,
-        UmkmOwner::class => UmkmOwnerPolicy::class,
     ];
 
     /**

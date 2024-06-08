@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="col-12 col-lg-6 h-100 align-content-center px-lg-5">
-        <form action="" method="post">
+        <form action="{{ route('lupa-password-proses') }}" method="post">
           <div class="login-header text-center">
             <h1>Lupa Password?</h1>
             <p class="text">Masukan email BizHub anda agar kami dapat <br/> mengirimkan link reset password</p>
@@ -42,5 +42,56 @@
   </div>
 </div>
 
+@if (session('success'))
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+      title: "Success",
+      text: "{{ session('success') }}",
+      icon: "success",
+      timer: 3000
+    });
+    });
+  </script>
+@endif
+
+@if (session('failed'))
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+      title: "Error",
+      text: "{{ session('failed') }}",
+      icon: "error",
+      timer: 3000
+    });
+    });
+  </script>
+@endif
+
+@if (session('status'))
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+      title: "Success",
+      text: "{{ session('status') }}",
+      icon: "success",
+      timer: 3000
+    });
+    });
+  </script>
+@endif
+
+@if (session('email'))
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+      title: "Error",
+      text: "{{ session('status') }}",
+      icon: "error",
+      timer: 3000
+    });
+    });
+  </script>
+@endif
 
 @endsection

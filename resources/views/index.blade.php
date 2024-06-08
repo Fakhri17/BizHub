@@ -15,14 +15,17 @@
         </h1>
         <p class="mt-4" style="font-size: 18px">Temukan berbagai macam produk UMKM hanya di BizHub!</p>
       </div>
-      <div class="input-search-umkm">
-        <div class="input-group shadow-lg rounded-5">
-          <input type="text" class="form-control form-control-lg" placeholder="Cari UMKM" autocomplete="off" />
-          <span class="input-group-text bg-bizhub-primary text-white">
-            <i class="ti ti-search" style="font-size: 20px;"></i>
-          </span>
+      <form method="GET" action="{{ route('umkm.index') }}">
+        <div class="input-search-umkm">
+          <div class="input-group shadow-lg rounded-5">
+            <input type="text" name="search_product" class="form-control form-control-lg" placeholder="Cari UMKM" autocomplete="off" />
+            <button type="submit" class="input-group-text bg-bizhub-primary text-white">
+              <i class="ti ti-search" style="font-size: 20px;"></i>
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
+      
 
     </div>
     <div class="col-lg-6 px-0">

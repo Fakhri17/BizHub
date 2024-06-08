@@ -35,6 +35,11 @@ class BlogResource extends Resource
     protected static ?string $navigationLabel = 'Blog List';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return Blog::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -54,7 +59,8 @@ class BlogResource extends Resource
                             })
                             ->label('Title')
                             ->required()
-                            ->placeholder('Enter the title of the blog'),
+                            ->placeholder('Enter the title of the blog')
+                            ->maxLength(255),
 
 
 

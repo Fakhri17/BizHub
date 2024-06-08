@@ -15,11 +15,9 @@ class RegisterController extends Controller
     {
         if (Auth::check()) {
             return redirect('/');
-        }
-        else {
+        } else {
             return view('auth.register');
         }
-
     }
     public function register_konsumen(Request $request)
     {
@@ -33,13 +31,15 @@ class RegisterController extends Controller
             'password' => 'required|string|min:8|max:255',
         ]);
 
+        // Create a new user
         $user = User::create([
             'username' => $request->username,
             'name' => $request->name,
             'phone_number' => $request->phone_number,
+            'avatar_path' => '',
             'address' => $request->address,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($request->password)
         ]);
 
         $user->assignRole('Customer');
@@ -60,10 +60,12 @@ class RegisterController extends Controller
             'npwp' => 'required|string|min:15',
         ]);
 
+        // create a new user
         $user = User::create([
             'username' => $request->username,
             'name' => $request->name,
             'phone_number' => $request->phone_number,
+            'avatar_path' => '',
             'address' => $request->address,
             'email' => $request->email,
             'password' => Hash::make($request->password)
@@ -77,6 +79,5 @@ class RegisterController extends Controller
         ]);
 
         return redirect()->route('login')->with('success', 'Registrasi Berhasil.');
-
     }
 }
