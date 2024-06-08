@@ -47,8 +47,13 @@ class UmkmProductResource extends Resource
     protected static ?string $model = UmkmProduct::class;
 
     protected static ?string $navigationGroup = 'UMKM';
-    protected static ?string $navigationLabel = 'Umkm Product List';
+    protected static ?string $navigationLabel = 'UMKM Product List';
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return UmkmProduct::count();
+    }
 
     public static function form(Form $form): Form
     {
