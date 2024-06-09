@@ -69,9 +69,9 @@
                 <i class="ti ti-dashboard me-2" style="font-size: 24px"></i>
                 Dashboard
               </a>
-              <a class="dropdown-item" href="{{ route('filament.dashboard.pages.dashboard') }}">
+              <a class="dropdown-item" href="{{ url("umkm/product/wishlist")}}">
                 <i class="ti ti-heart me-2" style="font-size: 24px"></i>
-                Favorite <span class="badge bg-red ms-5">4</span>
+                Wishlist <span class="badge bg-red ms-5">{{ $wishlistCount ?? 0 }}</span>
               </a>
               <a class="dropdown-item" href="{{ route('logout') }}">
                 <i class="ti ti-logout me-2" style="font-size: 24px"></i>

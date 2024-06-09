@@ -56,11 +56,15 @@ class UmkmProductController extends Controller
         // return view('umkm.detail', compact('product'));
     }
 
-    public function wishlistIndex()
+    public function wishlist()
     {
-
-        $wishlist = UserFavoriteProduct::where('user_id', Auth::id())->where('is_favorite', true)->get();
-        return view('wishlist.index', compact('wishlist'));
+        $userFavorites = UserFavoriteProduct::where('user_id', Auth::id())
+            ->where('is_favorite', true)
+            ->pluck('umkm_product_id')
+            ->toArray();
+    
+        $wishlist = UmkmProduct::whereIn('id', $userFavorites)->get();
+        return view('umkm.wishlist', compact('wishlist', 'userFavorites'));
     }
 
     public function addToWishlist($productId)
