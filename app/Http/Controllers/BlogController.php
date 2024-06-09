@@ -38,6 +38,7 @@ class BlogController extends Controller
             ->where('blog_category_id', $blog->blog_category_id)
             ->where('id', '!=', $blog->id)
             ->limit(3)
+            ->orderBy('created_at', 'desc')
             ->get();
         return view('blog.detail', compact('blog', 'relatedBlogs'));
     }
