@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
-use App\Http\Controllers\RegisterController;
+// use App\Http\Controllers\LoginController;
+// use App\Http\Controllers\LogoutController;
+// use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UmkmProductController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\PasswordResetController;
@@ -30,12 +31,12 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
 // Route::get('/login', [LoginController::class, 'index']);
-Route::get('/register', [RegisterController::class, 'register'])->name('register');
-Route::post('/register-konsumen', [RegisterController::class, 'register_konsumen'])->name('register-konsumen');
-Route::post('/register-umkm', [RegisterController::class, 'register_umkm'])->name('register-umkm');
-Route::get('/login', [LoginController::class, 'login'])->name('login');
-Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
-Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('/register-konsumen', [AuthController::class, 'register_konsumen'])->name('auth.register-konsumen');
+Route::post('/register-umkm', [AuthController::class, 'register_umkm'])->name('auth.register-umkm');
+Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/login-proses', [AuthController::class, 'login_proses'])->name('auth.login-proses');
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/tentang-kami', function () {
     return view('about');
 });

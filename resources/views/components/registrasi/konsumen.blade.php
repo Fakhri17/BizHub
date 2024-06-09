@@ -1,6 +1,6 @@
 <div x-data="formValidationKonsumen()">
   <p class="text-center">Selamat datang, anda mendaftar sebagai Konsumen</p>
-  <form action="{{ route('register-konsumen') }}" method="post" x-on:submit.prevent="submit" x-ref="form">
+  <form action="{{ route('auth.register-konsumen') }}" method="post" x-on:submit.prevent="submit" x-ref="form">
     @csrf
     <div class="row align-items-center">
       <div class="col-12 col-md-6">
