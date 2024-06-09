@@ -77,8 +77,13 @@
           @endforeach
         </div>
       </div>
-      <div class="my-4">
-        {{ $products->links('components.paginate') }}
+      <div class="my-4 row align-items-center">
+        <div class="col">
+          <div>Menampilkan {{ $products->count() }} dari {{ $products->total() }} produk</div>
+        </div>
+        <div class="col-auto">
+          {{ $products->links('components.paginate') }}
+        </div>
       </div>
     </div>
   </section>

@@ -76,7 +76,7 @@ class UmkmProductController extends Controller
             ->pluck('umkm_product_id')
             ->toArray();
 
-        $wishlist = UmkmProduct::whereIn('id', $userFavorites)->get();
+        $wishlist = UmkmProduct::whereIn('id', $userFavorites)->paginate(6);
         return view('umkm.wishlist', compact('wishlist', 'userFavorites'));
     }
 
