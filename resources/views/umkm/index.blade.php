@@ -5,6 +5,42 @@
 @section('content')
   <section class="margin-section mb-0 pt-5">
     <div class="container">
+
+      <div class="page-header mb-4">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center">
+              <select class="w-50" id="select-beast" placeholder="Cari Berdasarkan Kategori..."
+                autocomplete="off">
+                @if (!$productCategorySlug)
+                  <option value="" selected>Pilih Kategori</option>
+                @endif
+                @foreach ($productCategories as $item)
+                  <option value="{{ $item->slug }}" {{ $productCategorySlug === $item->slug ? 'selected' : '' }}>
+                    {{ $item->category_name }}
+                  </option>
+                @endforeach
+              </select>
+              @if ($productCategorySlug)
+                <a href="{{ route('umkm.index') }}" class="btn btn-outline-danger ms-2 ms-md-3">Reset</a>
+              @endif
+            </div>
+          </div>
+          <div class="col-12 col-md-6 mt-3 mt-md-0">
+            <form method="GET" action="{{ route('umkm.index') }}">
+              <div class="input-group shadow-sm rounded-5">
+                <input type="text" name="search_product" class="form-control form-control-lg" placeholder="Cari UMKM"
+                  autocomplete="off" />
+                <button type="submit" class="input-group-text bg-bizhub-primary text-white">
+                  <i class="ti ti-search" style="font-size: 20px;"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
       <h1 class="display-6"><span class="fw-bold">Daftar UMKM</span><span> ({{ $products->total() }})</span></h1>
       <div class="mt-5">
         @if ($search)
@@ -19,11 +55,11 @@
         @endif
         @if ($productCategorySlug)
           <div class="alert alert-info mb-5 shadow">
-            Menampilkan blog dengan kategori: <strong>{{ $productCategorySlug }}</strong>
+            Menampilkan Produk UMKM dengan kategori: <strong>{{ $productCategorySlug }}</strong>
           </div>
           @if ($products->isEmpty())
             <div class="alert alert-danger mb-5 shadow">
-              Tidak ada blog dengan kategori tersebut
+              Tidak ada Produk UMKM dengan kategori tersebut
             </div>
           @endif
         @endif
@@ -114,4 +150,26 @@
       });
     </script>
   @endif
+  <script>
+    new TomSelect("#select-beast", {
+      create: true,
+      sortField: {
+        field: "text",
+        direction: "asc"
+      }
+    });
+    document.getElementById('select-beast').addEventListener('change', function() {
+      // Get the selected option value
+      var selectedOption = this.value;
+
+      // If an option is selected
+      if (selectedOption) {
+        // Construct the URL
+        var url = 'https://bizhub.test/umkm?product_category=' + selectedOption;
+
+        // Redirect to the constructed URL
+        window.location.href = url;
+      }
+    });
+  </script>
 @endsection

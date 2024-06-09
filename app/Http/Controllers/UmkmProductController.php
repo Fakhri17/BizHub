@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\UserFavoriteProduct;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
+use App\Models\ProductCategory;
+
 
 class UmkmProductController extends Controller
 {
@@ -37,8 +39,10 @@ class UmkmProductController extends Controller
 
         $products = $products->paginate(6);
 
+        $productCategories = ProductCategory::all();
+
         // Pass the products data to the view
-        return view('umkm.index', compact('products', 'search', 'productCategorySlug', 'userFavorites'));
+        return view('umkm.index', compact('products', 'search', 'productCategorySlug', 'userFavorites', 'productCategories'));
     }
 
     public function detail($slug)
