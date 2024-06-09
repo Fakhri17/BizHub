@@ -14,7 +14,7 @@
         <h1 class="fw-bold display-5">{{ $product->product_name }}</h1>
         <div class="d-lg-flex align-items-center">
           <div>
-            <p class="mb-0">{{ $product->umkmOwner->user->name ?? 'null' }}</p>
+            <p class="mb-0" style="font-size: 16px;">{{ $product->umkmOwner->user->name ?? 'No Info'}}</p>
           </div>
           @if (Auth::check())
             @php
@@ -158,6 +158,14 @@
               </form>
             </div> --}}
           @endforeach
+          <div class="my-4 row align-items-center">
+            <div class="col">
+              <div>Menampilkan {{ $comments->count() }} dari {{ $comments->total() }} ulasan</div>
+            </div>
+            <div class="col-auto">
+              {{ $comments->links('components.paginate') }}
+            </div>
+          </div>
         </div>
         <div id="comentsForm">
           <h2 class="mb-4" style="font-size: 30px;">Berikan Ulasan</h2>
