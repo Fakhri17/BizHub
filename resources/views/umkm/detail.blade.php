@@ -120,6 +120,34 @@
       </div>
     </div>
   </section>
+  <section class="my-5">
+    <div class="container">
+      <div id="comments">
+        <h2>Comments</h2>
+        <form action="{{ route('comments.store') }}" method="POST">
+          @csrf
+          <textarea name="comment_text" placeholder="Write your comment"></textarea>
+          <input type="hidden" name="product_id" value="{{ $product->id }}">
+          <button type="submit">Submit</button>
+        </form>
+        <div id="commentsList">
+          @foreach ($comments as $comment)
+            <div class="comment">
+              <img class="avatar"
+                src="{{ $comment->user->avatar_path ? asset('storage/' . $comment->user->avatar_path) : 'https://via.placeholder.com/150' }}"
+                alt="{{ $comment->user->name }}">
+              <strong>{{ $comment->user->name }}</strong>
+              <p>{{ $comment->comment_text }}</p>
+              {{-- <form action="{{ route('comments.like', $comment->id) }}" method="POST">
+                @csrf
+                <button type="submit">Like ({{ $comment->likes_count }})</button>
+              </form> --}}
+            </div>
+          @endforeach
+        </div>
+      </div>
+    </div>
+  </section>
 @endsection
 
 @section('scripts')

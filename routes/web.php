@@ -10,6 +10,7 @@ use App\Http\Controllers\UmkmProductController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,8 +53,11 @@ Route::group(['middleware' => ['role:UMKM Owner|Super Admin']], function () {
 Route::get('/umkm', [UmkmProductController::class, 'index'])->name('umkm.index');
 Route::get('/umkm/{slug}', [UmkmProductController::class, 'detail'])->name('umkm.detail');
 Route::middleware('auth')->group(function () {
+    
     Route::get('/umkm/product/wishlist', [UmkmProductController::class, 'wishlist'])->name('umkm.wishlist');
     Route::post('/umkm/add/{productId}', [UmkmProductController::class, 'addToWishlist'])->name('umkm.add');
     Route::post('/umkm/remove/{productId}', [UmkmProductController::class, 'removeFromWishlist'])->name('umkm.remove');
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('/comments/{id}/like', [CommentController::class, 'like'])->name('comments.like');
 });
 

@@ -73,4 +73,9 @@ class User extends Authenticatable implements HasAvatar
     {
         $this->notify(new CustomLupaPassword($token));
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\UmkmProduct;
 use Illuminate\Http\Request;
 use App\Models\UserFavoriteProduct;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
 
 class UmkmProductController extends Controller
 {
@@ -44,11 +45,19 @@ class UmkmProductController extends Controller
     {
 
         $product = UmkmProduct::where('slug', $slug)->firstOrFail();
+        
         $userFavorites = UserFavoriteProduct::where('user_id', Auth::id())
             ->where('is_favorite', true)
             ->pluck('umkm_product_id')
             ->toArray();
-        return view('umkm.detail', compact('product', 'userFavorites'));
+
+        $comments = Comment::where('umkm_product_id', $product->id)
+            ->whereNull('parent_id')
+            ->with('replies.user', 'user')
+            ->get();
+
+
+        return view('umkm.detail', compact('product', 'userFavorites', 'comments'));
         // // Retrieve the product by slug with related owner and user
         // $product = UmkmProduct::with(['umkmOwner.user', 'productCategory'])->where('slug', $slug)->firstOrFail();
 
@@ -62,7 +71,7 @@ class UmkmProductController extends Controller
             ->where('is_favorite', true)
             ->pluck('umkm_product_id')
             ->toArray();
-    
+
         $wishlist = UmkmProduct::whereIn('id', $userFavorites)->get();
         return view('umkm.wishlist', compact('wishlist', 'userFavorites'));
     }
