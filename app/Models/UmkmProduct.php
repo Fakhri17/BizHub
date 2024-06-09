@@ -75,4 +75,9 @@ class UmkmProduct extends Model
     {
         $this->attributes['product_gallery'] = json_encode($value);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

@@ -7,11 +7,11 @@
     <div class="container">
       <h1 class="display-6"><span class="fw-bold">Daftar Wishlist</span><span> ({{ $wishlist->count() }})</span></h1>
       @if ($wishlist->isEmpty())
-      <div class="my-5">
-        <div class="alert alert-info shadow">
-          Wishlist is empty
+        <div class="my-5">
+          <div class="alert alert-info shadow">
+            Wishlist is empty
+          </div>
         </div>
-      </div>
       @else
         <div class="my-4">
           <div class="row">
@@ -66,6 +66,14 @@
                 </div>
               </div>
             @endforeach
+          </div>
+        </div>
+        <div class="my-4 row align-items-center">
+          <div class="col">
+            <div>Menampilkan {{ $wishlist->count() }} dari {{ $wishlist->total() }} produk</div>
+          </div>
+          <div class="col-auto">
+            {{ $wishlist->links('components.paginate') }}
           </div>
         </div>
       @endif

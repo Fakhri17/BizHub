@@ -6,6 +6,9 @@ use App\Models\UmkmProduct;
 use Illuminate\Http\Request;
 use App\Models\UserFavoriteProduct;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
+use App\Models\ProductCategory;
+
 
 class UmkmProductController extends Controller
 {
@@ -36,19 +39,33 @@ class UmkmProductController extends Controller
 
         $products = $products->paginate(6);
 
+        $productCategories = ProductCategory::all();
+
         // Pass the products data to the view
-        return view('umkm.index', compact('products', 'search', 'productCategorySlug', 'userFavorites'));
+        return view('umkm.index', compact('products', 'search', 'productCategorySlug', 'userFavorites', 'productCategories'));
     }
 
     public function detail($slug)
     {
 
         $product = UmkmProduct::where('slug', $slug)->firstOrFail();
+
         $userFavorites = UserFavoriteProduct::where('user_id', Auth::id())
             ->where('is_favorite', true)
             ->pluck('umkm_product_id')
             ->toArray();
-        return view('umkm.detail', compact('product', 'userFavorites'));
+
+        $commentsQuery = Comment::where('umkm_product_id', $product->id)
+            ->whereNull('parent_id')
+            ->orderBy('created_at', 'desc')
+            ->with('replies.user', 'user');
+
+        // Paginate the query results
+        $comments = $commentsQuery->paginate(5);
+
+
+
+        return view('umkm.detail', compact('product', 'userFavorites', 'comments'));
         // // Retrieve the product by slug with related owner and user
         // $product = UmkmProduct::with(['umkmOwner.user', 'productCategory'])->where('slug', $slug)->firstOrFail();
 
@@ -62,8 +79,8 @@ class UmkmProductController extends Controller
             ->where('is_favorite', true)
             ->pluck('umkm_product_id')
             ->toArray();
-    
-        $wishlist = UmkmProduct::whereIn('id', $userFavorites)->get();
+
+        $wishlist = UmkmProduct::whereIn('id', $userFavorites)->paginate(6);
         return view('umkm.wishlist', compact('wishlist', 'userFavorites'));
     }
 
