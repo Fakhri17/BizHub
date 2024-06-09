@@ -44,7 +44,7 @@
         <div class="col-12 col-md-4">
           <h2 class="fw-bold mb-3" style="font-size: 24px;">Blog Terkait</h2>
           @foreach ($relatedBlogs as $item)
-            <div class="card mb-5 border-0">
+            <div class="card mb-3 border-0">
               <!-- Photo -->
               <a href="{{ 'blog/' . $item->slug }}" class="mb-3">
                 @php
@@ -68,9 +68,9 @@
               </div>
               <div class="card-body px-0 py-3">
                 <a href="" class="text-dark">
-                  <h2 class="card-title fw-bold">{{ $blog->title }}</h2>
+                  <h2 class="card-title fw-bold">{{ $item->title }}</h2>
                 </a>
-                
+
                 <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit
                   incidunt, iste, itaque minima
                   neque pariatur perferendis sed suscipit velit vitae voluptatem.</p>

@@ -47,9 +47,17 @@ class UmkmProductResource extends Resource
     protected static ?string $model = UmkmProduct::class;
 
     protected static ?string $navigationGroup = 'UMKM';
-    protected static ?string $navigationLabel = 'UMKM Product List';
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
 
+    public static function getNavigationLabel(): string
+    {
+        $user = auth()->user();
+        if ($user->hasRole('Super Admin')) {
+            return 'UMKM Product List';
+        } else {
+            return 'My UMKM Product';
+        }
+    }
     public static function getNavigationBadge(): ?string
     {
         $user = auth()->user();
@@ -116,6 +124,7 @@ class UmkmProductResource extends Resource
                         FileUpload::make('product_image')
                             ->disk('public')
                             ->directory('product-thumbnails')
+                            ->required()
                             ->label('Product Image')
                             ->image()
                             ->acceptedFileTypes(['image/*'])
@@ -151,6 +160,9 @@ class UmkmProductResource extends Resource
                                 Builder\Block::make('Image')
                                     ->schema([
                                         FileUpload::make('image')
+                                            ->disk('public')
+                                            ->directory('product-gallery')
+                                            ->required()
                                             ->label('Image')
                                             ->image()
                                             ->acceptedFileTypes(['image/*'])
@@ -173,10 +185,10 @@ class UmkmProductResource extends Resource
                 Section::make('Meta')
                     ->columnSpan(1)
                     ->schema([
-                        TextInput::make('product_location')
-                            ->label('Product Location')
-                            ->required()
-                            ->placeholder('Enter the location of the product'),
+                        // TextInput::make('product_location')
+                        //     ->label('Product Location')
+                        //     ->required()
+                        //     ->placeholder('Enter the location of the product'),
 
                         // TextInput::make('product_social_media')
                         //     ->label('Product Social Media'),
@@ -233,22 +245,27 @@ class UmkmProductResource extends Resource
                 //     ->numeric()
                 //     ->sortable(),
                 TextColumn::make('product_name')
+                    ->toggleable()
                     ->searchable(),
                 TextColumn::make('slug')
+                    ->toggleable()
                     ->searchable(),
-                ImageColumn::make('product_image'),
+                ImageColumn::make('product_image')
+                    ->toggleable(),
                 // ImageColumn::make('product_gallery'),
                 TextColumn::make('product_price')
+                    ->toggleable()
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('productCategory.category_name')
+                    ->toggleable()
                     ->label('Product Category')
                     ->numeric()
                     ->sortable(),
                 // TextColumn::make('product_location')
                 //     ->searchable(),
-                IconColumn::make('is_published')
-                    ->boolean(),
+                CheckboxColumn::make('is_published')
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->toggleable()
