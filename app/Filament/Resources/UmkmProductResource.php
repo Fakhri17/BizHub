@@ -160,6 +160,9 @@ class UmkmProductResource extends Resource
                                 Builder\Block::make('Image')
                                     ->schema([
                                         FileUpload::make('image')
+                                            ->disk('public')
+                                            ->directory('product-gallery')
+                                            ->required()
                                             ->label('Image')
                                             ->image()
                                             ->acceptedFileTypes(['image/*'])

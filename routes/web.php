@@ -11,6 +11,7 @@ use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\CommentController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,4 +61,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::post('/comments/{id}/like', [CommentController::class, 'like'])->name('comments.like');
 });
+
+Route::get('/generate-storage-link', function(){
+    Artisan::call('storage:link');
+    echo 'Storage link generated successfully';
+ });
 

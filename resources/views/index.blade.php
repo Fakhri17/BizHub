@@ -64,19 +64,19 @@
     <div class="row align-items-center justify-content-beetween">
       <div class="col-12 col-lg-4">
         <div class="text-center">
-          <h3 class="fw-bold display-5">315</h3>
+          <h3 class="fw-bold display-5">{{ $data['umkm_product'] }}</h3>
           <p class="text-bizhub-secondary fw-semibold" style="font-size: 20px;">UMKM Terdaftar</p>
         </div>
       </div>
       <div class="col-12 col-lg-4">
         <div class="text-center">
-          <h3 class="fw-bold display-5">1.267</h3>
+          <h3 class="fw-bold display-5">{{ $data['user_list'] }}</h3>
           <p class="text-bizhub-secondary fw-semibold" style="font-size: 20px;">Pengguna BizHub</p>
         </div>
       </div>
       <div class="col-12 col-lg-4">
         <div class="text-center">
-          <h3 class="fw-bold display-5">207</h3>
+          <h3 class="fw-bold display-5">{{ $data['umkm_owner'] }}</h3>
           <p class="text-bizhub-secondary fw-semibold" style="font-size: 20px;">Pelaku UMKM</p>
         </div>
       </div>
@@ -104,9 +104,9 @@
       <div class="col-12 col-lg-4 mb-4 mb-lg-0">
         <div class="card rounded-3 shadow">
           <div class="card-body text-center p-4 px-5">
-            <i class="ti ti-stars text-bizhub-primary" style="font-size: 74px;"></i>
-            <h5 class="fw-bold text-bizhub-secondary my-3" style="font-size: 20px;">Peringkat & Ulasan UMKM</h5>
-            <p style="font-size: 16px;">Pengguna dapat memberikan ulasan dan penilaian terhadap produk dan layanan yang
+            <i class="ti ti-pencil-plus text-bizhub-primary" style="font-size: 74px;"></i>
+            <h5 class="fw-bold text-bizhub-secondary my-3" style="font-size: 20px;">Ulasan UMKM</h5>
+            <p style="font-size: 16px;">Pengguna dapat memberikan ulasan dan terhadap produk dan layanan yang
               ditawarkan oleh pelaku UMKM</p>
           </div>
         </div>
