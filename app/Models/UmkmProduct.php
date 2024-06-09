@@ -47,4 +47,37 @@ class UmkmProduct extends Model
     {
         return 'slug';
     }
+
+    public function getSocialMediaAttribute()
+    {
+        return collect($this->product_social_media)->map(function ($socialMedia) {
+            return [
+                'icon' => $socialMedia['icon'], // 'fab fa-instagram
+                'username' => $socialMedia['username'],
+                'url' => $socialMedia['url'],
+            ];
+        });
+    }
+
+    public function setProductSocialMediaAttribute($value)
+    {
+        $this->attributes['product_social_media'] = json_encode($value);
+    }
+
+    public function getGalleryAttribute()
+    {
+        return collect($this->product_gallery)->map(function ($gallery) {
+            return $gallery['url'];
+        });
+    }
+
+    public function setProductGalleryAttribute($value)
+    {
+        $this->attributes['product_gallery'] = json_encode($value);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

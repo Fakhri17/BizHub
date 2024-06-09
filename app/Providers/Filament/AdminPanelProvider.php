@@ -5,14 +5,11 @@ namespace App\Providers\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Navigation\MenuItem;
-use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
-use Filament\Navigation\NavigationItem;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -21,8 +18,8 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
-use App\Filament\Pages\Profile;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Navigation\NavigationItem;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,24 +27,29 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->sidebarCollapsibleOnDesktop(true)
             ->id('dashboard')
             ->path('dashboard')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#6ABF6A',
             ])
-
+            ->navigationItems([
+                NavigationItem::make('Home')
+                    ->url('/', shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-link')
+            ])
+            ->font('Poppins')
+            ->sidebarCollapsibleOnDesktop()
+            ->favicon(url('/favicon.ico'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-
             ->pages([
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -60,47 +62,9 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->navigationGroups([
-                NavigationGroup::make()
-                    ->label('Shop')
-                    ->icon('heroicon-o-shopping-cart'),
-                NavigationGroup::make()
-                    ->label('Blog')
-                    ->icon('heroicon-o-pencil'),
-                NavigationGroup::make()
-                    ->label(('Settings'))
-                    ->icon('heroicon-o-cog-6-tooth')
-                    ->collapsed(),
-            ])
-            ->navigationItems([
-                // NavigationGroup::make()
-                //     ->label('Shop')
-                //     ->icon('heroicon-o-shopping-cart'),
-                // NavigationGroup::make()
-                //     ->label('Blog')
-                //     ->icon('heroicon-o-pencil'),
-                NavigationItem::make()
-                    ->group('Roles And Permissions')
-                    ->label(fn(): string => 'Profile')
-                    ->url(fn(): string => Profile::getUrl())
-                    ->icon('heroicon-o-user'),
-                NavigationItem::make()
-                    ->group('Roles And Permissions')
-                    ->label(fn(): string => 'Student')
-                    ->url(fn(): string => Profile::getUrl())
-                    ->icon('heroicon-o-user')
-                    ->visible(fn(): bool => auth()->user()->can('read role'))
-            ]);
-        // ->userMenuItems([
-        //     MenuItem::make()
-        //         ->label('Profile')
-        //         ->url(fn(): string => Profile::getUrl())
-        //         ->icon('heroicon-o-user'),
-        // ]);
-
+            ->plugin(FilamentSpatieRolesPermissionsPlugin::make());
     }
 }

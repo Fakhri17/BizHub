@@ -14,7 +14,7 @@ class Blog extends Model
         'is_published' => 'boolean',
     ];
 
-    public function category()
+    public function blogCategory()
     {
         return $this->belongsTo(BlogCategory::class, 'blog_category_id');
     }

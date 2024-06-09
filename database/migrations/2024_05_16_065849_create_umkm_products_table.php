@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('umkm_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('umkm_owner_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('umkm_owner_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('product_name');
             $table->string('slug')->unique();
             $table->string('product_image')->nullable();
-            $table->string('product_description')->nullable();
+            $table->text('product_description')->nullable();
             $table->decimal('product_price', 10, 2);
             $table->foreignId('product_category_id')->constrained()->cascadeOnDelete();
             $table->string('product_location');

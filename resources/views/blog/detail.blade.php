@@ -1,51 +1,85 @@
 @extends('layouts.app')
 
-@section('title', 'Blog UMKM')
+@section('title', $blog->title)
 
 @section('content')
-
-<section class="margin-section mb-5">
-  <div class="container">
-  <a class="btn btn-bizhub-outline-primary rounded-3 px-4 me-3" href="{{ route('blog.index') }}" role="button" style="font-size: 17px;"><i class="ti ti-arrow-narrow-left me-2"></i>Kembali</a>
-    <div class="d-flex align-items-center mt-5 flex-column">
-            <h1 class="text-center fw-bold display-5 w-75 mb-4">{{ $blog->title }}</h1>
-            <div class="d-flex text-bizhub-secondary mb-4">
-            <p><i class="ti ti-calendar pe-1"></i>{{ $blog->created_at->format('l, d F') }}</p>
-            <span class="px-2">|</span>
-            <p><i class="ti ti-tag pe-1"></i>{{ $blog->category->name }}</p>
-          </div>
-          <img src="{{ asset('img/blog/rectangle.png') }}" width="1300px" height="600px" class="blog-img" alt="">
-    </div>
-  </div>
-</section>
-
-<section classm="margin-section">
+  <section class="margin-section" style="margin-bottom: 2rem;">
     <div class="container">
-        <div class="d-flex flex-column flex-lg-row" >
-            <div style="max-width: 65%">
-                <p>{{ $blog->content }}</p>
-            </div>
-            <div class="ps-4">
-                <h2 class="mb-3">Blog Terkait</h2>
-                    <div class="d-flex flex-column">
-                        @foreach($relatedBlogs as $relatedBlog)
-                            <div>
-                                <img src="{{ asset('img/blog/rectangle.png') }}" width="415px" height="200px" class="rounded-4" alt="">
-                            </div>
-                            <div class="d-flex flex-column justify-content-center">
-                                <div class="d-flex text-bizhub-secondary pt-3">
-                                    <p><i class="ti ti-calendar pe-1"></i>{{ $blog->created_at->format('l, d F') }}</p>
-                                    <span class="px-2">|</span>
-                                    <p><i class="ti ti-tag pe-1"></i>{{ $blog->category->name }}</p>
-                                </div>
-                                <h1 style="width:100%;">{{ $blog->title }}</h1>
-                                <p class="mt-2" style="width:100%; font-size: 17px;">{{ Str::limit($blog->content, 80) }}</p>
-                            </div>
-                        @endforeach
-                    </div>
-            </div>
+      <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
+        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ url('/blog') }}">Blog</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="#">{{ $blog->title }}</a></li>
+      </ol>
+      <div class="my-5 text-center">
+        <h1 class="fw-bold display-5 mb-4">{{ $blog->title }}</h1>
+        <div class="text-bizhub-secondary" style="font-size: 16px;">
+          <span>
+            <span>
+              <i
+                class="ti ti-calendar pe-1"></i>{{ \Carbon\Carbon::parse($blog->created_at)->translatedFormat('l, d F Y') }}
+            </span>
+          </span>
+          <span class="px-2">
+            <i class="fas fa-circle" style="font-size: 10px;"></i>
+          </span>
+          <a href="{{ url('/blog?blog_category=' . $blog->blogCategory->slug) }}" class="text-bizhub-secondary">
+            <i class="ti ti-tag pe-1"></i>{{ $blog->blogCategory->name }}
+          </a>
         </div>
+      </div>
+      <div class="text-center">
+        <img src="{{ $blog->thumbnail ? asset('storage/' . $blog->thumbnail) : 'https://via.placeholder.com/150' }}"
+          class="w-100 h-100 object-cover rounded-3" alt="Card side image" />
+      </div>
     </div>
-</section>
+  </section>
+  <section class="mb-5">
+    <div class="container">
+      <div class="row ">
+        <div class="col-12 col-md-8 pe-5">
+          <div class="text-secondary">
+            {!! html_entity_decode($blog->content) !!}
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <h2 class="fw-bold mb-3" style="font-size: 24px;">Blog Terkait</h2>
+          @foreach ($relatedBlogs as $item)
+            <div class="card mb-3 border-0">
+              <!-- Photo -->
+              <a href="{{ 'blog/' . $item->slug }}" class="mb-3">
+                @php
+                  $thumbnail = $item->thumbnail
+                      ? asset('storage/' . $item->thumbnail)
+                      : 'https://via.placeholder.com/150';
+                @endphp
+                <img src="{{ $thumbnail }}" class="w-100 h-100 object-cover rounded-3" alt="Card side image" />
+              </a>
+              <div class="text-bizhub-secondary">
+                <span>
+                  <span>
+                    <i
+                      class="ti ti-calendar pe-1"></i>{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, d F Y') }}
+                  </span>
+                </span>
+                <span class="px-2">|</span>
+                <a href="{{ url('/blog?blog_category=' . $item->blogCategory->slug) }}" class="text-bizhub-secondary">
+                  <i class="ti ti-tag pe-1"></i>{{ $item->blogCategory->name }}
+                </a>
+              </div>
+              <div class="card-body px-0 py-3">
+                <a href="" class="text-dark">
+                  <h2 class="card-title fw-bold">{{ $item->title }}</h2>
+                </a>
 
+                <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit
+                  incidunt, iste, itaque minima
+                  neque pariatur perferendis sed suscipit velit vitae voluptatem.</p>
+              </div>
+            </div>
+          @endforeach
+        </div>
+      </div>
+
+    </div>
+  </section>
 @endsection
