@@ -133,7 +133,7 @@
         <p class="my-4" style="font-size: 18px;">Apakah Anda seorang pelaku UMKM yang ingin memperluas jangkauan pasar
           dan meningkatkan penjualan? BizHub hadir untuk membantu Anda! Dengan BizHub, Anda dapat dengan mudah
           memasarkan produk dan layanan Anda kepada lebih banyak konsumen secara efektif dan efisien.</p>
-        <a href="{{ route('register') }}" class="btn btn-bizhub-primary rounded-pill py-2 px-4" role="button"
+        <a href="{{ route('auth.register') }}" class="btn btn-bizhub-primary rounded-pill py-2 px-4" role="button"
           style="font-size: 18px;">Daftar Sekarang</a>
       </div>
       <div class="position-absolute bottom-0 end-0 me-5 d-none d-lg-block">

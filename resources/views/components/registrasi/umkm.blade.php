@@ -1,6 +1,6 @@
 <div x-data="formValidationUMKM()">
   <p class="text-center">Selamat datang, anda mendaftar sebagai Pelaku UMKM</p>
-  <form action="{{ route('register-umkm') }}" method="post" x-on:submit.prevent="submit" x-ref="form">
+  <form action="{{ route('auth.register-umkm') }}" method="post" x-on:submit.prevent="submit" x-ref="form">
     @csrf
     <div class="row align-items-center">
       <div class="col-12 col-md-6">

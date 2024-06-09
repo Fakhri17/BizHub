@@ -70,21 +70,25 @@
                 <i class="ti ti-dashboard me-2" style="font-size: 24px"></i>
                 Dashboard
               </a>
-              <a class="dropdown-item" href="{{ url("umkm/product/wishlist")}}">
+              <a class="dropdown-item" href="{{ url('umkm/product/wishlist') }}">
                 <i class="ti ti-heart me-2" style="font-size: 24px"></i>
                 Wishlist <span class="badge bg-red ms-5">{{ $wishlistCount ?? 0 }}</span>
               </a>
-              <a class="dropdown-item" href="{{ route('logout') }}">
-                <i class="ti ti-logout me-2" style="font-size: 24px"></i>
-                Logout
+              <a class="dropdown-item">
+                <form action="{{ url('logout') }}" method="POST">
+                  @csrf
+                  <button type="submit" class="btn border-0 p-0 bg-transparent"> <i class="ti ti-logout me-2" style="font-size: 24px"></i>
+                    Logout </button>
+                </form>
+
               </a>
             </div>
           </div>
         @else
           <div class="ms-auto d-flex justify-content-center">
-            <a class="btn btn-bizhub-outline-primary rounded-pill py-2 px-4 me-3" href="{{ route('login') }}"
+            <a class="btn btn-bizhub-outline-primary rounded-pill py-2 px-4 me-3" href="{{ route('auth.login') }}"
               role="button" style="font-size: 18px;">Masuk</a>
-            <a class="btn btn-bizhub-primary rounded-pill py-2 px-4" href="{{ route('register') }}" role="button"
+            <a class="btn btn-bizhub-primary rounded-pill py-2 px-4" href="{{ route('auth.register') }}" role="button"
               style="font-size: 18px;">Daftar</a>
           </div>
         @endif
