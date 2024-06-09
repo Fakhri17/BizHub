@@ -45,7 +45,7 @@ class UmkmProductController extends Controller
     {
 
         $product = UmkmProduct::where('slug', $slug)->firstOrFail();
-        
+
         $userFavorites = UserFavoriteProduct::where('user_id', Auth::id())
             ->where('is_favorite', true)
             ->pluck('umkm_product_id')
@@ -53,6 +53,7 @@ class UmkmProductController extends Controller
 
         $comments = Comment::where('umkm_product_id', $product->id)
             ->whereNull('parent_id')
+            ->orderBy('created_at', 'desc')
             ->with('replies.user', 'user')
             ->get();
 
