@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="col-12 col-lg-6 h-100 align-content-center px-lg-5">
-          <form action="{{ route('login-proses') }}" method="post">
+          <form action="{{ route('auth.login-proses') }}" method="post">
             <div class="login-header text-center">
               <h1>Masuk</h1>
               <p class="text">Selamat datang kembali, silakan login ke akun anda!</p>
@@ -50,7 +50,7 @@
               <button type="submit">Masuk</button>
             </div>
             <div class="login-bottom text-center mb-2">
-              <p>Anda belum punya akun? <span><a href="{{ route('register') }}">Daftar disini</a></span></p>
+              <p>Anda belum punya akun? <span><a href="{{ route('auth.register') }}">Daftar disini</a></span></p>
             </div>
             <div class="text-center">
               <a href="{{ url('/')}}"> Back to homepage </a>
