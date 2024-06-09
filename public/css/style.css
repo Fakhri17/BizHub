@@ -102,10 +102,25 @@ body {
 	border-color: var(--primary-color);
 }
 
-.ronded-bottom-hero-about {
+.hero-about{
+	background-color: #F3FAF3; height: 100vh;
+}
+.rounded-bottom-hero-about {
 	border-bottom-right-radius: 8rem !important;
 	border-bottom-left-radius: 8rem !important;
 }
+
+/* in mobile and tabler */
+@media (max-width: 768px) {
+	.hero-about{
+		height: auto;
+	}
+	.rounded-bottom-hero-about {
+		border-bottom-right-radius: 0 !important;
+		border-bottom-left-radius: 0 !important;
+	}
+}
+
 
 .margin-section {
 	margin-top: 160px;

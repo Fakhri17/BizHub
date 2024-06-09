@@ -261,8 +261,8 @@ class UmkmProductResource extends Resource
                     ->sortable(),
                 // TextColumn::make('product_location')
                 //     ->searchable(),
-                IconColumn::make('is_published')
-                    ->boolean(),
+                CheckboxColumn::make('is_published')
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->toggleable()

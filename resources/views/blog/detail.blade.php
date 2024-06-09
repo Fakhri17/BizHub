@@ -70,7 +70,7 @@
                 <a href="" class="text-dark">
                   <h2 class="card-title fw-bold">{{ $blog->title }}</h2>
                 </a>
-                
+
                 <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit
                   incidunt, iste, itaque minima
                   neque pariatur perferendis sed suscipit velit vitae voluptatem.</p>

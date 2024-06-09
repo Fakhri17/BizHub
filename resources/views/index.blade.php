@@ -90,8 +90,8 @@
       <h2 class="fw-bold display-4 mb-4">Fitur BizHub</h2>
       <p style="font-size: 20px;">Fitur-fitur yang kami sediakan untuk membantu para pengguna dan pelaku UMKM</p>
     </div>
-    <div class="row row-deck g-5">
-      <div class="col-12 col-lg-4">
+    <div class="row row-deck">
+      <div class="col-12 col-lg-4 mb-4 mb-lg-0">
         <div class="card rounded-3 shadow">
           <div class="card-body text-center p-4 px-5">
             <i class="ti ti-building-store text-bizhub-primary" style="font-size: 74px;"></i>
@@ -101,7 +101,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-lg-4">
+      <div class="col-12 col-lg-4 mb-4 mb-lg-0">
         <div class="card rounded-3 shadow">
           <div class="card-body text-center p-4 px-5">
             <i class="ti ti-stars text-bizhub-primary" style="font-size: 74px;"></i>
@@ -111,7 +111,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-lg-4">
+      <div class="col-12 col-lg-4 mb-4 mb-lg-0">
         <div class="card rounded-3 shadow">
           <div class="card-body text-center p-4 px-5">
             <i class="ti ti-news text-bizhub-primary" style="font-size: 74px;"></i>

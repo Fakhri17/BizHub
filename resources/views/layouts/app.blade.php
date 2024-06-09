@@ -48,7 +48,7 @@
           @endif
         </div>
         @if (Auth::check())
-          <div class="ms-auto dropdown">
+          <div class="ms-auto dropdown text-center">
             <a href="#" data-bs-toggle="dropdown"><img
                 src="{{ Auth::user()->avatar_path ? asset('storage/' . Auth::user()->avatar_path) : 'https://via.placeholder.com/150' }}"
                 class="rounded-circle border border-primary" alt="logo" width="48" height="48"></a>

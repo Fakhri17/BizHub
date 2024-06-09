@@ -130,7 +130,7 @@ class BlogResource extends Resource
                     ->toggleable()
                     ->sortable(),
                 // thumbnail column
-                ImageColumn::make('thumbnail'),
+                // ImageColumn::make('thumbnail'),
                 // is_published column
                 CheckboxColumn::make('is_published')
                     ->toggleable(),

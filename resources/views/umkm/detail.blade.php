@@ -14,7 +14,7 @@
         <h1 class="fw-bold display-5">{{ $product->product_name }}</h1>
         <div class="d-lg-flex align-items-center">
           <div>
-            <p class="mb-0" style="font-size: 16px;">{{ $product->umkmOwner->user->name ?? 'No Info'}}</p>
+            <p class="mb-3 mb-lg-0" style="font-size: 16px;">{{ $product->umkmOwner->user->name ?? 'No Info'}}</p>
           </div>
           @if (Auth::check())
             @php
@@ -48,7 +48,7 @@
         <div class="carousel-main shadow">
           @foreach ($product->product_gallery as $index => $image)
             <div class="carousel-cell-gallery">
-              <img class="img-fluid d-block mx-auto" src="{{ asset('storage/' . $image['data']['image']) }}" />
+              <img class="d-block mx-auto h-100 w-full" style="object-fit: cover" src="{{ asset('storage/' . $image['data']['image']) }}" />
             </div>
           @endforeach
         </div>
