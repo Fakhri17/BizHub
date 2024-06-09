@@ -65,6 +65,30 @@
   </div>
 </div>
 
+@if (session('status'))
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+      title: "Success",
+      text: "{{ session('status') }}",
+      icon: "success",
+      timer: 3000
+    });
+    });
+  </script>
+@endif
 
+@if (session('email'))
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+      title: "Error",
+      text: "{{ session('status') }}",
+      icon: "error",
+      timer: 3000
+    });
+    });
+  </script>
+@endif
 
 @endsection
