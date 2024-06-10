@@ -64,6 +64,7 @@ Website Bizhub menggunakan Teknologi Sebagai Berikut
 ```
 1. php artisan migrate:fresh
 2. php artisan db:seed
+3. php artisan storage:link
 ```
 
 ### User of test
