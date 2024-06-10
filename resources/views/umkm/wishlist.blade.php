@@ -59,7 +59,7 @@
                     </div>
                     <p>{{ $product->umkmOwner->user->name ?? 'No Info' }}</p>
 
-                    <a href="{{ 'umkm/' . $product->slug }}"
+                    <a href="{{ url('umkm/' . $product->slug) }}"
                       class="btn btn-outline-dark w-full border border-dark rounded-3" role="button"><i
                         class="fas fa-search me-2"></i>Lihat UMKM</a>
                   </div>

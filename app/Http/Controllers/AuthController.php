@@ -37,7 +37,7 @@ class AuthController extends Controller
             return redirect('/')->with('success', 'Login Berhasil!');
         } else {
             session()->flash('failed', 'Email atau password salah!');
-            return redirect()->route('login');
+            return redirect()->route('auth.login');
         }
     }
 

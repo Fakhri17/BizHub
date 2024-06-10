@@ -59,8 +59,8 @@
           <div class="col-12 col-md-6 mb-4">
             <div class="card d-flex flex-column rounded-3 shadow h-100">
               <div class="row row-0 flex-fill">
-                <div class="col-md-3">
-                  <a href="{{ 'blog/' . $item->slug }}">
+                <div class="col-12 col-lg-4">
+                  <a href="{{ url('blog/' . $item->slug) }}">
                     @php
                       $thumbnail = $item->thumbnail
                           ? asset('storage/' . $item->thumbnail)
@@ -69,7 +69,7 @@
                     <img src="{{ $thumbnail }}" class="w-100 h-100 object-cover rounded-3" alt="Card side image" />
                   </a>
                 </div>
-                <div class="col">
+                <div class="col-12 col-lg-8">
                   <div class="card-body d-flex flex-column py-3">
                     <div class="mb-2 text-bizhub-secondary">
                       <span>
@@ -85,13 +85,13 @@
                       </a>
                     </div>
                     <h3 class="card-title fw-bold">
-                      <a href="{{ 'blog/' . $item->slug }}">{{ $item->title }}</a>
+                      <a href="{{ url('blog/' . $item->slug) }}">{{ $item->title }}</a>
                     </h3>
                     <div class="text-secondary mb-2 flex-fill">
                       {!! html_entity_decode(Str::limit($item->content, 100)) !!}
                     </div>
                     <div class="mt-auto">
-                      <a href="{{ 'blog/' . $item->slug }}" class="btn btn-bizhub-outline-primary rounded-3 px-4 me-3"
+                      <a href="{{ url('blog/' . $item->slug) }}" class="btn btn-bizhub-outline-primary rounded-3 px-4 me-3"
                         style="font-size: 17px;">Lihat Blog
                         <i class="ti ti-arrow-narrow-right ms-2"></i>
                       </a>

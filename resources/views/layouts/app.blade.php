@@ -34,36 +34,46 @@
       </button>
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <div class="navbar-nav column-gap-4 mx-4">
-          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('/') ? 'active-navbar' : '' }}" href="/"
-            style="font-size: 18px;">Beranda</a>
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('/') ? 'active-navbar' : '' }}"
+            href="{{ url('/') }}" style="font-size: 18px;">Beranda</a>
           <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('tentang-kami') ? 'active-navbar' : '' }}"
-            href="/tentang-kami" style="font-size: 18px;">Tentang Kami</a>
+            href="{{ url('/tentang-kami') }}" style="font-size: 18px;">Tentang Kami</a>
           <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('umkm') ? 'active-navbar' : '' }}"
-            href="/umkm" style="font-size: 18px;">UMKM</a>
+            href="{{ url('/umkm') }}" style="font-size: 18px;">UMKM</a>
 
           {{-- if chech role customer hidden blog --}}
           @if (Auth::check() && Auth::user()->hasRole(['UMKM Owner', 'Super Admin']))
             <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('blog') ? 'active-navbar' : '' }}"
-              href="/blog" style="font-size: 18px;">Blog {{ Auth::check() && Auth::user()->hasRole('customer') }}</a>
+              href="{{ url('/blog') }}" style="font-size: 18px;">Blog
+              {{ Auth::check() && Auth::user()->hasRole('customer') }}</a>
           @endif
         </div>
         @if (Auth::check())
           <div class="ms-auto dropdown text-center">
-            <a href="#" data-bs-toggle="dropdown"><img
-                src="{{ Auth::user()->avatar_path ? asset('storage/' . Auth::user()->avatar_path) : 'https://via.placeholder.com/150' }}"
-                class="rounded-circle border border-primary" alt="logo" width="48" height="48"></a>
+            <div data-bs-toggle="dropdown" class="">
+              {{-- button Info profile --}}
+              <button class="btn btn-bizhub-outline-primary rounded-pill">
+                <i class="ti ti-user me-1" style="font-size: 24px"></i>
+                Profile
+              </button>
+            </div>
+
+
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              <span class="dropdown-header">Informasi Akun</span>
-              <a class="dropdown-item disabled" href="#">
+              <span class="dropdown-header">Account Information</span>
+              <a class="dropdown-item disabled align-items-center" href="#">
 
                 <img
                   src="{{ Auth::user()->avatar_path ? asset('storage/' . Auth::user()->avatar_path) : 'https://via.placeholder.com/150' }}"
-                  class="rounded-circle border border-primary" alt="logo" width="42" height="42">
-                <h3 class="m-2">{{ Auth::user()->username }}<br />
-                  <small><span
-                      class="badge badge-outline text-green">{{ Auth::user()->roles->pluck('name')->implode(', ') }}</span></small>
-                </h3>
-              </a>
+                  class="avatar rounded-circle" alt="logo" style="object-fit: cover">
+                <div class="ms-2">
+                  <h4 class="mb-1">{{ Auth::user()->username }}<br />
+                  </h5>
+                  <div class="badge badge-outline text-green">{{ Auth::user()->roles->pluck('name')->implode(', ') }}
+                  </div>
+                </div>
+
+
               </a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('filament.dashboard.pages.dashboard') }}">
@@ -77,7 +87,8 @@
               <a class="dropdown-item">
                 <form action="{{ url('logout') }}" method="POST">
                   @csrf
-                  <button type="submit" class="btn border-0 p-0 bg-transparent"> <i class="ti ti-logout me-2" style="font-size: 24px"></i>
+                  <button type="submit" class="btn border-0 p-0 bg-transparent"> <i class="ti ti-logout me-2"
+                      style="font-size: 24px"></i>
                     Logout </button>
                 </form>
 
@@ -136,13 +147,13 @@
           <h3 class="mb-2" style="color:#6ABF6A;">Tautan Penting</h3>
           <ul class="list-unstyled footer-link">
             <li class="mb-2">
-              <a class="text-decoration-none text-dark" href="/">Beranda</a>
+              <a class="text-decoration-none text-dark" href="{{ url('/') }}">Beranda</a>
             </li>
             <li class="mb-2">
-              <a class="text-decoration-none text-dark" href="/tentang-kami">Tentang Kami</a>
+              <a class="text-decoration-none text-dark" href="{{ url('/tentang-kami') }}">Tentang Kami</a>
             </li>
             <li class="mb-2">
-              <a class="text-decoration-none text-dark" href="/umkm">UMKM</a>
+              <a class="text-decoration-none text-dark" href="{{ url('/umkm') }}">UMKM</a>
             </li>
           </ul>
         </div>

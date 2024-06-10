@@ -5,7 +5,7 @@
 @section('content')
 
   <section class="vh-100">
-    <div class="container-fluid px-5 py-4 h-100">
+    <div class="container-fluid py-3 px-lg-5 py-lg-4 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-6 h-100 d-none d-lg-block">
           <div class="rounded-5 h-100 d-flex flex-column justify-content-center position-relative overflow-hidden"

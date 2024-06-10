@@ -106,7 +106,7 @@
 
               </div>
               <div class="w-full text-center px-5" style="position: absolute; bottom: 0;">
-                <a href="{{ 'umkm/' . $product->slug }}" class="btn btn-outline-dark w-full border border-dark rounded-3"
+                <a href="{{ url('umkm/' . $product->slug) }}" class="btn btn-outline-dark w-full border border-dark rounded-3"
                   role="button"><i class="fas fa-search me-2"></i>Lihat UMKM</a>
               </div>
             </div>
