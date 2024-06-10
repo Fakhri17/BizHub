@@ -36,7 +36,7 @@
               </form>
             @endif
           @else
-            <a href="{{ route('login') }}" class="cursor-pointer icons-wishlist ms-auto border border-dark shadow-sm">
+            <a href="{{ route('auth.login') }}" class="cursor-pointer icons-wishlist ms-auto border border-dark shadow-sm">
               <i class="ti ti-heart"></i>
             </a>
           @endif
@@ -199,7 +199,7 @@
         @else
           <div class="alert alert-info">
             <p>Anda harus login terlebih dahulu untuk memberikan ulasan.</p>
-            <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+            <a href="{{ route('auth.login') }}" class="btn btn-primary">Login</a>
           </div>
         @endif
       </div>
