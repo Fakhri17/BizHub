@@ -27,10 +27,8 @@ class CommentController extends Controller
         $umkmProduct = UmkmProduct::find($request->product_id);
         $umkmProduct->increment('comment_count');
 
-        
 
-
-        return redirect()->back();
+        return redirect()->back()->with('success_comment', 'Komentar berhasil ditambahkan!');
     }
 
     public function like($id)

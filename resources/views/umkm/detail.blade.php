@@ -237,4 +237,16 @@
       });
     </script>
   @endif
+  @if (session('success_comment'))
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+          title: "Success",
+          text: "{{ session('success_comment') }}",
+          icon: "success",
+          timer: 3000
+        });
+      });
+    </script>
+  @endif
 @endsection

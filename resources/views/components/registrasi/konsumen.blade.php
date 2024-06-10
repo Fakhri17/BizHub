@@ -3,14 +3,14 @@
   <form action="{{ route('auth.register-konsumen') }}" method="post" x-on:submit.prevent="submit" x-ref="form">
     @csrf
     <div class="row align-items-center">
-      <div class="col-12 col-md-6">
+      <div class="col-6 col-md-6">
         <div class="form-username">
           <p class="form-label">Username</p>
           <input type="username" name="username" placeholder="Masukan username" x-model="form.username" x-on:blur="validateField('username')">
         </div>
         <small class="text-danger m-2" x-text="errors.username"></small>
       </div>
-      <div class="col-12 col-md-6">
+      <div class="col-6 col-md-6">
         <div class="form-name">
           <p class="form-label">Name</p>
           <input type="text" name="name" placeholder="Masukan nama" x-model="form.name" x-on:blur="validateField('name')">

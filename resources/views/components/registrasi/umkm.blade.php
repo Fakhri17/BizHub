@@ -3,7 +3,7 @@
   <form action="{{ route('auth.register-umkm') }}" method="post" x-on:submit.prevent="submit" x-ref="form">
     @csrf
     <div class="row align-items-center">
-      <div class="col-12 col-md-6">
+      <div class="col-6 col-md-6">
         <div class="form-username">
           <p class="form-label">Username</p>
           <input type="username" name="username" placeholder="Masukan username" x-model="form.username"
@@ -11,7 +11,7 @@
         </div>
         <small class="text-danger m-2" x-text="errors.username"></small>
       </div>
-      <div class="col-12 col-md-6">
+      <div class="col-6 col-md-6">
         <div class="form-name">
           <p class="form-label">Nama UMKM</p>
           <input type="text" name="name" placeholder="Masukan nama" x-model="form.name"
@@ -27,7 +27,7 @@
         </div>
         <small class="text-danger m-2" x-text="errors.email"></small>
       </div>
-      <div class="col-6 col-md-6">
+      <div class="col-12 col-md-6">
         <div x-data="{ showPassword: false }" class="form-password">
           <p class="form-label">Password</p>
           <div class="input-password">

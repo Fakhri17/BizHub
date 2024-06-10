@@ -34,17 +34,17 @@
       </button>
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <div class="navbar-nav column-gap-4 mx-4">
-          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('/') ? 'active-navbar' : '' }}" href="/"
+          <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('/') ? 'active-navbar' : '' }}" href="{{ url('/')}}"
             style="font-size: 18px;">Beranda</a>
           <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('tentang-kami') ? 'active-navbar' : '' }}"
-            href="/tentang-kami" style="font-size: 18px;">Tentang Kami</a>
+            href="{{ url('/tentang-kami')}}" style="font-size: 18px;">Tentang Kami</a>
           <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('umkm') ? 'active-navbar' : '' }}"
-            href="/umkm" style="font-size: 18px;">UMKM</a>
+            href="{{ url('/umkm')}}" style="font-size: 18px;">UMKM</a>
 
           {{-- if chech role customer hidden blog --}}
           @if (Auth::check() && Auth::user()->hasRole(['UMKM Owner', 'Super Admin']))
             <a class="nav-item nav-link fw-medium hover-nav {{ Request::is('blog') ? 'active-navbar' : '' }}"
-              href="/blog" style="font-size: 18px;">Blog {{ Auth::check() && Auth::user()->hasRole('customer') }}</a>
+              href="{{ url('/blog')}}" style="font-size: 18px;">Blog {{ Auth::check() && Auth::user()->hasRole('customer') }}</a>
           @endif
         </div>
         @if (Auth::check())
@@ -136,13 +136,13 @@
           <h3 class="mb-2" style="color:#6ABF6A;">Tautan Penting</h3>
           <ul class="list-unstyled footer-link">
             <li class="mb-2">
-              <a class="text-decoration-none text-dark" href="/">Beranda</a>
+              <a class="text-decoration-none text-dark" href="{{ url('/') }}">Beranda</a>
             </li>
             <li class="mb-2">
-              <a class="text-decoration-none text-dark" href="/tentang-kami">Tentang Kami</a>
+              <a class="text-decoration-none text-dark" href="{{ url('/tentang-kami') }}">Tentang Kami</a>
             </li>
             <li class="mb-2">
-              <a class="text-decoration-none text-dark" href="/umkm">UMKM</a>
+              <a class="text-decoration-none text-dark" href="{{ url('/umkm') }}">UMKM</a>
             </li>
           </ul>
         </div>

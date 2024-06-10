@@ -60,7 +60,7 @@
             <div class="card d-flex flex-column rounded-3 shadow h-100">
               <div class="row row-0 flex-fill">
                 <div class="col-md-3">
-                  <a href="{{ 'blog/' . $item->slug }}">
+                  <a href="{{ url('blog/' . $item->slug) }}">
                     @php
                       $thumbnail = $item->thumbnail
                           ? asset('storage/' . $item->thumbnail)
@@ -85,13 +85,13 @@
                       </a>
                     </div>
                     <h3 class="card-title fw-bold">
-                      <a href="{{ 'blog/' . $item->slug }}">{{ $item->title }}</a>
+                      <a href="{{ url('blog/' . $item->slug) }}">{{ $item->title }}</a>
                     </h3>
                     <div class="text-secondary mb-2 flex-fill">
                       {!! html_entity_decode(Str::limit($item->content, 100)) !!}
                     </div>
                     <div class="mt-auto">
-                      <a href="{{ 'blog/' . $item->slug }}" class="btn btn-bizhub-outline-primary rounded-3 px-4 me-3"
+                      <a href="{{ url('blog/' . $item->slug) }}" class="btn btn-bizhub-outline-primary rounded-3 px-4 me-3"
                         style="font-size: 17px;">Lihat Blog
                         <i class="ti ti-arrow-narrow-right ms-2"></i>
                       </a>
