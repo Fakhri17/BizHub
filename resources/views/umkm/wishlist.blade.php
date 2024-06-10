@@ -39,7 +39,7 @@
                         </form>
                       @endif
                     @else
-                      <a href="{{ route('login') }}" class="cursor-pointer icons-wishlist">
+                      <a href="{{ route('auth.login') }}" class="cursor-pointer icons-wishlist">
                         <i class="ti ti-heart"></i>
                       </a>
                     @endif

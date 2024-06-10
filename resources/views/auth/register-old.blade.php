@@ -48,7 +48,7 @@
                         <x-registrasi.umkm />
                     </div>
                     <div class="register-bottom text-center">
-                        <p>Anda sudah punya akun? <span><a href="{{ route('login') }}">Masuk disini</a></span></p>
+                        <p>Anda sudah punya akun? <span><a href="{{ route('auth.login') }}">Masuk disini</a></span></p>
                     </div>
                 </div>
             </div>
