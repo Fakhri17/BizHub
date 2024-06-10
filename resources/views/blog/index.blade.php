@@ -59,7 +59,7 @@
           <div class="col-12 col-md-6 mb-4">
             <div class="card d-flex flex-column rounded-3 shadow h-100">
               <div class="row row-0 flex-fill">
-                <div class="col-md-3">
+                <div class="col-12 col-lg-4">
                   <a href="{{ url('blog/' . $item->slug) }}">
                     @php
                       $thumbnail = $item->thumbnail
@@ -69,7 +69,7 @@
                     <img src="{{ $thumbnail }}" class="w-100 h-100 object-cover rounded-3" alt="Card side image" />
                   </a>
                 </div>
-                <div class="col">
+                <div class="col-12 col-lg-8">
                   <div class="card-body d-flex flex-column py-3">
                     <div class="mb-2 text-bizhub-secondary">
                       <span>

@@ -49,11 +49,17 @@
         </div>
         @if (Auth::check())
           <div class="ms-auto dropdown text-center">
-            <a href="#" data-bs-toggle="dropdown"><img
-                src="{{ Auth::user()->avatar_path ? asset('storage/' . Auth::user()->avatar_path) : 'https://via.placeholder.com/150' }}"
-                class="rounded-circle border border-primary" alt="logo" width="48" height="48"></a>
+            <div data-bs-toggle="dropdown" class="">
+              {{-- button Info profile --}}
+              <button class="btn btn-bizhub-outline-primary rounded-pill">
+                <i class="ti ti-user me-1" style="font-size: 24px"></i>
+                Profile
+              </button>
+            </div>
+            
+            
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              <span class="dropdown-header">Informasi Akun</span>
+              <span class="dropdown-header">Account Information</span>
               <a class="dropdown-item disabled" href="#">
 
                 <img
