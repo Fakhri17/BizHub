@@ -102,7 +102,7 @@
                         $data = $social['data'];
                       @endphp
                       <li class="mb-2">
-                        <a href="{{ $data['url'] }}" class="btn btn-outline-dark d-inline-flex align-items-center">
+                        <a target="_blank" href="{{ $data['url'] }}" class="btn btn-outline-dark d-inline-flex align-items-center">
                           @php
                             $iconClass = str_replace('tabler-', '', $data['icon']);
                           @endphp

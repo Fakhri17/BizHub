@@ -50,13 +50,13 @@
                     alt="{{ $product->product_name }}">
                   <div class="my-3">
                     <h2 class="fw-bold">{{ $product->product_name }}</h2>
-                    <div class="mb-1">
+                    {{-- <div class="mb-1">
                       <i class="fas fa-star text-yellow"></i>
                       <i class="fas fa-star text-yellow"></i>
                       <i class="fas fa-star text-yellow"></i>
                       <i class="fas fa-star text-yellow"></i>
                       <span>({{ $product->rating_count ?? 0 }})</span>
-                    </div>
+                    </div> --}}
                     <p>{{ $product->umkmOwner->user->name ?? 'No Info' }}</p>
 
                     <a href="{{ url('umkm/' . $product->slug) }}"

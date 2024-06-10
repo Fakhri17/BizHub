@@ -165,7 +165,7 @@
       // If an option is selected
       if (selectedOption) {
         // Construct the URL
-        var url = 'https://bizhub.test/umkm?product_category=' + selectedOption;
+        var url = "{{ env('APP.APP_URL') }}/umkm?product_category=" + selectedOption;
 
         // Redirect to the constructed URL
         window.location.href = url;
