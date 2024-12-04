@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Tables\Actions;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -100,20 +101,18 @@ class UserResource extends Resource
                     ->sortable(),
                 // CheckboxColumn::make('is_published')
                 //     ->toggleable(),
-                TextColumn::make('created_at')
-                    ->label('Created At')
-                    ->toggleable()
-                    ->date()
-                    ->searchable()
-                    ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\ActionGroup::make([
+                    Actions\EditAction::make(),
+                    Actions\ViewAction::make(),
+                    Actions\DeleteAction::make(),
+                ])
+                ->icon('heroicon-o-adjustments-horizontal'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

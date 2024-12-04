@@ -40,7 +40,7 @@ class CommentResource extends Resource
             $query->where('umkm_owner_id', $user->umkmOwner->id);
         });
     }
-    
+
 
     public static function form(Form $form): Form
     {
@@ -54,13 +54,13 @@ class CommentResource extends Resource
                         TextInput::make('user.name')
                             ->label('Commentator')
                             ->readOnly()
-                            ->placeholder(fn ($record) => $record->user->name ?? 'No Commentator'),
+                            ->placeholder(fn($record) => $record->user->name ?? 'No Commentator'),
 
                         // relation from umkm_product_id
                         TextInput::make('umkmProduct.product_name')
                             ->label('Product Name')
                             ->readOnly()
-                            ->placeholder(fn ($record) => $record->umkmProduct->product_name ?? 'No Product Name'),
+                            ->placeholder(fn($record) => $record->umkmProduct->product_name ?? 'No Product Name'),
 
                         TextInput::make('comment_text')
                             ->label('Comment Text')
@@ -92,7 +92,12 @@ class CommentResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                    ->icon('heroicon-o-adjustments-horizontal'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
