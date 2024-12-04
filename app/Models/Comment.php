@@ -12,7 +12,6 @@ class Comment extends Model
     protected $fillable = [
         'user_id',
         'umkm_product_id',
-        'parent_id',
         'comment_text',
         'likes_count',
     ];
@@ -20,7 +19,6 @@ class Comment extends Model
     protected $casts = [
         'user_id' => 'integer',
         'umkm_product_id' => 'integer',
-        'parent_id' => 'integer',
         'likes_count' => 'integer',
     ];
 
@@ -34,15 +32,6 @@ class Comment extends Model
         return $this->belongsTo(UmkmProduct::class);
     }
 
-    public function replies()
-    {
-        return $this->hasMany(Comment::class, 'parent_id');
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(Comment::class, 'parent_id');
-    }
 
 
 }
