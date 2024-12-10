@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CommentResource\Pages;
 use App\Filament\Resources\CommentResource\RelationManagers;
 use App\Models\Comment;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
@@ -40,6 +41,11 @@ class CommentResource extends Resource
         return parent::getEloquentQuery()->whereHas('umkmProduct', function ($query) use ($user) {
             $query->where('umkm_owner_id', $user->umkmOwner->id);
         });
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Filament::auth()->user()->hasRole(['Super Admin', 'UMKM Owner']);
     }
 
 
@@ -94,7 +100,8 @@ class CommentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\EditAction::make()
+                    ->visible(fn () => Auth::user()->hasRole('Super Admin')),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\DeleteAction::make()
                     ->visible(fn () => Auth::user()->hasRole('Super Admin')),
