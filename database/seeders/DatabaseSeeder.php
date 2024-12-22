@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UmkmOwnerSeeder::class,
             BlogCategorySeeder::class,
             BlogSeeder::class,
+            UmkmProductSeeder::class,
             ProductCategorySeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
