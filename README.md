@@ -85,3 +85,8 @@ Customer
 email: customer@gmail.com
 password: customer123
 ```
+
+### How To Use Unit Testing
+- Please create filename .env.testing ( you can copy from .env )
+- change database name with prefix _testing ( like bizhub_testing )
+- run command testing **sh testing.sh**
