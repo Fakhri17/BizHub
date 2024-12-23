@@ -56,9 +56,7 @@ class UmkmProductController extends Controller
             ->toArray();
 
         $commentsQuery = Comment::where('umkm_product_id', $product->id)
-            ->whereNull('parent_id')
-            ->orderBy('created_at', 'desc')
-            ->with('replies.user', 'user');
+            ->orderBy('created_at', 'desc');
 
         // Paginate the query results
         $comments = $commentsQuery->paginate(5);

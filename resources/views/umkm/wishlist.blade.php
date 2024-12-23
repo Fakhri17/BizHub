@@ -39,7 +39,7 @@
                         </form>
                       @endif
                     @else
-                      <a href="{{ route('login') }}" class="cursor-pointer icons-wishlist">
+                      <a href="{{ route('auth.login') }}" class="cursor-pointer icons-wishlist">
                         <i class="ti ti-heart"></i>
                       </a>
                     @endif
@@ -50,16 +50,16 @@
                     alt="{{ $product->product_name }}">
                   <div class="my-3">
                     <h2 class="fw-bold">{{ $product->product_name }}</h2>
-                    <div class="mb-1">
+                    {{-- <div class="mb-1">
                       <i class="fas fa-star text-yellow"></i>
                       <i class="fas fa-star text-yellow"></i>
                       <i class="fas fa-star text-yellow"></i>
                       <i class="fas fa-star text-yellow"></i>
                       <span>({{ $product->rating_count ?? 0 }})</span>
-                    </div>
+                    </div> --}}
                     <p>{{ $product->umkmOwner->user->name ?? 'No Info' }}</p>
 
-                    <a href="{{ 'umkm/' . $product->slug }}"
+                    <a href="{{ url('umkm/' . $product->slug) }}"
                       class="btn btn-outline-dark w-full border border-dark rounded-3" role="button"><i
                         class="fas fa-search me-2"></i>Lihat UMKM</a>
                   </div>

@@ -30,6 +30,7 @@ use Filament\Tables\Columns\CheckboxColumn;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UmkmProductResource\Pages;
 use App\Filament\Resources\UmkmProductResource\RelationManagers;
+use Filament\Tables\Actions;
 use Filament\Support\RawJs;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -37,6 +38,7 @@ use Illuminate\Support\Str;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\TagsInput;
 use Guava\FilamentIconPicker\Forms\IconPicker;
+
 
 
 
@@ -253,10 +255,6 @@ class UmkmProductResource extends Resource
                 ImageColumn::make('product_image')
                     ->toggleable(),
                 // ImageColumn::make('product_gallery'),
-                TextColumn::make('product_price')
-                    ->toggleable()
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('productCategory.category_name')
                     ->toggleable()
                     ->label('Product Category')
@@ -264,23 +262,18 @@ class UmkmProductResource extends Resource
                     ->sortable(),
                 // TextColumn::make('product_location')
                 //     ->searchable(),
-                CheckboxColumn::make('is_published')
-                    ->toggleable(),
-                TextColumn::make('created_at')
-                    ->label('Created At')
-                    ->toggleable()
-                    ->date()
-                    ->searchable()
-                    ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                ->icon('heroicon-o-adjustments-horizontal'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

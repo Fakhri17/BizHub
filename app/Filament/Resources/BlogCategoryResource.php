@@ -24,7 +24,7 @@ class BlogCategoryResource extends Resource
     protected static ?string $navigationGroup = 'Blog';
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationIcon = 'heroicon-o-tag';
-    
+
 
     public static function form(Form $form): Form
     {
@@ -58,7 +58,7 @@ class BlogCategoryResource extends Resource
                     ->label('Slug')
                     ->searchable()
                     ->sortable(),
-                    // published_at
+                // published_at
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->searchable()
@@ -71,10 +71,13 @@ class BlogCategoryResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                    ->icon('heroicon-o-adjustments-horizontal'),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

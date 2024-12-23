@@ -40,8 +40,12 @@ class EditProfile extends Page implements HasForms
                         TextInput::make('name')
                             ->required(),
                         TextInput::make('email')
+                            ->email()
                             ->required(),
                         TextInput::make('phone_number')
+                            ->minLength(11)
+                            ->maxLength(15)
+                            ->numeric()
                             ->required(),
                         TextInput::make('address')
                             ->required(),
@@ -73,6 +77,11 @@ class EditProfile extends Page implements HasForms
     {
         try {
             $user = $this->form->getState();
+
+            // Cek apakah `avatar_path` diisi atau tidak
+            if (empty($user['avatar_path'])) {
+                $user['avatar_path'] = ' ';
+            }
 
             auth()->user()->update($user);
         } catch (Halt $exception) {

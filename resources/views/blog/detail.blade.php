@@ -46,7 +46,7 @@
           @foreach ($relatedBlogs as $item)
             <div class="card mb-3 border-0">
               <!-- Photo -->
-              <a href="{{ 'blog/' . $item->slug }}" class="mb-3">
+              <a href="{{ url('blog/' . $item->slug) }}" class="mb-3">
                 @php
                   $thumbnail = $item->thumbnail
                       ? asset('storage/' . $item->thumbnail)
@@ -67,7 +67,7 @@
                 </a>
               </div>
               <div class="card-body px-0 py-3">
-                <a href="" class="text-dark">
+                <a href="{{ url('blog/' . $item->slug) }}" class="text-dark">
                   <h2 class="card-title fw-bold">{{ $item->title }}</h2>
                 </a>
 

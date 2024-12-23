@@ -85,9 +85,12 @@ class ProductCategoryResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                    ->icon('heroicon-o-adjustments-horizontal'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

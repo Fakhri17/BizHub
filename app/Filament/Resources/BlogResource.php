@@ -132,14 +132,6 @@ class BlogResource extends Resource
                 // thumbnail column
                 // ImageColumn::make('thumbnail'),
                 // is_published column
-                CheckboxColumn::make('is_published')
-                    ->toggleable(),
-                TextColumn::make('created_at')
-                    ->label('Created At')
-                    ->toggleable()
-                    ->date()
-                    ->searchable()
-                    ->sortable(),
 
             ])
             ->defaultSort('created_at', 'desc')
@@ -147,9 +139,12 @@ class BlogResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                    ->icon('heroicon-o-adjustments-horizontal'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -173,6 +168,4 @@ class BlogResource extends Resource
             'edit' => Pages\EditBlog::route('/{record}/edit'),
         ];
     }
-
-    
 }

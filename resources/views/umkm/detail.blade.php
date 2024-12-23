@@ -14,7 +14,7 @@
         <h1 class="fw-bold display-5">{{ $product->product_name }}</h1>
         <div class="d-lg-flex align-items-center">
           <div>
-            <p class="mb-3 mb-lg-0" style="font-size: 16px;">{{ $product->umkmOwner->user->name ?? 'No Info'}}</p>
+            <p class="mb-3 mb-lg-0" style="font-size: 16px;">{{ $product->umkmOwner->user->name ?? 'No Info' }}</p>
           </div>
           @if (Auth::check())
             @php
@@ -36,7 +36,7 @@
               </form>
             @endif
           @else
-            <a href="{{ route('login') }}" class="cursor-pointer icons-wishlist ms-auto border border-dark shadow-sm">
+            <a href="{{ route('auth.login') }}" class="cursor-pointer icons-wishlist ms-auto border border-dark shadow-sm">
               <i class="ti ti-heart"></i>
             </a>
           @endif
@@ -48,7 +48,8 @@
         <div class="carousel-main shadow">
           @foreach ($product->product_gallery as $index => $image)
             <div class="carousel-cell-gallery">
-              <img class="d-block mx-auto h-100 w-full" style="object-fit: cover" src="{{ asset('storage/' . $image['data']['image']) }}" />
+              <img class="d-block mx-auto h-100 w-full" style="object-fit: cover"
+                src="{{ asset('storage/' . $image['data']['image']) }}" />
             </div>
           @endforeach
         </div>
@@ -101,7 +102,7 @@
                         $data = $social['data'];
                       @endphp
                       <li class="mb-2">
-                        <a href="{{ $data['url'] }}" class="btn btn-outline-dark d-inline-flex align-items-center">
+                        <a target="_blank" href="{{ $data['url'] }}" class="btn btn-outline-dark d-inline-flex align-items-center">
                           @php
                             $iconClass = str_replace('tabler-', '', $data['icon']);
                           @endphp
@@ -129,9 +130,9 @@
             <div class="row align-items-center">
               <div class="col">
                 <div class="d-flex flex-start align-items-center">
-                  <img class="rounded-circle shadow-1-strong me-3"
+                  <img class="avatar avatar-md rounded-circle shadow-1-strong me-3"
                     src="{{ $comment->user->avatar_path ? asset('storage/' . $comment->user->avatar_path) : 'https://via.placeholder.com/150' }}"
-                    alt="avatar" width="60" height="60" />
+                    alt="avatar" style="object-fit: cover" />
                   <div class="">
                     <h5 class="fw-bold mb-1" style="font-size: 14px;">{{ $comment->user->name }}</h5>
                     <p class="text-secondary mb-0"> {{ '@' . $comment->user->username }}</p>
@@ -181,9 +182,9 @@
             </div>
           @endif
           <div class="d-flex flex-start w-100">
-            <img class="rounded-circle shadow-1-strong me-3"
+            <img class="avatar avatar-md rounded-circle shadow-1-strong me-3"
               src="{{ Auth::user()->avatar_path ? asset('storage/' . Auth::user()->avatar_path) : 'https://via.placeholder.com/150' }}"
-              alt="avatar" width="60" height="60" />
+              alt="avatar" style="object-fit: cover" />
             <div class="w-100">
               <form action="{{ route('comments.store') }}" method="POST">
                 @csrf
@@ -198,7 +199,7 @@
         @else
           <div class="alert alert-info">
             <p>Anda harus login terlebih dahulu untuk memberikan ulasan.</p>
-            <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+            <a href="{{ route('auth.login') }}" class="btn btn-primary">Login</a>
           </div>
         @endif
       </div>
@@ -232,6 +233,18 @@
           title: "Remove",
           text: "{{ session('remove') }}",
           icon: "error",
+          timer: 3000
+        });
+      });
+    </script>
+  @endif
+  @if (session('success_comment'))
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+          title: "Success",
+          text: "{{ session('success_comment') }}",
+          icon: "success",
           timer: 3000
         });
       });

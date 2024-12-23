@@ -76,20 +76,20 @@
                   @if ($isFavorites)
                     <form action="{{ route('umkm.remove', $product->id) }}" method="POST">
                       @csrf
-                      <button type="submit" class="cursor-pointer icons-wishlist-remove shadow-none border-0">
+                      <button type="submit" class="cursor-pointer icons-wishlist-remove border border-dark shadow-sm">
                         <i class="ti ti-heart"></i>
                       </button>
                     </form>
                   @else
                     <form action="{{ route('umkm.add', $product->id) }}" method="POST">
                       @csrf
-                      <button type="submit" class="cursor-pointer icons-wishlist shadow-none border-0">
+                      <button type="submit" class="cursor-pointer icons-wishlist border border-dark shadow-sm">
                         <i class="ti ti-heart"></i>
                       </button>
                     </form>
                   @endif
                 @else
-                  <a href="{{ route('login') }}" class="cursor-pointer icons-wishlist">
+                  <a href="{{ route('auth.login') }}" class="cursor-pointer icons-wishlist border border-dark shadow-sm">
                     <i class="ti ti-heart"></i>
                   </a>
                 @endif
@@ -105,8 +105,8 @@
 
 
               </div>
-              <div class="w-full text-center px-5" style="position: absolute; bottom: 0;">
-                <a href="{{ 'umkm/' . $product->slug }}" class="btn btn-outline-dark w-full border border-dark rounded-3"
+              <div class="w-full text-center pe-3" style="position: absolute; bottom: 0;">
+                <a href="{{ url('umkm/' . $product->slug) }}" class="btn btn-outline-dark w-full border border-dark rounded-3"
                   role="button"><i class="fas fa-search me-2"></i>Lihat UMKM</a>
               </div>
             </div>
@@ -165,7 +165,7 @@
       // If an option is selected
       if (selectedOption) {
         // Construct the URL
-        var url = 'https://bizhub.test/umkm?product_category=' + selectedOption;
+        var url = "{{ env('APP.APP_URL') }}/umkm?product_category=" + selectedOption;
 
         // Redirect to the constructed URL
         window.location.href = url;
