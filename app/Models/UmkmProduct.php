@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class UmkmProduct extends Model
 {
     use HasFactory;
-
+    protected $table = 'umkm_products';
+    
     protected $fillable = [
         'umkm_owner_id',
         'product_name',
