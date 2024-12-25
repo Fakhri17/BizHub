@@ -15,6 +15,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserResource extends Resource
 {
@@ -25,7 +27,7 @@ class UserResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        
+
         return User::count();
     }
 
@@ -49,10 +51,14 @@ class UserResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('email')
                             ->label('Email')
+                            ->email()
                             ->required()
                             ->placeholder('Enter the email')
                             ->maxLength(255),
                         Forms\Components\TextInput::make('phone_number')
+                            ->numeric()
+                            ->tel()
+                            ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                             ->label('Phone Number')
                             ->required()
                             ->placeholder('Enter the phone number')
@@ -62,8 +68,11 @@ class UserResource extends Resource
                             ->required()
                             ->placeholder('Enter the address')
                             ->maxLength(255),
-                        // Forms\Components\Checkbox::make('is_published')
-                        //     ->label('Is Published'),
+                        Forms\Components\Hidden::make('password')
+                            ->default(fn($record) => Hash::make('bizhub123')),
+                        Forms\Components\Select::make('roles')
+                            ->relationship('roles', 'name')
+                            ->required(),
                     ]),
 
             ]);
@@ -112,7 +121,7 @@ class UserResource extends Resource
                     Actions\ViewAction::make(),
                     Actions\DeleteAction::make(),
                 ])
-                ->icon('heroicon-o-adjustments-horizontal'),
+                    ->icon('heroicon-o-adjustments-horizontal'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
