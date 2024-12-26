@@ -18,3 +18,4 @@ yarn-error.log
 /.vscode
 .env.testing
 .phpunit.result.cache
+.env.dusk.local
