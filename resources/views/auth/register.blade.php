@@ -23,9 +23,9 @@
               <h2 class="text-bizhub-primary fw-semibold" style="font-size: 34px;">Daftar</h2>
               <div class="my-3">
                 <button @click="switchTab('konsumen')" :class="activeTab === 'konsumen' ? 'active' : ''"
-                  class="btn btn-bizhub-outline-primary"> Konsumen </button>
+                  class="btn btn-bizhub-outline-primary" dusk="konsumen"> Konsumen </button>
                 <button @click="switchTab('umkm')" :class="activeTab === 'umkm' ? 'active' : ''"
-                  class="btn btn-bizhub-outline-primary"> Pelaku UMKM </button>
+                  class="btn btn-bizhub-outline-primary" dusk="tab-umkm"> Pelaku UMKM </button>
               </div>
             </div>
             <div x-show="activeTab === 'konsumen'">
@@ -49,10 +49,9 @@
   <script>
     function tabSwitcher() {
       return {
-        activeTab: localStorage.getItem('activeTab') || 'konsumen',
+        activeTab: 'konsumen',
         switchTab(tab) {
           this.activeTab = tab;
-          localStorage.setItem('activeTab', tab);
         }
       }
     }
