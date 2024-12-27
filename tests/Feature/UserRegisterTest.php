@@ -18,8 +18,17 @@ class UserRegisterTest extends TestCase
     {
         parent::setUp();
 
-        // Create roles
-        Role::create(['name' => 'Customer']);
+        //
+        $roles = [
+            'UMKM Owner',
+            'Customer',
+        ];
+
+        foreach ($roles as $role) {
+            Role::create([
+                'name' => $role,
+            ]);
+        }
     }
 
 
@@ -30,7 +39,7 @@ class UserRegisterTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_register_user()
+    public function test_register_user_consumen()
     {
         $data = [
             'username' => 'test_user',
@@ -58,5 +67,39 @@ class UserRegisterTest extends TestCase
         $user = User::where('email', $data['email'])->first();
         $this->assertTrue(Hash::check('password', $user->password));
         $this->assertTrue($user->hasRole('Customer'));
+    }
+
+    public function test_umkm_owner(): void
+    {
+        $this->withoutExceptionHandling();
+
+        $data = [
+            'username' => 'test_owner',
+            'name' => 'Test Owner',
+            'phone_number' => '1234567890',
+            'address' => '123 Test Street',
+            'email' => 'testuser@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'npwp' => '12.345.678.9-012.345',
+        ];
+
+        $response = $this->withoutMiddleware()->post(route('auth.register-umkm'), $data);
+
+        $this->assertDatabaseHas('users', [
+            'username' => $data['username'],
+            'email' => $data['email']
+        ]);
+
+        $user = User::where('email', $data['email'])->first();
+        $user->assignRole('UMKM Owner');
+        $this->assertTrue($user->hasRole('UMKM Owner'));
+        $this->assertDatabaseHas('umkm_owners', [
+            'user_id' => $user->id,
+            'npwp' => $data['npwp']
+        ]);
+
+        $response->assertRedirect(route('auth.login'));
+        $response->assertSessionHas('success', 'Registrasi Berhasil.');
     }
 }

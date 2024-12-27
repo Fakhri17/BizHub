@@ -38,7 +38,7 @@
       <div class="col-12 col-md-6">
         <div class="form-no-telp">
           <p class="form-label">Nomor Telepon</p>
-          <input type="text" name="phone_number" placeholder="Masukan no telephone" x-model="form.phone_number"
+          <input type="number" name="phone_number" placeholder="Masukan no telephone" x-model="form.phone_number"
             x-on:blur="validateField('phone_number')">
         </div>
         <small class="text-danger m-2" x-text="errors.phone_number"></small>
