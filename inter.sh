@@ -1,1 +1,1 @@
-php artisan dusk --env=dusk.local
+php artisan dusk --env=dusk.testing

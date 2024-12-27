@@ -19,3 +19,4 @@ yarn-error.log
 .env.testing
 .phpunit.result.cache
 .env.dusk.local
+.env.dusk.testing
