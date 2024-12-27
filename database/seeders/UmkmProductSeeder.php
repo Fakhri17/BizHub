@@ -18,8 +18,8 @@ class UmkmProductSeeder extends Seeder
         UmkmProduct::truncate();
         Schema::enableForeignKeyConstraints();
 
-        UmkmProduct::factory()
-            ->count(10)
-            ->create();
+        // UmkmProduct::factory()
+        //     ->count(10)
+        //     ->create();
     }
 }

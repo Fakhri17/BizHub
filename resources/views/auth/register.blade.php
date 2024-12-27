@@ -57,4 +57,16 @@
       }
     }
   </script>
+  @if (session('failed'))
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      Swal.fire({
+        title: "Error",
+        text: "{{ session('failed') }}",
+        icon: "error",
+        timer: 3000
+      });
+    });
+  </script>
+@endif
 @endsection
