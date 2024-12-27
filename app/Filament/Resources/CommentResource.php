@@ -126,7 +126,7 @@ class CommentResource extends Resource
     {
         return [
             'index' => Pages\ListComments::route('/'),
-            'create' => Pages\CreateComment::route('/create'),
+            // 'create' => Pages\CreateComment::route('/create'),
             'edit' => Pages\EditComment::route('/{record}/edit'),
         ];
     }
