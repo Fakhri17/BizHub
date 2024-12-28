@@ -117,10 +117,7 @@ class UmkmProductResource extends Resource
 
                         Select::make('product_category_id')
                             ->label('Product Category')
-                            ->options(
-                                ProductCategory::all()->pluck('category_name', 'id')
-                            )
-                            ->searchable()
+                            ->relationship('productCategory', 'category_name')
                             ->required(),
 
                         FileUpload::make('product_image')
