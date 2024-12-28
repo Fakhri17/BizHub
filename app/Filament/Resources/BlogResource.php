@@ -49,7 +49,7 @@ class BlogResource extends Resource
                     ->columnSpan(2)
                     ->schema([
                         TextInput::make('title')
-                            ->live()
+                            ->live(onBlur: true)
                             ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
                                 if (($get('slug') ?? '') !== Str::slug($old)) {
                                     return;
@@ -93,10 +93,7 @@ class BlogResource extends Resource
                             ->label('Slug')
                             ->required()
                             ->unique(ignoreRecord: true)
-                            ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
                             ->placeholder('Enter the slug of the blog'),
-
-
                         CheckBox::make('is_published')
                             ->label('Is Published')
                     ]),
