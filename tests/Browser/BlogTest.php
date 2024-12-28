@@ -32,7 +32,9 @@ class BlogTest extends DuskTestCase
     public function testCreateBlog(): void
     {
         $this->browse(function (Browser $browser) {
-            $blogTitle = 'Blog Title' . uniqid();
+            $faker = \Faker\Factory::create();
+            $blogTitle = $faker->sentence;
+            
             $blogCategoryId = rand(1, 2);
             $browser->loginAs($this->adminUser)
                 ->visit(BlogResource::getUrl('create'))

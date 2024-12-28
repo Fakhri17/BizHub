@@ -11,6 +11,13 @@ use Illuminate\Foundation\Testing\DatabaseTruncation;
 
 class RegisterTest extends DuskTestCase
 {
+    protected $fakerVar;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->fakerVar = \Faker\Factory::create();
+    }
 
     private function generateRandomNPWP()
     {
@@ -32,7 +39,7 @@ class RegisterTest extends DuskTestCase
     public function testKonsumeWithoutEmail()
     {
         $this->browse(function (Browser $browser) {
-            $username = 'konsumenuser' . uniqid();
+            $username = $this->fakerVar->userName;
             $browser->visit('/register')
                 ->click('@konsumen')
                 ->typeSlowly('username', $username, 50)
@@ -48,7 +55,7 @@ class RegisterTest extends DuskTestCase
     public function testKonsumenWithoutEmailAndPass()
     {
         $this->browse(function (Browser $browser) {
-            $username = 'konsumenuser' . uniqid();
+            $username = $this->fakerVar->userName;
             $browser->visit('/register')
                 ->click('@konsumen')
                 ->typeSlowly('username', $username, 50)
@@ -63,8 +70,8 @@ class RegisterTest extends DuskTestCase
     public function testKonsumenTabLoadsCorrectly()
     {
         $this->browse(function (Browser $browser) {
-            $username = 'konsumenuser' . uniqid();
-            $email = 'konsumen' . uniqid() . '@example.com';
+            $username = $this->fakerVar->userName;
+            $email =  $username . '@example.com';
             $browser->visit('/register')
                 ->click('@konsumen')
                 ->typeSlowly('username', $username, 50)
@@ -83,7 +90,7 @@ class RegisterTest extends DuskTestCase
     public function testUmkmWithoutEmail()
     {
         $this->browse(function (Browser $browser) {
-            $username = 'umkmuser' . uniqid();
+            $username = $this->fakerVar->userName;
             $browser->visit('/register')
                 ->pause(500)
                 ->waitFor('@tab-umkm', 5)
@@ -104,7 +111,7 @@ class RegisterTest extends DuskTestCase
     public function testUmkmWithoutEmailAndPass()
     {
         $this->browse(function (Browser $browser) {
-            $username = 'umkmuser' . uniqid();
+            $username = $this->fakerVar->userName;
             $browser->visit('/register')
                 ->pause(500)
                 ->waitFor('@tab-umkm', 5)
@@ -125,8 +132,8 @@ class RegisterTest extends DuskTestCase
     public function testUmkmTabLoadsCorrectly()
     {
         $this->browse(function (Browser $browser) {
-            $username = 'umkmuser' . uniqid();
-            $email = 'umkm' . uniqid() . '@example.com';
+            $username = $this->fakerVar->userName;
+            $email =  $username . '@example.com';
             $browser->visit('/register')
                 ->pause(500)
                 ->waitFor('@tab-umkm', 5)

@@ -28,7 +28,7 @@ class EditProfileTest extends DuskTestCase
             // Data acak untuk uji coba
             $newName = $faker->name;
             $newEmail = $faker->unique()->safeEmail;
-            $newPhoneNumber = $faker->phoneNumber;
+            $newPhoneNumber = $faker->numerify('############') . rand(10, 99);
             $newAddress = $faker->address;
 
             $browser->loginAs($this->umkmOwner)
