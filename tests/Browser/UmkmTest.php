@@ -37,19 +37,20 @@ class UmkmTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->umkmOwner)
                 ->visit(UmkmProductResource::getUrl('create'))
-                ->typeSlowly('#data\.product_name', $this->fakerVar->sentence, 50)
+                ->typeSlowly('#data\.product_name', $this->fakerVar->sentence(3), 50)
                 ->click('#data\.product_category_id')
                 ->pause(2000)
                 ->select('#data\.product_category_id', rand(1, 4))
                 ->attach('.filepond--browser', __DIR__.'\photos\produk-7.jpg')
+                ->pause(4000)
                 ->typeSlowly('#data\.product_price', $this->fakerVar->randomNumber(5, true), 50)
-                ->typeSlowly('#data\.product_description', $this->fakerVar->text, 50)
+                ->typeSlowly('#data\.product_description', $this->fakerVar->text(20), 50)
                 ->typeSlowly('#data\.product_location', $this->fakerVar->address, 50)
                 ->check('#data\.is_published')
-                ->pause(4000)
-                ->press('Create')
                 ->pause(2000)
-                ->visit(UmkmProductResource::getUrl('index'));
+                ->press('Create')
+                ->pause(2000);
+            $browser->visit(UmkmProductResource::getUrl('index'));
             Sleep::for(2)->seconds();
         });
     }   
