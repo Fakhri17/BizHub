@@ -33,9 +33,9 @@ class BlogTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $faker = \Faker\Factory::create();
-            $blogTitle = $faker->sentence;
-            
+            $blogTitle = $faker->sentence(3);
             $blogCategoryId = rand(1, 2);
+            $blogDescription = $faker->text(20);
             $browser->loginAs($this->adminUser)
                 ->visit(BlogResource::getUrl('create'))
                 ->typeSlowly('#data\.title', $blogTitle, 50)
@@ -43,9 +43,10 @@ class BlogTest extends DuskTestCase
                 ->pause(2000)
                 ->select('#data\.blog_category_id', $blogCategoryId)
                 ->attach('.filepond--browser', __DIR__.'\photos\test-foto.jpg')
-                ->typeSlowly('#data\.content', 'Content Blog', 50)
-                ->check('#data\.is_published')
                 ->pause(4000)
+                ->typeSlowly('#data\.content', $blogDescription, 50)
+                ->check('#data\.is_published')
+                ->pause(2000)
                 ->press('Create')
                 ->pause(2000)
                 ->visit(BlogResource::getUrl('index'));
