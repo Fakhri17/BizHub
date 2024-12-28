@@ -103,7 +103,7 @@ class UmkmProductResource extends Resource
 
                         TextInput::make('product_name')
                             ->label('Product Name')
-                            ->live()
+                            ->live(onBlur: true)
                             ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
                                 if (($get('slug') ?? '') !== Str::slug($old)) {
                                     return;
@@ -117,10 +117,7 @@ class UmkmProductResource extends Resource
 
                         Select::make('product_category_id')
                             ->label('Product Category')
-                            ->options(
-                                ProductCategory::all()->pluck('category_name', 'id')
-                            )
-                            ->searchable()
+                            ->relationship('productCategory', 'category_name')
                             ->required(),
 
                         FileUpload::make('product_image')
@@ -199,7 +196,6 @@ class UmkmProductResource extends Resource
                             ->label('Slug')
                             ->required()
                             ->unique(ignoreRecord: true)
-                            ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
                             ->placeholder('Enter the slug of the blog'),
 
                         TagsInput::make('tags')
