@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\SuperAdmin;
+namespace Tests\Feature\SuperAdmin;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

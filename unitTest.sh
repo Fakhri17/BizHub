@@ -1,1 +1,0 @@
-php artisan test --testsuite=Unit --env=testing
