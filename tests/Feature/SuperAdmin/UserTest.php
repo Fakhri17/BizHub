@@ -103,6 +103,32 @@ class UserTest extends TestCase
         $this->assertDatabaseCount('users', 1);
     }
 
+    public function test_can_access_edit(): void
+    {
+        $this->get(UserResource::getUrl('edit', [
+            'record' => User::factory()->create(),
+        ]))->assertSuccessful();
+    }
+
+    public function test_can_save_new_data(): void
+    {
+        $userLast = User::latest()->first();
+        $newData = User::factory()->make();
+
+        Livewire::test(UserResource\Pages\EditUser::class, [
+            'record' => $userLast->getRouteKey(),
+        ])
+            ->fillForm([
+                'username' => $newData->username,
+                'name' => $newData->name,
+                'email' => $newData->email,
+                'address' => $newData->address,
+            ])
+            ->assertFormFieldIsVisible('password')
+            ->call('save')
+            ->assertHasNoErrors();
+    }
+
     public function test_delete_user(): void
     {
         $this->loadCreateUserPage();
@@ -122,15 +148,13 @@ class UserTest extends TestCase
             ->assertHasErrors();
 
         $userLast = User::latest()->first();
-            
 
-        Livewire::test(UserResource\Pages\EditUser::class,[
+
+        Livewire::test(UserResource\Pages\EditUser::class, [
             'record' => $userLast->getRouteKey()
         ])
-        ->callAction(DeleteAction::class);
+            ->callAction(DeleteAction::class);
 
         $this->assertModelMissing($userLast);
-
-
     }
 }
