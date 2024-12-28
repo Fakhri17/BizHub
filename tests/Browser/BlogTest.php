@@ -32,15 +32,17 @@ class BlogTest extends DuskTestCase
     public function testCreateBlog(): void
     {
         $this->browse(function (Browser $browser) {
+            $blogTitle = 'Blog Title' . uniqid();
+            $blogCategoryId = rand(1, 2);
             $browser->loginAs($this->adminUser)
                 ->visit(BlogResource::getUrl('create'))
-                ->typeSlowly('#data\.title', 'Title Blog', 50)
+                ->typeSlowly('#data\.title', $blogTitle, 50)
                 ->pause(1000)
-                ->select('#data\.blog_category_id', '1')
+                ->select('#data\.blog_category_id', $blogCategoryId)
                 ->attach('.filepond--browser', __DIR__.'\photos\test-foto.jpg')
                 ->typeSlowly('#data\.content', 'Content Blog', 50)
                 ->check('#data\.is_published')
-                ->pause(1500)
+                ->pause(4000)
                 ->press('Create')
                 ->pause(2000)
                 ->visit(BlogResource::getUrl('index'));
