@@ -85,8 +85,6 @@ class RegisterTest extends DuskTestCase
         Sleep::for(2)->seconds();
     }
 
-
-
     public function testUmkmWithoutEmail()
     {
         $this->browse(function (Browser $browser) {
@@ -128,7 +126,6 @@ class RegisterTest extends DuskTestCase
         Sleep::for(2)->seconds();
     }
 
-    
     public function testUmkmTabLoadsCorrectly()
     {
         $this->browse(function (Browser $browser) {
