@@ -52,6 +52,7 @@ class AuthController extends Controller
 
     public function register_konsumen(Request $request)
     {
+
         // $request->validate([
         //     'username' => 'required|string|max:255',
         //     'name' => 'required|string|max:255',
@@ -82,24 +83,26 @@ class AuthController extends Controller
 
     public function register_umkm(Request $request)
     {
+        // validate
+
         // $request->validate([
-        //     'username' => 'required|string|max:255',
-        //     'name' => 'required|string|max:255',
-        //     'phone_number' => 'required|string|max:20',
-        //     'address' => 'required|string|max:255',
-        //     'email' => 'required|string|email|max:255|unique:users,email',
+        //     'username_umkm' => 'required|string|max:255',
+        //     'name_umkm' => 'required|string|max:255',
+        //     'phone_number_umkm' => 'required|string|max:20',
+        //     'address_umkm' => 'required|string|max:255',
+        //     'email_umkm' => 'required|string|email|max:255|unique:users,email',
         //     'password' => 'required|string|min:8|confirmed',
-        //     'npwp' => 'required|string|max:20',
+        //     'npwp' => 'required|string|max:25',
         // ]);
 
         try {
             $user = User::create([
-                'username' => $request->username,
-                'name' => $request->name,
-                'phone_number' => $request->phone_number,
+                'username' => $request->username_umkm,
+                'name' => $request->name_umkm,
+                'phone_number' => $request->phone_number_umkm,
                 'avatar_path' => '',
-                'address' => $request->address,
-                'email' => $request->email,
+                'address' => $request->address_umkm,
+                'email' => $request->email_umkm,
                 'password' => Hash::make($request->password)
             ]);
 

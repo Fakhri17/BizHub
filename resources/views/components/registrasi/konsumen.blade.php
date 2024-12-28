@@ -6,23 +6,26 @@
       <div class="col-6 col-md-6">
         <div class="form-username">
           <p class="form-label">Username</p>
-          <input type="username" name="username" placeholder="Masukan username" x-model="form.username" x-on:blur="validateField('username')">
+          <input type="username" name="username" placeholder="Masukan username" x-model="form.username"
+            x-on:blur="validateField('username')">
         </div>
         <small class="text-danger m-2" x-text="errors.username"></small>
       </div>
       <div class="col-6 col-md-6">
         <div class="form-name">
           <p class="form-label">Name</p>
-          <input type="text" name="name" placeholder="Masukan nama" x-model="form.name" x-on:blur="validateField('name')">
+          <input type="text" name="name" placeholder="Masukan nama" x-model="form.name"
+            x-on:blur="validateField('name')">
         </div>
-          <small class="text-danger m-2" x-text="errors.name"></small>
+        <small class="text-danger m-2" x-text="errors.name"></small>
       </div>
       <div class="col-12 col-md-6">
         <div class="form-email">
           <p class="form-label">Email</p>
-          <input type="email" name="email" placeholder="(ex : user@email.com)" x-model="form.email" x-on:blur="validateField('email')">
+          <input type="email" name="email" placeholder="(ex : user@email.com)" x-model="form.email"
+            x-on:blur="validateField('email')">
         </div>
-          <small class="text-danger m-2" x-text="errors.email"></small>
+        <small class="text-danger m-2" x-text="errors.email"></small>
       </div>
       <div class="col-12 col-md-6">
         <div x-data="{ showPassword: false }" class="form-password">
@@ -53,13 +56,9 @@
       </div>
     </div>
 
-
-      {{-- <input type="hidden" name="avatar_path" value=" ' ' "> --}}
-
     <div class="form-button">
       <button type="submit">Daftar</button>
     </div>
-    </form>
-    {{-- <div x-show="submitSuccess" class="text-success">Form submitted successfully!</div>
-    <div x-show="submitError" class="text-danger">Please fix the errors in the form.</div> --}}
+  </form>
+
 </div>
