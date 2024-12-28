@@ -9,15 +9,15 @@ use Tests\DuskTestCase;
 
 class AuthenticationTest extends DuskTestCase
 {
-   // this get data from base seeder
+    // this get data from base seeder
 
     public function testWithoutInputEmail(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-            ->typeSlowly('email', '', 50)
-            ->typeSlowly('password', 'admin123', 50)
-            ->press('Masuk');
+                ->typeSlowly('email', '', 50)
+                ->typeSlowly('password', 'admin123', 50)
+                ->press('Masuk');
         });
     }
 
@@ -25,11 +25,10 @@ class AuthenticationTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-            ->typeSlowly('email', 'admin@gmail.com', 50)
-            ->typeSlowly('password', '', 50)
-            ->press('Masuk');
+                ->typeSlowly('email', 'admin@gmail.com', 50)
+                ->typeSlowly('password', '', 50)
+                ->press('Masuk');
         });
-
     }
 
 
@@ -37,11 +36,11 @@ class AuthenticationTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-            ->typeSlowly('email', 'admin@gmail.com', 50)
-            ->typeSlowly('password', 'admin1234', 50)
-            ->press('Masuk');
+                ->typeSlowly('email', 'admin@gmail.com', 50)
+                ->typeSlowly('password', 'admin1234', 50)
+                ->press('Masuk');
+            Sleep::for(2)->seconds();
         });
-
     }
 
 
@@ -49,9 +48,9 @@ class AuthenticationTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-            ->typeSlowly('email', 'admin@gmail.com', 50)
-            ->typeSlowly('password', 'admin123', 50)
-            ->press('Masuk');
+                ->typeSlowly('email', 'admin@gmail.com', 50)
+                ->typeSlowly('password', 'admin123', 50)
+                ->press('Masuk');
         });
         Sleep::for(2)->seconds();
     }

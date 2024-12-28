@@ -66,10 +66,7 @@ class BlogResource extends Resource
 
                         Select::make('blog_category_id')
                             ->label('Blog Category')
-                            ->options(
-                                BlogCategory::all()->pluck('name', 'id')
-                            )
-                            ->searchable()
+                            ->relationship('blogCategory', 'name')
                             ->required(),
                         FileUpload::make('thumbnail')
                             ->disk('public')
