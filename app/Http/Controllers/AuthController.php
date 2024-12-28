@@ -24,7 +24,7 @@ class AuthController extends Controller
     public function login_proses(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
@@ -33,10 +33,15 @@ class AuthController extends Controller
             'password' => $request->password
         ];
 
+
         if (Auth::attempt($data)) {
             return redirect('/')->with('success', 'Login Berhasil!');
         } else {
             session()->flash('failed', 'Email atau password salah!');
+            back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+                'password' => 'The provided credentials do not match our records.',
+            ]);
             return redirect()->route('auth.login');
         }
     }
