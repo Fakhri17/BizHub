@@ -89,8 +89,8 @@ class UmkmTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->umkmOwner)
                 ->visit(UmkmProductResource::getUrl('index'))
-                ->waitFor('button[class="fi-icon-btn relative flex items-center justify-center rounded-lg outline-none transition duration-75 focus-visible:ring-2 -m-2 h-9 w-9 fi-color-custom text-custom-500 hover:text-custom-600 focus-visible:ring-custom-600 dark:text-custom-400 dark:hover:text-custom-300 dark:focus-visible:ring-custom-500 fi-color-primary fi-ac-icon-btn-group"]', 50)
-                ->click('button[class="fi-icon-btn relative flex items-center justify-center rounded-lg outline-none transition duration-75 focus-visible:ring-2 -m-2 h-9 w-9 fi-color-custom text-custom-500 hover:text-custom-600 focus-visible:ring-custom-600 dark:text-custom-400 dark:hover:text-custom-300 dark:focus-visible:ring-custom-500 fi-color-primary fi-ac-icon-btn-group"]')
+                ->waitFor('button[data-id="group-actions"]', 50)
+                ->click('button[data-id="group-actions"]')
                 ->press('Delete')
                 ->waitFor('button[class="fi-btn relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2 rounded-lg fi-color-custom fi-btn-color-danger fi-color-danger fi-size-md fi-btn-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-custom-600 text-white hover:bg-custom-500 focus-visible:ring-custom-500/50 dark:bg-custom-500 dark:hover:bg-custom-400 dark:focus-visible:ring-custom-400/50 fi-ac-action fi-ac-btn-action"]', 50)
                 ->press('Confirm')
