@@ -11,6 +11,17 @@ class AuthenticationTest extends DuskTestCase
 {
     // this get data from base seeder
 
+    public function testWithoutInputEmailAndPassword(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/login')
+                ->typeSlowly('email', '', 50)
+                ->typeSlowly('password', '', 50)
+                ->pause(1000)
+                ->press('Masuk');
+        });
+    }
+
     public function testWithoutInputEmail(): void
     {
         $this->browse(function (Browser $browser) {

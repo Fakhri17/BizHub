@@ -36,6 +36,18 @@ class RegisterTest extends DuskTestCase
         );
     }
 
+
+    public function testKonsumenWithoutAnyData()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/register')
+                ->click('@konsumen')
+                ->pause(1000)
+                ->press('Daftar');
+        });
+        Sleep::for(2)->seconds();
+    }
+
     public function testKonsumeWithoutEmail()
     {
         $this->browse(function (Browser $browser) {
@@ -80,6 +92,20 @@ class RegisterTest extends DuskTestCase
                 ->typeSlowly('password', 'password', 50)
                 ->typeSlowly('phone_number', '08970632441', 50)
                 ->typeSlowly('address', 'Konsumen Address', 50)
+                ->press('Daftar');
+        });
+        Sleep::for(2)->seconds();
+    }
+
+    public function testUmkmWithoutAnyData()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/register')
+                ->pause(500)
+                ->waitFor('@tab-umkm', 5)
+                ->click('@tab-umkm')
+                ->pause(500)
+                ->screenshot('tab-umkm')
                 ->press('Daftar');
         });
         Sleep::for(2)->seconds();
