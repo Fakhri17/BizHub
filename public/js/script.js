@@ -79,7 +79,7 @@ function formValidationKonsumen() {
             if (!this.form[field]) {
                 this.errors[field] = `${fieldNames[field]} is required`;
             } else if (field === "username") {
-                if (this.form[field].length < 6) {
+                if (this.form[field].length < 5) {
                     this.errors[
                         field
                     ] = `${fieldNames[field]} minimal 6 karakter`;
@@ -176,7 +176,7 @@ function formValidationUMKM() {
             if (!this.form[field]) {
                 this.errors[field] = `${fieldNames[field]} is required`;
             } else if (field === "username") {
-                if (this.form[field].length < 6) {
+                if (this.form[field].length < 5) {
                     this.errors[
                         field
                     ] = `${fieldNames[field]} minimal 6 karakter`;

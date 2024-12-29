@@ -69,6 +69,7 @@ class UserResource extends Resource
                             ->placeholder('Enter the address')
                             ->maxLength(255),
                         Forms\Components\Hidden::make('password')
+                            ->default('bizhub123')
                             ->dehydrateStateUsing(fn(string $state): string => Hash::make($state))
                             ->dehydrated(fn(?string $state): bool => filled($state)),
                         Forms\Components\Select::make('roles')
