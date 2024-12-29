@@ -25,11 +25,10 @@ class EditProfileTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $faker = \Faker\Factory::create();
 
-            // Data acak untuk uji coba
             $newName = $faker->name;
             $newEmail = $faker->unique()->safeEmail;
             $newPhoneNumber = $faker->numerify('############') . rand(10, 99);
-            $newAddress = $faker->address;
+            $newAddress = $faker->streetAddress;
 
             $browser->loginAs($this->umkmOwner)
                 ->visit('/dashboard/edit-profile')

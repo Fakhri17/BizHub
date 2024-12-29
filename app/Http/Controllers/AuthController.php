@@ -24,7 +24,7 @@ class AuthController extends Controller
     public function login_proses(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
@@ -33,10 +33,15 @@ class AuthController extends Controller
             'password' => $request->password
         ];
 
+
         if (Auth::attempt($data)) {
             return redirect('/')->with('success', 'Login Berhasil!');
         } else {
             session()->flash('failed', 'Email atau password salah!');
+            back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+                'password' => 'The provided credentials do not match our records.',
+            ]);
             return redirect()->route('auth.login');
         }
     }
@@ -103,7 +108,7 @@ class AuthController extends Controller
                 'avatar_path' => '',
                 'address' => $request->address_umkm,
                 'email' => $request->email_umkm,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password_umkm)
             ]);
 
             $user->assignRole('UMKM Owner');

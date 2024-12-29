@@ -55,7 +55,7 @@ Route::group(['middleware' => ['role:UMKM Owner|Super Admin']], function () {
 Route::get('/umkm', [UmkmProductController::class, 'index'])->name('umkm.index');
 Route::get('/umkm/{slug}', [UmkmProductController::class, 'detail'])->name('umkm.detail');
 Route::middleware('auth')->group(function () {
-    
+
     Route::get('/umkm/product/wishlist', [UmkmProductController::class, 'wishlist'])->name('umkm.wishlist');
     Route::post('/umkm/add/{productId}', [UmkmProductController::class, 'addToWishlist'])->name('umkm.add');
     Route::post('/umkm/remove/{productId}', [UmkmProductController::class, 'removeFromWishlist'])->name('umkm.remove');
@@ -63,8 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/comments/{id}/like', [CommentController::class, 'like'])->name('comments.like');
 });
 
-Route::get('/generate-storage-link', function(){
+Route::get('/generate-storage-link', function () {
     Artisan::call('storage:link');
     echo 'Storage link generated successfully';
- });
-
+});
