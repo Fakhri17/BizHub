@@ -42,7 +42,7 @@ class BlogTest extends DuskTestCase
                 ->click('#data\.blog_category_id')
                 ->pause(2000)
                 ->select('#data\.blog_category_id', $blogCategoryId)
-                ->attach('.filepond--browser', __DIR__.'\photos\test-foto.jpg')
+                ->attach('.filepond--browser', __DIR__ . '/photos/test-foto.jpg')
                 ->pause(4000)
                 ->typeSlowly('#data\.content', $blogDescription, 50)
                 ->check('#data\.is_published')
@@ -51,9 +51,6 @@ class BlogTest extends DuskTestCase
                 ->pause(2000)
                 ->visit(BlogResource::getUrl('index'));
             Sleep::for(2)->seconds();
-            
         });
     }
-
-    
 }
