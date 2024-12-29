@@ -108,7 +108,7 @@ class AuthController extends Controller
                 'avatar_path' => '',
                 'address' => $request->address_umkm,
                 'email' => $request->email_umkm,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password_umkm)
             ]);
 
             $user->assignRole('UMKM Owner');

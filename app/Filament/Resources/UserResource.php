@@ -69,6 +69,7 @@ class UserResource extends Resource
                             ->placeholder('Enter the address')
                             ->maxLength(255),
                         Forms\Components\Hidden::make('password')
+                            ->default('bizhub123')
                             ->dehydrateStateUsing(fn(string $state): string => Hash::make($state))
                             ->dehydrated(fn(?string $state): bool => filled($state)),
                         Forms\Components\Select::make('roles')
@@ -117,12 +118,16 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Actions\ActionGroup::make([
-                    Actions\EditAction::make(),
-                    Actions\ViewAction::make(),
-                    Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make()
+                        ->extraAttributes(['data-id' => 'edit-action']),
+                    Tables\Actions\ViewAction::make()
+                        ->extraAttributes(['data-id' => 'view-action']),
+                    Tables\Actions\DeleteAction::make()
+                        ->extraAttributes(['data-id' => 'delete-action']),
                 ])
-                    ->icon('heroicon-o-adjustments-horizontal'),
+                    ->icon('heroicon-o-adjustments-horizontal')
+                    ->extraAttributes(['data-id' => 'group-actions']),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -153,7 +153,7 @@ class UmkmProductResource extends Resource
                         Builder::make('product_gallery')
                             ->label('Product Gallery')
                             ->collapseAllAction(
-                                fn (Action $action) => $action->label('Collapse all content'),
+                                fn(Action $action) => $action->label('Collapse all content'),
                             )
                             ->blocks([
                                 Builder\Block::make('Image')
@@ -172,7 +172,7 @@ class UmkmProductResource extends Resource
                             ->collapsible()
                             ->collapsed()
                             ->collapseAllAction(
-                                fn (Action $action) => $action->label('Collapse all content'),
+                                fn(Action $action) => $action->label('Collapse all content'),
                             ),
 
                         // Builder::make('product_social_media')
@@ -224,7 +224,7 @@ class UmkmProductResource extends Resource
                             ->collapsible()
                             ->collapsed()
                             ->collapseAllAction(
-                                fn (Action $action) => $action->label('Collapse all content'),
+                                fn(Action $action) => $action->label('Collapse all content'),
                             ),
 
                         CheckBox::make('is_published')
@@ -264,12 +264,16 @@ class UmkmProductResource extends Resource
                 //
             ])
             ->actions([
-                Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\ViewAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make()
+                        ->extraAttributes(['data-id' => 'edit-action']),
+                    Tables\Actions\ViewAction::make()
+                        ->extraAttributes(['data-id' => 'view-action']),
+                    Tables\Actions\DeleteAction::make()
+                        ->extraAttributes(['data-id' => 'delete-action']),
                 ])
-                ->icon('heroicon-o-adjustments-horizontal'),
+                    ->icon('heroicon-o-adjustments-horizontal')
+                    ->extraAttributes(['data-id' => 'group-actions']),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
