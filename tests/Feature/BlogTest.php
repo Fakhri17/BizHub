@@ -60,9 +60,9 @@ class BlogTest extends TestCase
     {
 
         $this->get(BlogResource::getUrl('create'))->assertSuccessful();
-        $newData = Blog::factory()->make();
-
-        // $thumbnail = UploadedFile::fake()->image('thumbnail.jpg');
+        $newData = Blog::factory()->make([
+            'thumbnail' => UploadedFile::fake()->image('blog.jpg', 600, 600),
+        ]);
 
 
         Livewire::test(BlogResource\Pages\CreateBlog::class)
@@ -83,7 +83,5 @@ class BlogTest extends TestCase
             'blog_category_id' => $newData->blog_category_id,
             'is_published' => $newData->is_published,
         ]);
-
-        // $this->assertTrue(Storage::disk('public')->exists('blog-thumbnails/' . $thumbnail->hashName()));
     }
 }
