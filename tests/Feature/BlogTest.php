@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 use Livewire\Livewire;
+use Filament\Actions\DeleteAction;
 
 class BlogTest extends TestCase
 {
+
     use RefreshDatabase;
 
     private function setupSuperAdmin(): User
@@ -36,6 +38,26 @@ class BlogTest extends TestCase
 
         return $user;
     }
+
+    private function loadCreateBlogPage(): void
+    {
+        $this->get(BlogResource::getUrl('create'))->assertSuccessful();
+    }
+
+    private function prepareTestData(): array
+    {
+        $blog = Blog::factory()->create();
+
+        return [
+            'blog' => $blog,
+        ];
+    }
+
+    private function updateData(Blog $blog, array $data): void
+    {
+        $blog->update($data);
+    }
+
     public function setUp(): void
     {
         parent::setUp();
@@ -55,15 +77,14 @@ class BlogTest extends TestCase
         $response->assertSuccessful();
     }
 
-
-    public function test_create_blog_data(): void
+    public function test_create_blog_full_data(): void
     {
 
-        $this->get(BlogResource::getUrl('create'))->assertSuccessful();
+        $this->loadCreateBlogPage();
+
         $newData = Blog::factory()->make([
             'thumbnail' => UploadedFile::fake()->image('blog.jpg', 600, 600),
         ]);
-
 
         Livewire::test(BlogResource\Pages\CreateBlog::class)
             ->fillForm([
@@ -82,6 +103,97 @@ class BlogTest extends TestCase
             'content' => $newData->content,
             'blog_category_id' => $newData->blog_category_id,
             'is_published' => $newData->is_published,
+        ]);
+    }
+
+    public function test_create_blog_without_data(): void
+    {
+        $this->loadCreateBlogPage();
+
+        Livewire::test(BlogResource\Pages\CreateBlog::class)
+            ->call('create')
+            ->assertHasErrors();
+
+        $this->assertDatabaseCount('blogs', 0);
+    }
+
+    public function test_can_access_edit(): void
+    {
+        $this->get(BlogResource::getUrl('edit', [
+            'record' => Blog::factory()->create(),
+        ]))->assertSuccessful();
+    }
+
+    public function test_can_save_new_data(): void
+    {
+        $this->prepareTestData();
+        $blogLast = Blog::latest()->first();
+        $newData = Blog::factory()->make([
+            'thumbnail' => UploadedFile::fake()->image('blog.jpg', 600, 600),
+        ]);
+
+        Livewire::test(BlogResource\Pages\EditBlog::class, [
+            'record' => $blogLast->getRouteKey(),
+        ])
+            ->fillForm([
+                'title' => $newData->title,
+                'slug' => $newData->slug,
+                'content' => $newData->content,
+                'blog_category_id' => $newData->blog_category_id,
+                'is_published' => $newData->is_published,
+            ])
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $this->updateData($blogLast, $newData->toArray());
+
+        $blogLast->refresh();
+
+        $this->assertequals($blogLast->title, $newData->title);
+        $this->assertequals($blogLast->slug, $newData->slug);
+        $this->assertequals($blogLast->content, $newData->content);
+        $this->assertequals($blogLast->blog_category_id, $newData->blog_category_id);
+        $this->assertequals($blogLast->is_published, $newData->is_published);
+    }
+
+
+    public function test_save_new_data_without_data(): void
+    {
+        $this->prepareTestData();
+        $blogLast = Blog::latest()->first();
+
+        Livewire::test(BlogResource\Pages\EditBlog::class, [
+            'record' => $blogLast->getRouteKey(),
+        ])
+        ->fillForm([
+            'title' => '',
+            'slug' => '',
+            'content' => '',
+            'blog_category_id' => '',
+            'is_published' => '',
+        ])
+            ->call('save')
+            ->assertHasErrors();
+
+        $blogLast->refresh();
+
+      
+    }
+
+    public function test_can_delete_data(): void
+    {
+        $this->loadCreateBlogPage();
+        $this->prepareTestData();
+
+        $blogLast = Blog::latest()->first();
+
+        Livewire::test(BlogResource\Pages\EditBlog::class, [
+            'record' => $blogLast->getRouteKey(),
+        ])
+            ->callAction(DeleteAction::class);
+
+        $this->assertDatabaseMissing('blogs', [
+            'id' => $blogLast->id,
         ]);
     }
 }

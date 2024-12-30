@@ -10,6 +10,7 @@ use Livewire\Livewire;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 use Filament\Actions\DeleteAction;
+use Illuminate\Support\Facades\Hash;
 
 class CreateUserTest extends TestCase
 {
@@ -24,7 +25,7 @@ class CreateUserTest extends TestCase
             'name' => 'Super Admin',
             'email' => 'admin@gmail.com',
             'phone_number' => '081234567890',
-            'password' => 'admin123',
+            'password' => Hash::make('admin123'),
             'avatar_path' => '',
             'address' => 'Jl. Raya No. 1',
             'role_id' => '1'
