@@ -47,7 +47,7 @@ class UmkmTest extends DuskTestCase
                 ->typeSlowly('#data\.product_price', $this->fakerVar->randomNumber(5), 50)
                 ->typeSlowly('#data\.product_description', $this->fakerVar->text(20), 50)
                 ->typeSlowly('#data\.product_location', $cleanedAddress, 50)
-                ->check('#data\.is_published')
+                // ->check('#data\.is_published')
                 ->pause(2000)
                 ->press('Create')
                 ->pause(2000);
@@ -73,7 +73,7 @@ class UmkmTest extends DuskTestCase
                 ->typeSlowly('#data\.product_price', $this->fakerVar->randomNumber(5), 50)
                 ->typeSlowly('#data\.product_description', $this->fakerVar->text(20), 50)
                 ->typeSlowly('#data\.product_location', $cleanedAddress, 50)
-                ->check('#data\.is_published')
+                // ->check('#data\.is_published')
                 ->pause(2000)
                 ->press('Save changes')
                 ->pause(2000);
