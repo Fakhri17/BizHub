@@ -1,18 +1,18 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\SuperAdmin;
 
 use App\Filament\Resources\BlogResource;
-use App\Filament\Resources\BlogResource\Pages\CreateBlog;
-use App\Models\Blog;
 use App\Models\User;
+use Filament\Actions\DeleteAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Testing\WithFaker;
+use Livewire\Livewire;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
-use Livewire\Livewire;
-use Filament\Actions\DeleteAction;
+use App\Models\Blog;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Hash;
 
 class BlogTest extends TestCase
 {
@@ -28,7 +28,7 @@ class BlogTest extends TestCase
             'name' => 'Super Admin',
             'email' => 'admin@gmail.com',
             'phone_number' => '081234567890',
-            'password' => 'admin123',
+            'password' => Hash::make('admin123'),
             'avatar_path' => '',
             'address' => 'Jl. Raya No. 1',
             'role_id' => '1'

@@ -10,8 +10,9 @@ use Livewire\Livewire;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 use Filament\Actions\DeleteAction;
+use Illuminate\Support\Facades\Hash;
 
-class UserTest extends TestCase
+class CreateUserTest extends TestCase
 {
     use refreshDatabase;
 
@@ -24,7 +25,7 @@ class UserTest extends TestCase
             'name' => 'Super Admin',
             'email' => 'admin@gmail.com',
             'phone_number' => '081234567890',
-            'password' => 'admin123',
+            'password' => Hash::make('admin123'),
             'avatar_path' => '',
             'address' => 'Jl. Raya No. 1',
             'role_id' => '1'
@@ -49,6 +50,11 @@ class UserTest extends TestCase
             'user' => $user,
             'role' => $role,
         ];
+    }
+
+    private function updateData(User $user, array $data): void
+    {
+        $user->update($data);
     }
 
     public function setUp(): void
@@ -127,25 +133,44 @@ class UserTest extends TestCase
             ->assertFormFieldIsVisible('password')
             ->call('save')
             ->assertHasNoErrors();
+
+        $this->updateData($userLast, $newData->toArray());
+
+        $userLast->refresh();
+
+        $this->assertEquals($newData->username, $userLast->username);
+        $this->assertEquals($newData->name, $userLast->name);
+        $this->assertEquals($newData->email, $userLast->email);
+        $this->assertEquals($newData->address, $userLast->address);
+    }
+
+
+    public function test_edit_user_without_data(): void
+    {
+        $this->loadCreateUserPage();
+        $this->prepareTestData();
+
+        $userLast = User::latest()->first();
+
+        Livewire::test(UserResource\Pages\EditUser::class, [
+            'record' => $userLast->getRouteKey()
+        ])
+            ->fillForm([
+                'username' => '',
+                'name' => '',
+                'email' => '',
+                'address' => '',
+            ])
+            ->call('save')
+            ->assertHasErrors();
+
+        $userLast->refresh();
     }
 
     public function test_delete_user(): void
     {
         $this->loadCreateUserPage();
-        $data = $this->prepareTestData();
-
-        Livewire::test(UserResource\Pages\CreateUser::class)
-            ->fillForm([
-                'username' => $data['user']->username,
-                'name' => $data['user']->name,
-                'email' => $data['user']->email,
-                'phone_number' => $data['user']->phone_number,
-                'address' => $data['user']->address,
-                'roles' => $data['role']->id,
-            ])
-            ->assertFormFieldIsVisible('password')
-            ->call('create')
-            ->assertHasErrors();
+        $this->prepareTestData();
 
         $userLast = User::latest()->first();
 
@@ -155,6 +180,8 @@ class UserTest extends TestCase
         ])
             ->callAction(DeleteAction::class);
 
-        $this->assertModelMissing($userLast);
+       $this->assertDatabaseMissing('users', [
+            'id' => $userLast->id,
+        ]);
     }
 }
