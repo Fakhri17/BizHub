@@ -15,6 +15,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserResource extends Resource
 {
@@ -25,7 +27,7 @@ class UserResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        
+
         return User::count();
     }
 
@@ -49,10 +51,14 @@ class UserResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('email')
                             ->label('Email')
+                            ->email()
                             ->required()
                             ->placeholder('Enter the email')
                             ->maxLength(255),
                         Forms\Components\TextInput::make('phone_number')
+                            ->numeric()
+                            ->tel()
+                            ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                             ->label('Phone Number')
                             ->required()
                             ->placeholder('Enter the phone number')
@@ -62,8 +68,13 @@ class UserResource extends Resource
                             ->required()
                             ->placeholder('Enter the address')
                             ->maxLength(255),
-                        // Forms\Components\Checkbox::make('is_published')
-                        //     ->label('Is Published'),
+                        Forms\Components\Hidden::make('password')
+                            ->default('bizhub123')
+                            ->dehydrateStateUsing(fn(string $state): string => Hash::make($state))
+                            ->dehydrated(fn(?string $state): bool => filled($state)),
+                        Forms\Components\Select::make('roles')
+                            ->relationship('roles', 'name')
+                            ->required(),
                     ]),
 
             ]);
@@ -107,12 +118,16 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Actions\ActionGroup::make([
-                    Actions\EditAction::make(),
-                    Actions\ViewAction::make(),
-                    Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make()
+                        ->extraAttributes(['data-id' => 'edit-action']),
+                    Tables\Actions\ViewAction::make()
+                        ->extraAttributes(['data-id' => 'view-action']),
+                    Tables\Actions\DeleteAction::make()
+                        ->extraAttributes(['data-id' => 'delete-action']),
                 ])
-                ->icon('heroicon-o-adjustments-horizontal'),
+                    ->icon('heroicon-o-adjustments-horizontal')
+                    ->extraAttributes(['data-id' => 'group-actions']),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

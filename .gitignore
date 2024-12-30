@@ -16,4 +16,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+.env.dev
 .env.testing
+.phpunit.result.cache
+.env.dusk.local
+.env.dusk.testing
+.env.dusk.dev

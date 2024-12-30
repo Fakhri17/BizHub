@@ -103,7 +103,7 @@ class UmkmProductResource extends Resource
 
                         TextInput::make('product_name')
                             ->label('Product Name')
-                            ->live()
+                            ->live(onBlur: true)
                             ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
                                 if (($get('slug') ?? '') !== Str::slug($old)) {
                                     return;
@@ -117,10 +117,7 @@ class UmkmProductResource extends Resource
 
                         Select::make('product_category_id')
                             ->label('Product Category')
-                            ->options(
-                                ProductCategory::all()->pluck('category_name', 'id')
-                            )
-                            ->searchable()
+                            ->relationship('productCategory', 'category_name')
                             ->required(),
 
                         FileUpload::make('product_image')
@@ -156,7 +153,7 @@ class UmkmProductResource extends Resource
                         Builder::make('product_gallery')
                             ->label('Product Gallery')
                             ->collapseAllAction(
-                                fn (Action $action) => $action->label('Collapse all content'),
+                                fn(Action $action) => $action->label('Collapse all content'),
                             )
                             ->blocks([
                                 Builder\Block::make('Image')
@@ -175,7 +172,7 @@ class UmkmProductResource extends Resource
                             ->collapsible()
                             ->collapsed()
                             ->collapseAllAction(
-                                fn (Action $action) => $action->label('Collapse all content'),
+                                fn(Action $action) => $action->label('Collapse all content'),
                             ),
 
                         // Builder::make('product_social_media')
@@ -199,7 +196,6 @@ class UmkmProductResource extends Resource
                             ->label('Slug')
                             ->required()
                             ->unique(ignoreRecord: true)
-                            ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
                             ->placeholder('Enter the slug of the blog'),
 
                         TagsInput::make('tags')
@@ -228,7 +224,7 @@ class UmkmProductResource extends Resource
                             ->collapsible()
                             ->collapsed()
                             ->collapseAllAction(
-                                fn (Action $action) => $action->label('Collapse all content'),
+                                fn(Action $action) => $action->label('Collapse all content'),
                             ),
 
                         CheckBox::make('is_published')
@@ -268,12 +264,16 @@ class UmkmProductResource extends Resource
                 //
             ])
             ->actions([
-                Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\ViewAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make()
+                        ->extraAttributes(['data-id' => 'edit-action']),
+                    Tables\Actions\ViewAction::make()
+                        ->extraAttributes(['data-id' => 'view-action']),
+                    Tables\Actions\DeleteAction::make()
+                        ->extraAttributes(['data-id' => 'delete-action']),
                 ])
-                ->icon('heroicon-o-adjustments-horizontal'),
+                    ->icon('heroicon-o-adjustments-horizontal')
+                    ->extraAttributes(['data-id' => 'group-actions']),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

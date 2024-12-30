@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\SuperAdmin;
 
 use App\Filament\Resources\UmkmProductResource;
 use App\Models\UmkmProduct;
@@ -15,7 +15,6 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 
 class UmkmProductsTest extends TestCase
 {
@@ -77,14 +76,7 @@ class UmkmProductsTest extends TestCase
 
     public function test_umkm_products_resource_can_be_rendered(): void
     {
-        $url = UmkmProductResource::getUrl('index');
-        $response = $this->get($url);
-
-        if ($response->getStatusCode() !== 200) {
-            Log::error("Failed to render UMKM products resource. Status code: " . $response->getStatusCode());
-            Log::error("Response content: " . $response->getContent());
-        }
-
+        $response = $this->get(UmkmProductResource::getUrl('index'));
         $response->assertSuccessful();
     }
 

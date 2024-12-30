@@ -49,7 +49,7 @@ class BlogResource extends Resource
                     ->columnSpan(2)
                     ->schema([
                         TextInput::make('title')
-                            ->live()
+                            ->live(onBlur: true)
                             ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
                                 if (($get('slug') ?? '') !== Str::slug($old)) {
                                     return;
@@ -66,10 +66,7 @@ class BlogResource extends Resource
 
                         Select::make('blog_category_id')
                             ->label('Blog Category')
-                            ->options(
-                                BlogCategory::all()->pluck('name', 'id')
-                            )
-                            ->searchable()
+                            ->relationship('blogCategory', 'name')
                             ->required(),
                         FileUpload::make('thumbnail')
                             ->disk('public')
@@ -96,10 +93,7 @@ class BlogResource extends Resource
                             ->label('Slug')
                             ->required()
                             ->unique(ignoreRecord: true)
-                            ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
                             ->placeholder('Enter the slug of the blog'),
-
-
                         CheckBox::make('is_published')
                             ->label('Is Published')
                     ]),
@@ -140,11 +134,15 @@ class BlogResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\ViewAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\EditAction::make()
+                        ->extraAttributes(['data-id' => 'edit-action']),
+                    Tables\Actions\ViewAction::make()
+                        ->extraAttributes(['data-id' => 'view-action']),
+                    Tables\Actions\DeleteAction::make()
+                        ->extraAttributes(['data-id' => 'delete-action']),
                 ])
-                    ->icon('heroicon-o-adjustments-horizontal'),
+                    ->icon('heroicon-o-adjustments-horizontal')
+                    ->extraAttributes(['data-id' => 'group-actions']),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
