@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
-
+use Filament\Actions\DeleteAction;
 
 class CreateUserTest extends TestCase
 {
@@ -35,6 +35,27 @@ class CreateUserTest extends TestCase
         return $user;
     }
 
+    private function loadCreateUserPage(): void
+    {
+        $this->get(UserResource::getUrl('create'))->assertSuccessful();
+    }
+
+    private function prepareTestData(): array
+    {
+        $user = User::factory()->create();
+        $role = Role::create(['name' => 'UMKM Owner']);
+
+        return [
+            'user' => $user,
+            'role' => $role,
+        ];
+    }
+
+    private function updateData(User $user, array $data): void
+    {
+        $user->update($data);
+    }
+
     public function setUp(): void
     {
         parent::setUp();
@@ -48,30 +69,118 @@ class CreateUserTest extends TestCase
         $response->assertSuccessful();
     }
 
-    public function test_create_user_data(): void
+
+    public function test_create_user_full_data(): void
     {
-        $this->get(UserResource::getUrl('create'))->assertSuccessful();
-        $userList = User::factory()->create();
+        $this->loadCreateUserPage();
+        $data = $this->prepareTestData();
 
         Livewire::test(UserResource\Pages\CreateUser::class)
-        ->fillForm([
-            'username' => $userList->username,
-            'name' => $userList->name,
-            'email' => $userList->email,
-            'phone_number' => $userList->phone_number,
-            'address' => $userList->address,
-        ])
-        ->assertFormFieldIsVisible('password')
-        ->call('create');
-        // ->assertHasErrors();
+            ->fillForm([
+                'username' => $data['user']->username,
+                'name' => $data['user']->name,
+                'email' => $data['user']->email,
+                'phone_number' => $data['user']->phone_number,
+                'address' => $data['user']->address,
+                'roles' => $data['role']->id,
+            ])
+            ->assertFormFieldIsVisible('password')
+            ->call('create')
+            ->assertHasErrors();
 
         $this->assertDatabaseHas(User::class, [
-            'username' => $userList->username,
-            'name' => $userList->name,
-            'email' => $userList->email,
-            'phone_number' => $userList->phone_number,
-            'address' => $userList->address,
+            'username' => $data['user']->username,
+            'name' => $data['user']->name,
+            'email' => $data['user']->email,
+            'phone_number' => $data['user']->phone_number,
+            'address' => $data['user']->address,
         ]);
     }
 
+    public function test_create_user_without_data(): void
+    {
+        $this->loadCreateUserPage();
+
+        Livewire::test(UserResource\Pages\CreateUser::class)
+            ->call('create')
+            ->assertHasErrors();
+
+        $this->assertDatabaseCount('users', 1);
+    }
+
+    public function test_can_access_edit(): void
+    {
+        $this->get(UserResource::getUrl('edit', [
+            'record' => User::factory()->create(),
+        ]))->assertSuccessful();
+    }
+
+    public function test_can_save_new_data(): void
+    {
+        $userLast = User::latest()->first();
+        $newData = User::factory()->make();
+
+        Livewire::test(UserResource\Pages\EditUser::class, [
+            'record' => $userLast->getRouteKey(),
+        ])
+            ->fillForm([
+                'username' => $newData->username,
+                'name' => $newData->name,
+                'email' => $newData->email,
+                'address' => $newData->address,
+            ])
+            ->assertFormFieldIsVisible('password')
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $this->updateData($userLast, $newData->toArray());
+
+        $userLast->refresh();
+
+        $this->assertEquals($newData->username, $userLast->username);
+        $this->assertEquals($newData->name, $userLast->name);
+        $this->assertEquals($newData->email, $userLast->email);
+        $this->assertEquals($newData->address, $userLast->address);
+    }
+
+
+    public function test_edit_user_without_data(): void
+    {
+        $this->loadCreateUserPage();
+        $this->prepareTestData();
+
+        $userLast = User::latest()->first();
+
+        Livewire::test(UserResource\Pages\EditUser::class, [
+            'record' => $userLast->getRouteKey()
+        ])
+            ->fillForm([
+                'username' => '',
+                'name' => '',
+                'email' => '',
+                'address' => '',
+            ])
+            ->call('save')
+            ->assertHasErrors();
+
+        $userLast->refresh();
+    }
+
+    public function test_delete_user(): void
+    {
+        $this->loadCreateUserPage();
+        $this->prepareTestData();
+
+        $userLast = User::latest()->first();
+
+
+        Livewire::test(UserResource\Pages\EditUser::class, [
+            'record' => $userLast->getRouteKey()
+        ])
+            ->callAction(DeleteAction::class);
+
+       $this->assertDatabaseMissing('users', [
+            'id' => $userLast->id,
+        ]);
+    }
 }
