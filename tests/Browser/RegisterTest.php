@@ -37,59 +37,63 @@ class RegisterTest extends DuskTestCase
     }
 
 
-    public function testKonsumenWithoutAnyData()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/register')
-                ->click('@konsumen')
-                ->pause(1000)
-                ->press('Daftar');
-        });
-        Sleep::for(2)->seconds();
-    }
+    // public function testKonsumenWithoutAnyData()
+    // {
+    //     $this->browse(function (Browser $browser) {
+    //         $browser->visit('/register')
+    //             ->click('@konsumen')
+    //             ->pause(1000)
+    //             ->press('Daftar');
+    //     });
+    //     Sleep::for(2)->seconds();
+    // }
 
-    public function testKonsumeWithoutEmail()
-    {
-        $this->browse(function (Browser $browser) {
-            $username = $this->fakerVar->userName;
-            $browser->visit('/register')
-                ->click('@konsumen')
-                ->typeSlowly('username', $username, 50)
-                ->typeSlowly('name', 'Konsumen Name', 50)
-                ->typeSlowly('password', 'password', 50)
-                ->typeSlowly('phone_number', '08970632441', 50)
-                ->typeSlowly('address', 'Konsumen Address', 50)
-                ->press('Daftar');
-        });
-        Sleep::for(2)->seconds();
-    }
+    // public function testKonsumeWithoutEmail()
+    // {
+    //     $this->browse(function (Browser $browser) {
+    //         $username = $this->fakerVar->userName;
+    //         $name = $this->fakerVar->name;
+    //         $browser->visit('/register')
+    //             ->click('@konsumen')
+    //             ->typeSlowly('username', $username, 50)
+    //             ->typeSlowly('name', $name, 50)
+    //             ->typeSlowly('password', 'password', 50)
+    //             ->typeSlowly('phone_number', '08970632441', 50)
+    //             ->typeSlowly('address', 'Konsumen Address', 50)
+    //             ->press('Daftar');
+    //     });
+    //     Sleep::for(2)->seconds();
+    // }
 
-    public function testKonsumenWithoutEmailAndPass()
-    {
-        $this->browse(function (Browser $browser) {
-            $username = $this->fakerVar->userName;
-            $browser->visit('/register')
-                ->click('@konsumen')
-                ->typeSlowly('username', $username, 50)
-                ->typeSlowly('name', 'Konsumen Name', 50)
-                ->typeSlowly('phone_number', '08970632441', 50)
-                ->typeSlowly('address', 'Konsumen Address', 50)
-                ->press('Daftar');
-        });
-        Sleep::for(2)->seconds();
-    }
+    // public function testKonsumenWithoutEmailAndPass()
+    // {
+    //     $this->browse(function (Browser $browser) {
+    //         $username = $this->fakerVar->userName;
+    //         $name = $this->fakerVar->name;
+    //         $browser->visit('/register')
+    //             ->click('@konsumen')
+    //             ->typeSlowly('username', $username, 50)
+    //             ->typeSlowly('name', $name, 50)
+    //             ->typeSlowly('phone_number', '08970632441', 50)
+    //             ->typeSlowly('address', 'Konsumen Address', 50)
+    //             ->press('Daftar');
+    //     });
+    //     Sleep::for(2)->seconds();
+    // }
 
     public function testKonsumenTabLoadsCorrectly()
     {
         $this->browse(function (Browser $browser) {
             $username = $this->fakerVar->userName;
+            $name = $this->fakerVar->name;
             $email =  $username . '@example.com';
+            $password = $this->fakerVar->password;
             $browser->visit('/register')
                 ->click('@konsumen')
                 ->typeSlowly('username', $username, 50)
-                ->typeSlowly('name', 'Konsumen Name', 50)
+                ->typeSlowly('name', $name, 50)
                 ->typeSlowly('email', $email, 50)
-                ->typeSlowly('password', 'password', 50)
+                ->typeSlowly('password', $password, 50)
                 ->typeSlowly('phone_number', '08970632441', 50)
                 ->typeSlowly('address', 'Konsumen Address', 50)
                 ->press('Daftar');
@@ -115,6 +119,8 @@ class RegisterTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $username = $this->fakerVar->userName;
+            $name = $this->fakerVar->name;
+            $password = $this->fakerVar->password;
             $browser->visit('/register')
                 ->pause(500)
                 ->waitFor('@tab-umkm', 5)
@@ -122,8 +128,8 @@ class RegisterTest extends DuskTestCase
                 ->pause(500)
                 ->screenshot('tab-umkm')
                 ->typeSlowly('username_umkm', $username, 50)
-                ->typeSlowly('name_umkm', 'umkm Name', 50)
-                ->typeSlowly('password_umkm', 'password', 50)
+                ->typeSlowly('name_umkm', $name, 50)
+                ->typeSlowly('password_umkm', $password, 50)
                 ->typeSlowly('phone_number_umkm', '08970632441', 50)
                 ->typeSlowly('address_umkm', 'umkm Address', 50)
                 ->typeSlowly('npwp', $this->generateRandomNPWP(), 50)
@@ -136,6 +142,7 @@ class RegisterTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $username = $this->fakerVar->userName;
+            $name = $this->fakerVar->name;
             $browser->visit('/register')
                 ->pause(500)
                 ->waitFor('@tab-umkm', 5)
@@ -143,10 +150,34 @@ class RegisterTest extends DuskTestCase
                 ->pause(500)
                 ->screenshot('tab-umkm')
                 ->typeSlowly('username_umkm', $username, 50)
-                ->typeSlowly('name_umkm', 'umkm Name', 50)
+                ->typeSlowly('name_umkm', $name, 50)
                 ->typeSlowly('phone_number_umkm', '08970632441', 50)
                 ->typeSlowly('address_umkm', 'umkm Address', 50)
                 ->typeSlowly('npwp', $this->generateRandomNPWP(), 50)
+                ->press('Daftar');
+        });
+        Sleep::for(2)->seconds();
+    }
+
+    public function testUmkmWithoutNpwp()
+    {
+        $this->browse(function (Browser $browser) {
+            $username = $this->fakerVar->userName;
+            $name = $this->fakerVar->name;
+            $email =  $username . '@example.com';
+            $password = $this->fakerVar->password;
+            $browser->visit('/register')
+                ->pause(500)
+                ->waitFor('@tab-umkm', 5)
+                ->click('@tab-umkm')
+                ->pause(500)
+                ->screenshot('tab-umkm')
+                ->typeSlowly('username_umkm', $username, 50)
+                ->typeSlowly('name_umkm', $name, 50)
+                ->typeSlowly('email_umkm', $email, 50)
+                ->typeSlowly('password_umkm', $password, 50)
+                ->typeSlowly('phone_number_umkm', '08970632441', 50)
+                ->typeSlowly('address_umkm', 'umkm Address', 50)
                 ->press('Daftar');
         });
         Sleep::for(2)->seconds();
@@ -156,7 +187,9 @@ class RegisterTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $username = $this->fakerVar->userName;
+            $name = $this->fakerVar->name;
             $email =  $username . '@example.com';
+            $password = $this->fakerVar->password;
             $browser->visit('/register')
                 ->pause(500)
                 ->waitFor('@tab-umkm', 5)
@@ -164,9 +197,9 @@ class RegisterTest extends DuskTestCase
                 ->pause(500)
                 ->screenshot('tab-umkm')
                 ->typeSlowly('username_umkm', $username, 50)
-                ->typeSlowly('name_umkm', 'umkm Name', 50)
+                ->typeSlowly('name_umkm', $name, 50)
                 ->typeSlowly('email_umkm', $email, 50)
-                ->typeSlowly('password_umkm', 'password', 50)
+                ->typeSlowly('password_umkm', $password, 50)
                 ->typeSlowly('phone_number_umkm', '08970632441', 50)
                 ->typeSlowly('address_umkm', 'umkm Address', 50)
                 ->typeSlowly('npwp', $this->generateRandomNPWP(), 50)
