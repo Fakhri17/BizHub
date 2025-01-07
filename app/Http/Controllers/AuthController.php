@@ -57,15 +57,39 @@ class AuthController extends Controller
 
     public function register_konsumen(Request $request)
     {
-
-        // $request->validate([
-        //     'username' => 'required|string|max:255',
-        //     'name' => 'required|string|max:255',
-        //     'phone_number' => 'required|string|max:20',
-        //     'address' => 'required|string|max:255',
-        //     'email' => 'required|string|email|max:255|unique:users,email',
-        //     'password' => 'required|string|min:8|confirmed',
-        // ]);
+        $request->validate([
+            'username' => [
+                'required',
+                'min:5',
+                'regex:/^\S*$/', // Tidak boleh mengandung spasi
+                'regex:/^[a-z0-9]*$/', // Hanya huruf kecil dan angka
+            ],
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'phone_number' => [
+                'required',
+                'regex:/^\d+$/', // Harus angka
+                'min:11',
+                'max:15',
+            ],
+            'address' => 'required|string',
+        ], [
+            // Custom error messages
+            'username.required' => 'Username is required.',
+            'username.min' => 'Username minimal 5 karakter.',
+            'username.regex' => 'Username harus huruf kecil tanpa spasi.',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
+            'password.required' => 'Password is required.',
+            'password.min' => 'Password minimal 6 karakter.',
+            'phone_number.required' => 'Phone number is required.',
+            'phone_number.regex' => 'Phone number must be numeric.',
+            'phone_number.min' => 'Phone number must be at least 11 digits.',
+            'phone_number.max' => 'Phone number must be at most 15 digits.',
+            'address.required' => 'Address is required.',
+        ]);
 
         try {
             $user = User::create([
@@ -75,7 +99,7 @@ class AuthController extends Controller
                 'avatar_path' => '',
                 'address' => $request->address,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
             ]);
 
             $user->assignRole('Customer');
@@ -86,19 +110,30 @@ class AuthController extends Controller
         }
     }
 
+
     public function register_umkm(Request $request)
     {
-        // validate
-
-        // $request->validate([
-        //     'username_umkm' => 'required|string|max:255',
-        //     'name_umkm' => 'required|string|max:255',
-        //     'phone_number_umkm' => 'required|string|max:20',
-        //     'address_umkm' => 'required|string|max:255',
-        //     'email_umkm' => 'required|string|email|max:255|unique:users,email',
-        //     'password' => 'required|string|min:8|confirmed',
-        //     'npwp' => 'required|string|max:25',
-        // ]);
+        $request->validate([
+            'username_umkm' => [
+                'required',
+                'string',
+                'min:5',
+                'regex:/^[a-z0-9]+$/', // Huruf kecil dan angka tanpa spasi
+            ],
+            'name_umkm' => 'required|string|max:255',
+            'email_umkm' => 'required|email|unique:users,email',
+            'password_umkm' => 'required|string|min:6',
+            'phone_number_umkm' => [
+                'required',
+                'digits_between:11,15',
+                'regex:/^\d+$/' // Hanya angka
+            ],
+            'address_umkm' => 'required|string|max:500',
+            'npwp' => [
+                'required',
+                'regex:/^\d{2}\.\d{3}\.\d{3}\.\d{1}-\d{3}\.\d{3}$/' // NPWP harus 15 digit angka
+            ],
+        ]);
 
         try {
             $user = User::create([
@@ -123,6 +158,7 @@ class AuthController extends Controller
             return redirect()->route('auth.register')->with('failed', 'Registrasi Gagal. Email Sudah Terdaftar');
         }
     }
+
 
 
     public function logout(Request $request)
