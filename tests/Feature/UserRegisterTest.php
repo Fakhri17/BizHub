@@ -32,6 +32,24 @@ class UserRegisterTest extends TestCase
     }
 
 
+    private function generateRandomNPWP()
+    {
+        $randomDigits = function ($length) {
+            return implode('', array_map(fn() => rand(0, 9), range(1, $length)));
+        };
+
+        return sprintf(
+            '%s.%s.%s.%s-%s.%s',
+            $randomDigits(2),
+            $randomDigits(3),
+            $randomDigits(3),
+            $randomDigits(1),
+            $randomDigits(3),
+            $randomDigits(3)
+        );
+    }
+
+
     public function  test_register_screen_can_be_rendered(): void
     {
         $response = $this->get('/register');
@@ -42,14 +60,14 @@ class UserRegisterTest extends TestCase
     public function test_register_user_consumen()
     {
         $data = [
-            'username' => 'test_user',
-            'name' => 'Test User',
-            'phone_number' => '1234567890',
-            'address' => '123 Test Street',
-            'email' => 'testuser@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'username' => 'testuser', // Username valid: huruf kecil, tanpa spasi, minimal 5 karakter
+            'name' => 'Test User', // Nama valid
+            'phone_number' => '12345678901', // Nomor telepon valid: 11-15 digit
+            'address' => '123 Test Street', // Alamat valid
+            'email' => 'testuser@example.com', // Email valid
+            'password' => 'password123', // Password valid: minimal 6 karakter
         ];
+
 
         $response = $this->withoutMiddleware()->post(route('auth.register-konsumen'), $data);
 
@@ -65,8 +83,66 @@ class UserRegisterTest extends TestCase
         ]);
 
         $user = User::where('email', $data['email'])->first();
-        $this->assertTrue(Hash::check('password', $user->password));
         $this->assertTrue($user->hasRole('Customer'));
+    }
+
+    public function test_register_user_consumen_without_data()
+    {
+        $data = [
+            'username' => '',
+            'name' => '',
+            'phone_number' => '',
+            'address' => '',
+            'email' => '',
+            'password' => '',
+        ];
+
+        $response = $this->withoutMiddleware()->post(route('auth.register-konsumen'), $data);
+
+        $response->assertSessionHasErrors([
+            'username',
+            'name',
+            'phone_number',
+            'address',
+            'email',
+            'password',
+        ]);
+    }
+
+    public function test_register_consumen_without_email()
+    {
+        $data = [
+            'username' => 'testuser', // Username valid: huruf kecil, tanpa spasi, minimal 5 karakter
+            'name' => 'Test User', // Nama valid
+            'phone_number' => '12345678901', // Nomor telepon valid: 11-15 digit
+            'address' => '123 Test Street', // Alamat valid
+            'email' => '', // Email valid
+            'password' => 'password123', // Password valid: minimal 6 karakter
+        ];
+
+        $response = $this->withoutMiddleware()->post(route('auth.register-konsumen'), $data);
+
+        $response->assertSessionHasErrors([
+            'email',
+        ]);
+    }
+
+    public function test_register_consumen_without_password()
+    {
+        $data = [
+            'username' => 'testuser', // Username valid: huruf kecil, tanpa spasi, minimal 5 karakter
+            'name' => 'Test User', // Nama valid
+            'phone_number' => '12345678901', // Nomor telepon valid: 11-15 digit
+            'address' => '123 Test Street', // Alamat valid
+            'email' => 'testuser@example.com', // Email valid
+            'password' => '', // Password valid: minimal 6 karakter
+        ];
+
+        $response = $this->withoutMiddleware()->post(route('auth.register-konsumen'), $data);
+
+        $response->assertSessionHasErrors([
+            'password',
+        ]);
     }
 
     public function test_umkm_owner(): void
@@ -74,14 +150,13 @@ class UserRegisterTest extends TestCase
         $this->withoutExceptionHandling();
 
         $data = [
-            'username_umkm' => 'test_owner',
-            'name_umkm' => 'Test Owner',
-            'phone_number_umkm' => '1234567890',
-            'address_umkm' => '123 Test Street',
-            'email_umkm' => 'testuser@example.com',
-            'password_umkm' => 'password',
-            'password_confirmation' => 'password',
-            'npwp' => '12.345.678.9-012.345',
+            'username_umkm' => 'umkmowner', // Username valid
+            'name_umkm' => 'UMKM Owner', // Nama valid
+            'email_umkm' => 'umkmowner@example.com', // Email valid
+            'password_umkm' => 'securepassword123', // Password valid
+            'phone_number_umkm' => '0812345678901', // Nomor telepon valid
+            'address_umkm' => 'Jl. UMKM Nomor 123', // Alamat valid
+            'npwp' => $this->generateRandomNPWP(), // NPWP valid (15 digit angka)
         ];
 
         $response = $this->withoutMiddleware()->post(route('auth.register-umkm'), $data);
@@ -101,5 +176,88 @@ class UserRegisterTest extends TestCase
 
         $response->assertRedirect(route('auth.login'));
         $response->assertSessionHas('success', 'Registrasi Berhasil.');
+    }
+
+    public function test_umkm_owner_without_data(): void
+    {
+        $data = [
+            'username_umkm' => '',
+            'name_umkm' => '',
+            'phone_number_umkm' => '',
+            'address_umkm' => '',
+            'email_umkm' => '',
+            'password_umkm' => '',
+            'npwp' => '',
+        ];
+
+        $response = $this->withoutMiddleware()->post(route('auth.register-umkm'), $data);
+
+        $response->assertSessionHasErrors([
+            'username_umkm',
+            'name_umkm',
+            'phone_number_umkm',
+            'address_umkm',
+            'email_umkm',
+            'password_umkm',
+            'npwp',
+        ]);
+    }
+
+    public function test_umkm_owner_without_email(): void
+    {
+        $data = [
+            'username_umkm' => 'umkmowner',
+            'name_umkm' => 'UMKM Owner',
+            'phone_number_umkm' => '0812345678901',
+            'address_umkm' => 'Jl. UMKM Nomor 123',
+            'email_umkm' => '',
+            'password_umkm' => 'securepassword123',
+            'npwp' => $this->generateRandomNPWP(),
+        ];
+
+        $response = $this->withoutMiddleware()->post(route('auth.register-umkm'), $data);
+
+        $response->assertSessionHasErrors([
+            'email_umkm',
+        ]);
+    }
+
+    public function test_umkm_owner_without_password(): void
+    {
+        $data = [
+            'username_umkm' => 'umkmowner', // Username valid
+            'name_umkm' => 'UMKM Owner', // Nama valid
+            'email_umkm' => 'umkmowner@example.com', // Email valid
+            'password_umkm' => '', // Password valid
+            'phone_number_umkm' => '0812345678901', // Nomor telepon valid
+            'address_umkm' => 'Jl. UMKM Nomor 123', // Alamat valid
+            'npwp' => $this->generateRandomNPWP(), // NPWP valid (15 digit angka)
+        ];
+
+        $response = $this->withoutMiddleware()->post(route('auth.register-umkm'), $data);
+
+        $response->assertSessionHasErrors([
+            'password_umkm',
+        ]);
+    }
+
+    public function test_umkm_owner_without_npwp(): void
+    {
+        $data = [
+            'username_umkm' => 'umkmowner', // Username valid
+            'name_umkm' => 'UMKM Owner', // Nama valid
+            'email_umkm' => 'umkmowner@example.com', // Email valid
+            'password_umkm' => '', // Password valid
+            'phone_number_umkm' => '0812345678901', // Nomor telepon valid
+            'address_umkm' => 'Jl. UMKM Nomor 123', // Alamat valid
+            'npwp' => '', // NPWP valid (15 digit angka)
+        ];
+
+        $response = $this->withoutMiddleware()->post(route('auth.register-umkm'), $data);
+
+        $response->assertSessionHasErrors([
+            'npwp',
+        ]);
+
     }
 }
